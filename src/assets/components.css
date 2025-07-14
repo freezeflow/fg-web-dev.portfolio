@@ -1,0 +1,84 @@
+@import url('./variables.css');
+
+/* Why us cards */
+.info-card {
+    min-height: 250px;
+    width: 60%;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 5px;
+    gap: 1rem;
+    box-sizing: border-box;
+}
+
+section.info-card:hover {
+    transform: scale(1.2);
+    transition: all 0.3s ease-in-out;
+}
+
+.info-card.fade-in{
+    cursor: pointer;
+}
+
+.info-card.blue{
+    background-color: var(--secondary);
+    color: black;
+}
+
+.info-card.purple{
+    background-color: var(--purple);
+    color: white;
+}
+
+.info-card .info-card-icon{
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-card .card-title {
+    font-family: var(--header-font);
+    font-size: 2rem;
+    text-align: center;
+    min-height: 3em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.info-card .card-description {
+    font-family: var(--paragraph-font);
+    font-size: 1.3rem;
+    min-height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+@media screen and (max-width: 767px) {
+    .info-card{
+        width: 90%;
+    }
+    
+    .info-card .card-title{
+        font-size: 1.5rem;
+    }
+
+    .info-card .card-description{
+        font-size: 1.1rem;
+    }
+}
+
+/* @media screen and (max-width: 545px) {
+    .info-card {
+        min-height: 150px;
+        width: 80%;
+        justify-self: center;
+    }
+} */
