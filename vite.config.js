@@ -10,6 +10,8 @@ export default defineConfig(({ command, ssrBuild }) => {
   const isSSR = !!ssrBuild
 
    return {
+    base: '/fg-web-dev.portfolio/',
+
     plugins: [
       vue(),
       compress()
