@@ -1,0 +1,196 @@
+{
+  "\u0000plugin-vue:export-helper": [
+    "/fg-web-dev.portfolio/assets/trending-up-BbrXeq3L.js",
+    "/fg-web-dev.portfolio/assets/trending-up-CzKoaVk3.css"
+  ],
+  "\u0000vite/modulepreload-polyfill.js": [
+    "/fg-web-dev.portfolio/assets/Asset-3100-E6bDIoci.svg"
+  ],
+  "\u0000vite/preload-helper.js": [
+    "/fg-web-dev.portfolio/assets/Asset-3100-E6bDIoci.svg"
+  ],
+  "../../../../../FG-web-dev-img/Asset-2100-mobile.svg": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "../../../../../FG-web-dev-img/Asset-2100.svg": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "index.html": [
+    "/fg-web-dev.portfolio/assets/Asset-3100-E6bDIoci.svg"
+  ],
+  "node_modules/@vue/reactivity/dist/reactivity.esm-bundler.js": [
+    "/fg-web-dev.portfolio/assets/Asset-3100-E6bDIoci.svg"
+  ],
+  "node_modules/@vue/runtime-core/dist/runtime-core.esm-bundler.js": [
+    "/fg-web-dev.portfolio/assets/Asset-3100-E6bDIoci.svg"
+  ],
+  "node_modules/@vue/runtime-dom/dist/runtime-dom.esm-bundler.js": [
+    "/fg-web-dev.portfolio/assets/Asset-3100-E6bDIoci.svg"
+  ],
+  "node_modules/@vue/shared/dist/shared.esm-bundler.js": [
+    "/fg-web-dev.portfolio/assets/Asset-3100-E6bDIoci.svg"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/Icon.js": [
+    "/fg-web-dev.portfolio/assets/trending-up-BbrXeq3L.js",
+    "/fg-web-dev.portfolio/assets/trending-up-CzKoaVk3.css"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/createLucideIcon.js": [
+    "/fg-web-dev.portfolio/assets/trending-up-BbrXeq3L.js",
+    "/fg-web-dev.portfolio/assets/trending-up-CzKoaVk3.css"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/defaultAttributes.js": [
+    "/fg-web-dev.portfolio/assets/trending-up-BbrXeq3L.js",
+    "/fg-web-dev.portfolio/assets/trending-up-CzKoaVk3.css"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/icons/code-xml.js": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/icons/facebook.js": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/icons/file-code.js": [
+    "/fg-web-dev.portfolio/assets/MoreInfo-CaRt8FD7.js"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/icons/github.js": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/icons/globe.js": [
+    "/fg-web-dev.portfolio/assets/MoreInfo-CaRt8FD7.js"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/icons/layout-template.js": [
+    "/fg-web-dev.portfolio/assets/trending-up-BbrXeq3L.js",
+    "/fg-web-dev.portfolio/assets/trending-up-CzKoaVk3.css"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/icons/mail.js": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/icons/monitor-smartphone.js": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/icons/palette.js": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/icons/phone.js": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/icons/rocket.js": [
+    "/fg-web-dev.portfolio/assets/trending-up-BbrXeq3L.js",
+    "/fg-web-dev.portfolio/assets/trending-up-CzKoaVk3.css"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/icons/shield.js": [
+    "/fg-web-dev.portfolio/assets/MoreInfo-CaRt8FD7.js"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/icons/trending-up.js": [
+    "/fg-web-dev.portfolio/assets/trending-up-BbrXeq3L.js",
+    "/fg-web-dev.portfolio/assets/trending-up-CzKoaVk3.css"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/icons/user-round-search.js": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "node_modules/lucide-vue-next/dist/esm/shared/src/utils.js": [
+    "/fg-web-dev.portfolio/assets/trending-up-BbrXeq3L.js",
+    "/fg-web-dev.portfolio/assets/trending-up-CzKoaVk3.css"
+  ],
+  "node_modules/pinia/dist/pinia.mjs": [
+    "/fg-web-dev.portfolio/assets/Asset-3100-E6bDIoci.svg"
+  ],
+  "node_modules/vue-router/dist/vue-router.mjs": [
+    "/fg-web-dev.portfolio/assets/Asset-3100-E6bDIoci.svg"
+  ],
+  "src/App.vue": [
+    "/fg-web-dev.portfolio/assets/Asset-3100-E6bDIoci.svg"
+  ],
+  "src/assets/Asset-3100.svg": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "src/assets/main.css": [
+    "/fg-web-dev.portfolio/assets/Asset-3100-E6bDIoci.svg"
+  ],
+  "src/components/featured-projects.vue": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "src/components/featured-projects.vue?vue&type=style&index=0&scoped=6b4dd66b&lang.css": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "src/components/info.cards.vue": [
+    "/fg-web-dev.portfolio/assets/trending-up-BbrXeq3L.js",
+    "/fg-web-dev.portfolio/assets/trending-up-CzKoaVk3.css"
+  ],
+  "src/components/info.cards.vue?vue&type=style&index=0&scoped=cfaf7a51&lang.css": [
+    "/fg-web-dev.portfolio/assets/trending-up-BbrXeq3L.js",
+    "/fg-web-dev.portfolio/assets/trending-up-CzKoaVk3.css"
+  ],
+  "src/components/navbar.vue": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "src/components/navbar.vue?vue&type=style&index=0&scoped=6d3129d3&lang.css": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "src/components/process.info.vue": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "src/components/process.info.vue?vue&type=style&index=0&scoped=6abb1c75&lang.css": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "src/components/process.nav.vue": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "src/components/process.nav.vue?vue&type=style&index=0&scoped=3f65bd37&lang.css": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "src/directives/v-fade-in.js": [
+    "/fg-web-dev.portfolio/assets/Asset-3100-E6bDIoci.svg"
+  ],
+  "src/main.js": [
+    "/fg-web-dev.portfolio/assets/Asset-3100-E6bDIoci.svg"
+  ],
+  "src/router/index.js": [
+    "/fg-web-dev.portfolio/assets/Asset-3100-E6bDIoci.svg"
+  ],
+  "src/views/Footer.vue": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "src/views/Hero.vue": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "src/views/Home.vue": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "src/views/MoreInfo.vue": [
+    "/fg-web-dev.portfolio/assets/MoreInfo-CaRt8FD7.js"
+  ],
+  "src/views/Process.vue": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "src/views/ProjectsView.vue": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ],
+  "src/views/WhyUs.vue": [
+    "/fg-web-dev.portfolio/assets/Home-DifgPjiN.js",
+    "/fg-web-dev.portfolio/assets/Home-CGOm2F0j.css"
+  ]
+}
