@@ -9,7 +9,7 @@
   contact="contact"/>
   
   <main class="home">
-    <section class="home-section" aria-label="Hero section" id="hero" v-fade-in>
+    <section class="home-section" aria-label="Hero section" id="hero">
       <Hero class="hero" />
     </section>
     <section class="why-us-section" aria-label="Why Choose FG Web Development" id="whyUs" v-fade-in>

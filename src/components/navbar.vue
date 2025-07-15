@@ -90,7 +90,7 @@
         
         <ul class="nav-links" :class="{ 'open': showLinks}">
             <li><a :href="`#${props.hero}`" @click="isMenuOpen = false" :class="{ active: props.activeSection === props.hero }">Home</a></li>
-            <li><a :href="`#${props.whyUs}`" @click="isMenuOpen = false" :class="{ active: props.activeSection === props.whyUs }">What To Expect From Us</a></li>
+            <li><a :href="`#${props.whyUs}`" @click="isMenuOpen = false" :class="{ active: props.activeSection === props.whyUs }">About us</a></li>
             <li><a :href="`#${props.projects}`" @click="isMenuOpen = false" :class="{ active: props.activeSection === props.projects }">Projects</a></li>
             <li><a :href="`#${props.process}`" @click="isMenuOpen = false" :class="{ active: props.activeSection === props.process }">Our Process</a></li>
             <li><a :href="`#${props.contact}`" @click="isMenuOpen = false" :class="{ active: props.activeSection === props.contact }">Contact Us</a></li>
@@ -152,6 +152,16 @@
     height: 2px;
     background-color: var(--secondary);
     border: 1px solid var(--secondary);
+}
+
+@media screen and (max-width: 767px) {
+    .navbar span {
+        width: 35px;
+    }
+
+    .cross span.lOne {
+        transform: rotate(45deg) translate(10px, 4px);
+    }
 }
 
 .navbar .nav-links {

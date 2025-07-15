@@ -5,21 +5,21 @@
         <button class="carousel-controls" aria-label="Previous" @click="prevProject">&#8592;</button>
         
         <!-- Featured projects -->
-        <div>
+        <div ref="container" class="carousel-scroll-container">
           <featuredProjects
-            ref="projectRef"
             v-if="projects.length"
-            :title="projects[currentProjectIndex].title"
-            :description="projects[currentProjectIndex].description"
-            :imageUrl="projects[currentProjectIndex].imageUrl"
-            :link="projects[currentProjectIndex].link"
-            :dateAdded="projects[currentProjectIndex].dateAdded"
-            :summary="projects[currentProjectIndex].summary"
-            :tech="projects[currentProjectIndex].tech"
-            @edit="isEditing = true"
-            @delete="isDeleting = true"
+            v-for="(project, index) in projects"
+            :key="index"
+            ref="projectRef"
+            :title="project.title"
+            :description="project.description"
+            :imageUrl="project.imageUrl"
+            :link="project.link"
+            :dateAdded="project.dateAdded"
+            :summary="project.summary"
+            :tech="project.tech"
           />
-          <p v-if="!projects.length">No projects available. Please add some projects.</p>
+          <p v-if="!projects.length">Be the first to have a project developed by us.</p>
         </div>
         <button class="carousel-controls" aria-label="Next" @click="nextProject">&#8594;</button>
     </div>
@@ -58,71 +58,67 @@
       tech: ['Vue.js', 'Node.js', 'Tailwind CSS']
     }
   ]);
+  const currentProjectIndex = ref(0);
+  const container = ref(null);
 
-  const isEditing = ref(false)
-  const isDeleting = ref(false)
-  const projectRef = ref(null);
-
-  let touchStartX = 0;
-  let touchEndX = 0;
-
-  function handleTouchStart(e) {
-    touchStartX = e.changedTouches[0].screenX;
-  }
-  function handleTouchEnd(e) {
-    touchEndX = e.changedTouches[0].screenX;
-    handleSwipe();
-  }
-  function handleSwipe() {
-    const minSwipeDistance = 50; // px
-    if (touchEndX < touchStartX - minSwipeDistance) {
-      nextProject(); // swipe left
-    } else if (touchEndX > touchStartX + minSwipeDistance) {
-      prevProject(); // swipe right
-    }
-  }
+  const projectRef = ref([]);
 
   // Carousel functionality
-  onMounted(() => {
-    if (projectRef.value && projectRef.value.$el) {
-      const el = projectRef.value.$el;
-      el.addEventListener('touchstart', handleTouchStart);
-      el.addEventListener('touchend', handleTouchEnd);
-      el.addEventListener('wheel', handleWheel);
-    } else if (projectRef.value && projectRef.value instanceof HTMLElement) {
-      projectRef.value.addEventListener('touchstart', handleTouchStart);
-      projectRef.value.addEventListener('touchend', handleTouchEnd);
-      projectRef.value.addEventListener('wheel', handleWheel);
-    }
-  });
+  
   onBeforeUnmount(() => {
-    if (projectRef.value && projectRef.value.$el) {
-      const el = projectRef.value.$el;
-      el.removeEventListener('touchstart', handleTouchStart);
-      el.removeEventListener('touchend', handleTouchEnd);
-      el.removeEventListener('wheel', handleWheel);
-    } else if (projectRef.value && projectRef.value instanceof HTMLElement) {
-      projectRef.value.removeEventListener('touchstart', handleTouchStart);
-      projectRef.value.removeEventListener('touchend', handleTouchEnd);
-      projectRef.value.removeEventListener('wheel', handleWheel);
+    
+  });
+
+  onMounted(() => {
+    observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const index = projectRef.value.findIndex((comp) => comp.el === entry.target);
+            if (index !== -1) {
+              currentProjectIndex.value = index;
+            }
+          }
+        });
+      },
+      {
+        root: container.value,
+        threshold: 0.6,
+      }
+    );
+
+    projectRef.value.forEach((comp) => {
+      if (comp?.el) observer.observe(comp.el);
+    });
+  });
+
+  const scrollToProject = (index) => {
+    const compInstance = projectRef.value[index];
+    const targetEl = compInstance?.el;
+
+    if (targetEl && targetEl.scrollIntoView) {
+      targetEl.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+    }
+  };
+
+
+  const nextProject = () => {
+    const nextIndex = (currentProjectIndex.value + 1) % projects.value.length;
+    scrollToProject(nextIndex);
+  };
+
+  const prevProject = () => {
+    const prevIndex = (currentProjectIndex.value - 1 + projects.value.length) % projects.value.length;
+    scrollToProject(prevIndex);
+  };
+
+  let observer;
+
+  onBeforeUnmount(() => {
+    if (observer && projectRef.value.length) {
+      projectRef.value.forEach((el) => observer.unobserve(el));
     }
   });
 
-  function handleWheel(e) {
-    e.preventDefault(); // Prevent default scrolling
-    if (e.deltaX > 0) {
-      nextProject();
-    } else {
-      prevProject();
-    }
-  }
-
-  const currentProjectIndex = ref(0);
-  const nextProject = () => {
-    currentProjectIndex.value = (currentProjectIndex.value + 1) % projects.value.length;
-  };
-  const prevProject = () => {
-    currentProjectIndex.value = (currentProjectIndex.value - 1 + projects.value.length) % projects.value.length;
-  };
 
 </script>

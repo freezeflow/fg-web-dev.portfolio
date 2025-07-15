@@ -86,6 +86,9 @@
 .hero-img img {
   width: 40vw;
   height: 40%;
+  opacity: 0;
+  animation: fade-in 1s ease-in-out forwards;
+  animation-delay: 3s;
 }
 
 .image-container {
@@ -252,20 +255,8 @@
     align-items: center;
     text-align: center;
     animation-delay: 0.1s;
-  }
-
-  .home-content::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(1,2,20,0.5);
-    backdrop-filter: blur(12px);
-    filter: blur(12px);
-    -moz-backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    z-index: -1;
-    border-radius: 360px; /* Optional: rounded corners */
-    pointer-events: none; /* Allow clicks through the blur */
+    backdrop-filter: blur(5px);
+    border-radius: 360px;
   }
 
   .home-content p {
@@ -302,6 +293,8 @@
   .hero-img img {
     width: auto;
     height: 80vh;
+    animation: fade-in 1s ease-in-out forwards;
+    animation-delay: 0.15s;
   }
 
   .projectsBtn {
@@ -370,8 +363,37 @@
 }
 
 .projects-view .projects-container >div{
-  width: 35%;
+  width: 30%;
   height: 100%;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  overflow-x: scroll;
+  overflow-y: hidden;
+  gap: 1.5rem;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 10px;
+}
+
+.projects-view .projects-container > div::-webkit-scrollbar {
+  height: 8px; /* Horizontal scrollbar height */
+}
+
+.projects-view .projects-container > div::-webkit-scrollbar-track {
+  background: var(--bg-color); /* Track background */
+  border-radius: 4px;
+}
+
+.projects-view .projects-container > div::-webkit-scrollbar-thumb {
+  background: var(--secondary); /* Scrollbar thumb */
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.projects-view .projects-container > div::-webkit-scrollbar-thumb:hover {
+  background: #0458c7; /* Hover state */
 }
 
 @media screen and (max-width: 1024px){

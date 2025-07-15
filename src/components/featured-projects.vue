@@ -38,10 +38,13 @@
     const toggleMoreInfo = () => {
         isMoreInfoVisible.value = !isMoreInfoVisible.value;
     };
+
+    const el = ref(null);
+    defineExpose({ el })
 </script>
 
 <template>
-    <div class="project-container">
+    <div class="project-container" ref="el">
         <img :src="imageUrl" alt="Project image" v-if="!isMoreInfoVisible">
         <div :class="['project-info', isMoreInfoVisible ? 'more-info' : '']">
             <div class="project-title">
@@ -76,7 +79,7 @@
             <div class="project-controls" v-if="!isMoreInfoVisible">
                 <button @click="toggleMoreInfo">More info</button>
             </div>
-            <p class="date" v-if="isMoreInfoVisible"><span>Launch date:</span> {{ dateAdded }}</p>
+            <!-- <p class="date" v-if="isMoreInfoVisible"><span>Launch date:</span> {{ dateAdded }}</p> -->
         </div>
     </div>
 </template>
@@ -89,12 +92,14 @@
     align-items: center;
     color: white;
     border-radius: 10px;
-    width: 100%;
+    width: 90%;
     height: 100%;
     font-family: var(--paragraph-font);
     min-height: 350px;
     max-height: 600px;
     box-sizing: border-box;
+    flex-shrink: 0;
+    scroll-snap-align: center;
 }
 
 img {
@@ -238,15 +243,16 @@ img {
 
 .feedback-wrapper {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     gap: 15px;
     width: 100%;
+    margin-bottom: 10px;
 }
 
 .client-image {
     width: 40px;
-    height: 30px;
+    height: 40px;
     border-radius: 360px;
     border: 1px solid black;
 }
@@ -258,9 +264,6 @@ img {
 }
 
 .date {
-    position: relative;
-    top: 10px;
-    right: 0;
     font-size: 0.8rem;
     color: #858585a4;
 }
@@ -307,6 +310,19 @@ button:hover {
     }
     img {
         height: 60%;
+    }
+
+    .client-image {
+        width: 30px;
+        height: 30px;
+        border-radius: 360px;
+        border: 1px solid black;
+    }
+}
+
+@media (max-width: 465px){
+    button{
+        width: 70%;
     }
 }
 </style>

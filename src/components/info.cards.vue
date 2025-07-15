@@ -22,11 +22,11 @@
         const observer = new IntersectionObserver(
             ([entry]) => {
             if (entry.isIntersecting) {
-                cardRef.value.classList.add('fade-in');
+                cardRef.value.classList.add('card-fade-in');
                 observer.disconnect();
             }
             },
-            { threshold: 0.2 }
+            { threshold: 0.1 }
         );
         if (cardRef.value) observer.observe(cardRef.value);
     });
@@ -53,7 +53,25 @@
     section.info-card {
         opacity: 0;
         transform: translateY(30px);
-        transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .card-fade-in {
+        opacity: 0;
+        transform: translateY(40px);
+        animation: fade-in 1s ease-in-out forwards;
+        animation-delay: 0.1s;
+    }
+
+    @keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
     }
 </style>
 
