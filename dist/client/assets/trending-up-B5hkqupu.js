@@ -1,4 +1,4 @@
-import{h as y,i as k,c as g,o as d,e as v,f as w,b as h,g as C,t as p,n as b,q as n}from"./index-DldSUW4O.js";const _=(e,t)=>{const s=e.__vccOpts||e;for(const[a,c]of t)s[a]=c;return s},x={class:"card-title",id:"card-title"},I={class:"card-description"},L={__name:"info.cards",props:{title:{type:String},description:{type:String},icon:{type:[Object,Function]},colorClass:{type:String}},setup(e){const t=y(null);return k(()=>{const s=new IntersectionObserver(([a])=>{a.isIntersecting&&(t.value.classList.add("fade-in"),s.disconnect())},{threshold:.2});t.value&&s.observe(t.value)}),(s,a)=>(d(),g("section",{class:b(["info-card",e.colorClass]),"aria-labelledby":"card-title",ref_key:"cardRef",ref:t},[e.icon?(d(),v(C(e.icon),{key:0,class:"info-card-icon","aria-hidden":"true"})):w("",!0),h("h3",x,p(s.$props.title),1),h("p",I,p(s.$props.description),1)],2))}},z=_(L,[["__scopeId","data-v-cfaf7a51"]]);/**
+import{h as y,i as k,c as g,o as d,e as v,f as w,b as h,g as C,t as p,n as b,q as n}from"./index-CwXKdKaw.js";const _=(e,t)=>{const s=e.__vccOpts||e;for(const[a,r]of t)s[a]=r;return s},x={class:"card-title",id:"card-title"},I={class:"card-description"},L={__name:"info.cards",props:{title:{type:String},description:{type:String},icon:{type:[Object,Function]},colorClass:{type:String}},setup(e){const t=y(null);return k(()=>{const s=new IntersectionObserver(([a])=>{a.isIntersecting&&(t.value.classList.add("card-fade-in"),s.disconnect())},{threshold:.1});t.value&&s.observe(t.value)}),(s,a)=>(d(),g("section",{class:b(["info-card",e.colorClass]),"aria-labelledby":"card-title",ref_key:"cardRef",ref:t},[e.icon?(d(),v(C(e.icon),{key:0,class:"info-card-icon","aria-hidden":"true"})):w("",!0),h("h3",x,p(s.$props.title),1),h("p",I,p(s.$props.description),1)],2))}},z=_(L,[["__scopeId","data-v-6e28408e"]]);/**
  * @license lucide-vue-next v0.525.0 - ISC
  *
  * This source code is licensed under the ISC license.
@@ -13,7 +13,7 @@ import{h as y,i as k,c as g,o as d,e as v,f as w,b as h,g as C,t as p,n as b,q a
  *
  * This source code is licensed under the ISC license.
  * See the LICENSE file in the root directory of this source tree.
- */const A=({size:e,strokeWidth:t=2,absoluteStrokeWidth:s,color:a,iconNode:c,name:r,class:M,...f},{slots:l})=>n("svg",{...o,width:e||o.width,height:e||o.height,stroke:a||o.stroke,"stroke-width":s?Number(t)*24/Number(e):t,class:j("lucide",...r?[`lucide-${u($(r))}-icon`,`lucide-${u(r)}`]:["lucide-icon"]),...f},[...c.map(m=>n(...m)),...l.default?[l.default()]:[]]);/**
+ */const A=({size:e,strokeWidth:t=2,absoluteStrokeWidth:s,color:a,iconNode:r,name:c,class:M,...f},{slots:l})=>n("svg",{...o,width:e||o.width,height:e||o.height,stroke:a||o.stroke,"stroke-width":s?Number(t)*24/Number(e):t,class:j("lucide",...c?[`lucide-${u($(c))}-icon`,`lucide-${u(c)}`]:["lucide-icon"]),...f},[...r.map(m=>n(...m)),...l.default?[l.default()]:[]]);/**
  * @license lucide-vue-next v0.525.0 - ISC
  *
  * This source code is licensed under the ISC license.

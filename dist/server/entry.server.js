@@ -24,12 +24,12 @@ function createRouter() {
       {
         path: "/",
         name: "home",
-        component: () => import("./assets/Home-qpxHcMri.js")
+        component: () => import("./assets/Home-CFdK4XDv.js")
       },
       {
         path: "/more-info",
         name: "more-info",
-        component: () => import("./assets/MoreInfo-optYttE1.js")
+        component: () => import("./assets/MoreInfo-DTmMiftJ.js")
       }
     ]
   });

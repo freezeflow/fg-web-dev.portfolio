@@ -30,11 +30,11 @@ const _sfc_main = {
       const observer = new IntersectionObserver(
         ([entry]) => {
           if (entry.isIntersecting) {
-            cardRef.value.classList.add("fade-in");
+            cardRef.value.classList.add("card-fade-in");
             observer.disconnect();
           }
         },
-        { threshold: 0.2 }
+        { threshold: 0.1 }
       );
       if (cardRef.value) observer.observe(cardRef.value);
     });
@@ -44,7 +44,7 @@ const _sfc_main = {
         "aria-labelledby": "card-title",
         ref_key: "cardRef",
         ref: cardRef
-      }, _attrs))} data-v-cfaf7a51>`);
+      }, _attrs))} data-v-6e28408e>`);
       if (__props.icon) {
         ssrRenderVNode(_push, createVNode(resolveDynamicComponent(__props.icon), {
           class: "info-card-icon",
@@ -53,7 +53,7 @@ const _sfc_main = {
       } else {
         _push(`<!---->`);
       }
-      _push(`<h3 class="card-title" id="card-title" data-v-cfaf7a51>${ssrInterpolate(_ctx.$props.title)}</h3><p class="card-description" data-v-cfaf7a51>${ssrInterpolate(_ctx.$props.description)}</p></section>`);
+      _push(`<h3 class="card-title" id="card-title" data-v-6e28408e>${ssrInterpolate(_ctx.$props.title)}</h3><p class="card-description" data-v-6e28408e>${ssrInterpolate(_ctx.$props.description)}</p></section>`);
     };
   }
 };
@@ -63,7 +63,7 @@ _sfc_main.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("src/components/info.cards.vue");
   return _sfc_setup ? _sfc_setup(props, ctx) : void 0;
 };
-const InfoCards = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-cfaf7a51"]]);
+const InfoCards = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-6e28408e"]]);
 export {
   InfoCards as I,
   _export_sfc as _

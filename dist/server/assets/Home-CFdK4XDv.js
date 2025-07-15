@@ -1,6 +1,6 @@
 import { mergeProps, useSSRContext, unref, createVNode, resolveDynamicComponent, ref, onMounted, onUnmounted, onBeforeUnmount, watch, resolveDirective } from "vue";
 import { ssrRenderAttrs, ssrRenderAttr, ssrRenderComponent, ssrRenderList, ssrRenderClass, ssrInterpolate, ssrRenderVNode, ssrGetDirectiveProps } from "vue/server-renderer";
-import { _ as _export_sfc, I as InfoCards } from "./info.cards-w4tPfDad.js";
+import { _ as _export_sfc, I as InfoCards } from "./info.cards-C5UzrZDo.js";
 import { MonitorSmartphone, LayoutTemplate, Rocket, TrendingUp, UserRoundSearch, Palette, Code2, Mail, Phone, Facebook, Github } from "lucide-vue-next";
 const _imports_0$1 = "/fg-web-dev.portfolio/FG-web-dev-img/Asset-2100-mobile.svg";
 const _imports_1 = "/fg-web-dev.portfolio/FG-web-dev-img/Asset-2100.svg";
@@ -45,7 +45,7 @@ const _sfc_main$8 = {
         title: "Ready To Grow With You",
         description: "Whether it's v1 or v10, we build with growth in mind. Our systems are modular, extendable, and built to evolve as your business scales - so you never have to start from scratch again."
       }, null, _parent));
-      _push(`</section><section class="more-info"><a href="/more-info" aria-label="Learn more about our web development qualities">More info</a></section></div>`);
+      _push(`</section><section class="more-info"><a href="/fg-web-dev.portfolio/more-info " aria-label="Learn more about our web development qualities">More info</a></section></div>`);
     };
   }
 };
@@ -296,43 +296,44 @@ const _sfc_main$4 = {
     }
   },
   emits: ["edit", "delete"],
-  setup(__props, { emit: __emit }) {
+  setup(__props, { expose: __expose, emit: __emit }) {
     let isMoreInfoVisible = ref(false);
+    const el = ref(null);
+    __expose({ el });
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<div${ssrRenderAttrs(mergeProps({ class: "project-container" }, _attrs))} data-v-6b4dd66b>`);
+      _push(`<div${ssrRenderAttrs(mergeProps({
+        class: "project-container",
+        ref_key: "el",
+        ref: el
+      }, _attrs))} data-v-739d3a24>`);
       if (!unref(isMoreInfoVisible)) {
-        _push(`<img${ssrRenderAttr("src", __props.imageUrl)} alt="Project image" data-v-6b4dd66b>`);
+        _push(`<img${ssrRenderAttr("src", __props.imageUrl)} alt="Project image" data-v-739d3a24>`);
       } else {
         _push(`<!---->`);
       }
-      _push(`<div class="${ssrRenderClass(["project-info", unref(isMoreInfoVisible) ? "more-info" : ""])}" data-v-6b4dd66b><div class="project-title" data-v-6b4dd66b>`);
+      _push(`<div class="${ssrRenderClass(["project-info", unref(isMoreInfoVisible) ? "more-info" : ""])}" data-v-739d3a24><div class="project-title" data-v-739d3a24>`);
       if (unref(isMoreInfoVisible)) {
-        _push(`<button class="back" data-v-6b4dd66b>←</button>`);
+        _push(`<button class="back" data-v-739d3a24>←</button>`);
       } else {
         _push(`<!---->`);
       }
-      _push(`<p class="" data-v-6b4dd66b>${ssrInterpolate(__props.title)}</p></div>`);
+      _push(`<p class="" data-v-739d3a24>${ssrInterpolate(__props.title)}</p></div>`);
       if (unref(isMoreInfoVisible)) {
-        _push(`<div class="info" data-v-6b4dd66b><p class="desc" data-v-6b4dd66b>${ssrInterpolate(__props.description)}</p><div class="tech-container" data-v-6b4dd66b><p data-v-6b4dd66b>Tech used:</p><div class="tech-wrapper" data-v-6b4dd66b><!--[-->`);
+        _push(`<div class="info" data-v-739d3a24><p class="desc" data-v-739d3a24>${ssrInterpolate(__props.description)}</p><div class="tech-container" data-v-739d3a24><p data-v-739d3a24>Tech used:</p><div class="tech-wrapper" data-v-739d3a24><!--[-->`);
         ssrRenderList(__props.tech, (tec) => {
-          _push(`<p class="tech" data-v-6b4dd66b>${ssrInterpolate(tec)}</p>`);
+          _push(`<p class="tech" data-v-739d3a24>${ssrInterpolate(tec)}</p>`);
         });
-        _push(`<!--]--></div></div><div class="feedback-contianer" data-v-6b4dd66b><p data-v-6b4dd66b>Feedback:</p><div class="feedback-content" data-v-6b4dd66b><div class="feedback-wrapper" data-v-6b4dd66b><span class="client-image" data-v-6b4dd66b></span><p class="feedback" data-v-6b4dd66b>${ssrInterpolate(__props.summary)}</p></div></div></div></div>`);
+        _push(`<!--]--></div></div><div class="feedback-contianer" data-v-739d3a24><p data-v-739d3a24>Feedback:</p><div class="feedback-content" data-v-739d3a24><div class="feedback-wrapper" data-v-739d3a24><span class="client-image" data-v-739d3a24></span><p class="feedback" data-v-739d3a24>${ssrInterpolate(__props.summary)}</p></div></div></div></div>`);
       } else {
         _push(`<!---->`);
       }
       if (!unref(isMoreInfoVisible)) {
-        _push(`<div class="summary" data-v-6b4dd66b><p data-v-6b4dd66b>${ssrInterpolate(__props.summary)}</p></div>`);
+        _push(`<div class="summary" data-v-739d3a24><p data-v-739d3a24>${ssrInterpolate(__props.summary)}</p></div>`);
       } else {
         _push(`<!---->`);
       }
       if (!unref(isMoreInfoVisible)) {
-        _push(`<div class="project-controls" data-v-6b4dd66b><button data-v-6b4dd66b>More info</button></div>`);
-      } else {
-        _push(`<!---->`);
-      }
-      if (unref(isMoreInfoVisible)) {
-        _push(`<p class="date" data-v-6b4dd66b><span data-v-6b4dd66b>Launch date:</span> ${ssrInterpolate(__props.dateAdded)}</p>`);
+        _push(`<div class="project-controls" data-v-739d3a24><button data-v-739d3a24>More info</button></div>`);
       } else {
         _push(`<!---->`);
       }
@@ -346,7 +347,7 @@ _sfc_main$4.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("src/components/featured-projects.vue");
   return _sfc_setup$4 ? _sfc_setup$4(props, ctx) : void 0;
 };
-const featuredProjects = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-6b4dd66b"]]);
+const featuredProjects = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-739d3a24"]]);
 const _sfc_main$3 = {
   __name: "ProjectsView",
   __ssrInlineRender: true,
@@ -371,86 +372,63 @@ const _sfc_main$3 = {
         tech: ["Vue.js", "Node.js", "Tailwind CSS"]
       }
     ]);
-    const isEditing = ref(false);
-    const isDeleting = ref(false);
-    const projectRef = ref(null);
-    let touchStartX = 0;
-    let touchEndX = 0;
-    function handleTouchStart(e) {
-      touchStartX = e.changedTouches[0].screenX;
-    }
-    function handleTouchEnd(e) {
-      touchEndX = e.changedTouches[0].screenX;
-      handleSwipe();
-    }
-    function handleSwipe() {
-      const minSwipeDistance = 50;
-      if (touchEndX < touchStartX - minSwipeDistance) {
-        nextProject();
-      } else if (touchEndX > touchStartX + minSwipeDistance) {
-        prevProject();
-      }
-    }
-    onMounted(() => {
-      if (projectRef.value && projectRef.value.$el) {
-        const el = projectRef.value.$el;
-        el.addEventListener("touchstart", handleTouchStart);
-        el.addEventListener("touchend", handleTouchEnd);
-        el.addEventListener("wheel", handleWheel);
-      } else if (projectRef.value && projectRef.value instanceof HTMLElement) {
-        projectRef.value.addEventListener("touchstart", handleTouchStart);
-        projectRef.value.addEventListener("touchend", handleTouchEnd);
-        projectRef.value.addEventListener("wheel", handleWheel);
-      }
-    });
-    onBeforeUnmount(() => {
-      if (projectRef.value && projectRef.value.$el) {
-        const el = projectRef.value.$el;
-        el.removeEventListener("touchstart", handleTouchStart);
-        el.removeEventListener("touchend", handleTouchEnd);
-        el.removeEventListener("wheel", handleWheel);
-      } else if (projectRef.value && projectRef.value instanceof HTMLElement) {
-        projectRef.value.removeEventListener("touchstart", handleTouchStart);
-        projectRef.value.removeEventListener("touchend", handleTouchEnd);
-        projectRef.value.removeEventListener("wheel", handleWheel);
-      }
-    });
-    function handleWheel(e) {
-      e.preventDefault();
-      if (e.deltaX > 0) {
-        nextProject();
-      } else {
-        prevProject();
-      }
-    }
     const currentProjectIndex = ref(0);
-    const nextProject = () => {
-      currentProjectIndex.value = (currentProjectIndex.value + 1) % projects.value.length;
-    };
-    const prevProject = () => {
-      currentProjectIndex.value = (currentProjectIndex.value - 1 + projects.value.length) % projects.value.length;
-    };
+    const container = ref(null);
+    const projectRef = ref([]);
+    onBeforeUnmount(() => {
+    });
+    onMounted(() => {
+      observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              const index = projectRef.value.findIndex((comp) => comp.el === entry.target);
+              if (index !== -1) {
+                currentProjectIndex.value = index;
+              }
+            }
+          });
+        },
+        {
+          root: container.value,
+          threshold: 0.6
+        }
+      );
+      projectRef.value.forEach((comp) => {
+        if (comp == null ? void 0 : comp.el) observer.observe(comp.el);
+      });
+    });
+    let observer;
+    onBeforeUnmount(() => {
+      if (observer && projectRef.value.length) {
+        projectRef.value.forEach((el) => observer.unobserve(el));
+      }
+    });
     return (_ctx, _push, _parent, _attrs) => {
-      _push(`<div${ssrRenderAttrs(mergeProps({ class: "projects-view" }, _attrs))}><h1 class="h2-white">Some of our best projects</h1><div class="projects-container"><button class="carousel-controls" aria-label="Previous">←</button><div>`);
+      _push(`<div${ssrRenderAttrs(mergeProps({ class: "projects-view" }, _attrs))}><h1 class="h2-white">Some of our best projects</h1><div class="projects-container"><button class="carousel-controls" aria-label="Previous">←</button><div class="carousel-scroll-container">`);
       if (projects.value.length) {
-        _push(ssrRenderComponent(featuredProjects, {
-          ref_key: "projectRef",
-          ref: projectRef,
-          title: projects.value[currentProjectIndex.value].title,
-          description: projects.value[currentProjectIndex.value].description,
-          imageUrl: projects.value[currentProjectIndex.value].imageUrl,
-          link: projects.value[currentProjectIndex.value].link,
-          dateAdded: projects.value[currentProjectIndex.value].dateAdded,
-          summary: projects.value[currentProjectIndex.value].summary,
-          tech: projects.value[currentProjectIndex.value].tech,
-          onEdit: ($event) => isEditing.value = true,
-          onDelete: ($event) => isDeleting.value = true
-        }, null, _parent));
+        _push(`<!--[-->`);
+        ssrRenderList(projects.value, (project, index) => {
+          _push(ssrRenderComponent(featuredProjects, {
+            key: index,
+            ref_for: true,
+            ref_key: "projectRef",
+            ref: projectRef,
+            title: project.title,
+            description: project.description,
+            imageUrl: project.imageUrl,
+            link: project.link,
+            dateAdded: project.dateAdded,
+            summary: project.summary,
+            tech: project.tech
+          }, null, _parent));
+        });
+        _push(`<!--]-->`);
       } else {
         _push(`<!---->`);
       }
       if (!projects.value.length) {
-        _push(`<p>No projects available. Please add some projects.</p>`);
+        _push(`<p>Be the first to have a project developed by us.</p>`);
       } else {
         _push(`<!---->`);
       }
@@ -557,7 +535,7 @@ const _sfc_main$1 = {
     return (_ctx, _push, _parent, _attrs) => {
       _push(`<nav${ssrRenderAttrs(mergeProps({
         class: ["navbar", [{ "navOpen": isMenuOpen.value }, __props.isNavVisible ? "showNav" : "hideNav"]]
-      }, _attrs))} data-v-6d3129d3><div class="navbar-header" data-v-6d3129d3><div class="logo" data-v-6d3129d3><img${ssrRenderAttr("src", _imports_0)} alt="Logo" data-v-6d3129d3><p class="logo-name" data-v-6d3129d3>FG WEB DEVELOPMENT</p></div><div class="${ssrRenderClass([{ "cross": isMenuOpen.value }, "hamburger-container"])}" aria-label="Toggle navigation menu" data-v-6d3129d3><span class="lOne" data-v-6d3129d3></span><span class="lTwo" data-v-6d3129d3></span><span class="lThree" data-v-6d3129d3></span></div></div><ul class="${ssrRenderClass([{ "open": showLinks.value }, "nav-links"])}" data-v-6d3129d3><li data-v-6d3129d3><a${ssrRenderAttr("href", `#${props.hero}`)} class="${ssrRenderClass({ active: props.activeSection === props.hero })}" data-v-6d3129d3>Home</a></li><li data-v-6d3129d3><a${ssrRenderAttr("href", `#${props.whyUs}`)} class="${ssrRenderClass({ active: props.activeSection === props.whyUs })}" data-v-6d3129d3>What To Expect From Us</a></li><li data-v-6d3129d3><a${ssrRenderAttr("href", `#${props.projects}`)} class="${ssrRenderClass({ active: props.activeSection === props.projects })}" data-v-6d3129d3>Projects</a></li><li data-v-6d3129d3><a${ssrRenderAttr("href", `#${props.process}`)} class="${ssrRenderClass({ active: props.activeSection === props.process })}" data-v-6d3129d3>Our Process</a></li><li data-v-6d3129d3><a${ssrRenderAttr("href", `#${props.contact}`)} class="${ssrRenderClass({ active: props.activeSection === props.contact })}" data-v-6d3129d3>Contact Us</a></li></ul></nav>`);
+      }, _attrs))} data-v-d5390f99><div class="navbar-header" data-v-d5390f99><div class="logo" data-v-d5390f99><img${ssrRenderAttr("src", _imports_0)} alt="Logo" data-v-d5390f99><p class="logo-name" data-v-d5390f99>FG WEB DEVELOPMENT</p></div><div class="${ssrRenderClass([{ "cross": isMenuOpen.value }, "hamburger-container"])}" aria-label="Toggle navigation menu" data-v-d5390f99><span class="lOne" data-v-d5390f99></span><span class="lTwo" data-v-d5390f99></span><span class="lThree" data-v-d5390f99></span></div></div><ul class="${ssrRenderClass([{ "open": showLinks.value }, "nav-links"])}" data-v-d5390f99><li data-v-d5390f99><a${ssrRenderAttr("href", `#${props.hero}`)} class="${ssrRenderClass({ active: props.activeSection === props.hero })}" data-v-d5390f99>Home</a></li><li data-v-d5390f99><a${ssrRenderAttr("href", `#${props.whyUs}`)} class="${ssrRenderClass({ active: props.activeSection === props.whyUs })}" data-v-d5390f99>About us</a></li><li data-v-d5390f99><a${ssrRenderAttr("href", `#${props.projects}`)} class="${ssrRenderClass({ active: props.activeSection === props.projects })}" data-v-d5390f99>Projects</a></li><li data-v-d5390f99><a${ssrRenderAttr("href", `#${props.process}`)} class="${ssrRenderClass({ active: props.activeSection === props.process })}" data-v-d5390f99>Our Process</a></li><li data-v-d5390f99><a${ssrRenderAttr("href", `#${props.contact}`)} class="${ssrRenderClass({ active: props.activeSection === props.contact })}" data-v-d5390f99>Contact Us</a></li></ul></nav>`);
     };
   }
 };
@@ -567,7 +545,7 @@ _sfc_main$1.setup = (props, ctx) => {
   (ssrContext.modules || (ssrContext.modules = /* @__PURE__ */ new Set())).add("src/components/navbar.vue");
   return _sfc_setup$1 ? _sfc_setup$1(props, ctx) : void 0;
 };
-const navbar = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-6d3129d3"]]);
+const navbar = /* @__PURE__ */ _export_sfc(_sfc_main$1, [["__scopeId", "data-v-d5390f99"]]);
 const _sfc_main = {
   __name: "Home",
   __ssrInlineRender: true,
@@ -618,11 +596,7 @@ const _sfc_main = {
         process: "process",
         contact: "contact"
       }, null, _parent));
-      _push(`<main class="home"><section${ssrRenderAttrs(mergeProps({
-        class: "home-section",
-        "aria-label": "Hero section",
-        id: "hero"
-      }, ssrGetDirectiveProps(_ctx, _directive_fade_in)))}>`);
+      _push(`<main class="home"><section class="home-section" aria-label="Hero section" id="hero">`);
       _push(ssrRenderComponent(Hero, { class: "hero" }, null, _parent));
       _push(`</section><section${ssrRenderAttrs(mergeProps({
         class: "why-us-section",
