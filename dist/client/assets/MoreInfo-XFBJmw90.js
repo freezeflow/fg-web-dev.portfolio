@@ -1,4 +1,4 @@
-import{c as i,L as n,I as e,R as r,T as l}from"./trending-up-B5hkqupu.js";import{c,o as d,b as a,d as o,u as s}from"./index-CwXKdKaw.js";/**
+import{c as i,L as n,I as e,R as r,T as l}from"./trending-up-so1NVuxQ.js";import{c,o as d,b as a,d as o,u as s}from"./index-BY_MDdsy.js";/**
  * @license lucide-vue-next v0.525.0 - ISC
  *
  * This source code is licensed under the ISC license.
