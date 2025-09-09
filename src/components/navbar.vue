@@ -137,7 +137,7 @@
 }
 
 .navbar.navOpen {
-   height: 60%;
+   min-height: 60%;
 }
 
 .navbar .hamburger-container {
@@ -209,7 +209,7 @@
 
 .logo-name {
     font-size: 0.9rem;
-    color: var(--secondary);
+    color: white;
     font-weight: 600;
     letter-spacing: 1px;
     width: 100px;
