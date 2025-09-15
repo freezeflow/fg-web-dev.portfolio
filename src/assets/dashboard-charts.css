@@ -1,0 +1,11 @@
+.metrics-charts canvas {
+    width: 80% !important;
+    height: 15rem !important;
+}
+
+@media screen and (max-width: 780px) {
+    .metrics-charts canvas{
+        width: 80% !important;
+        height: 15rem !important;
+    }
+}
