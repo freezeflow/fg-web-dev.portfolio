@@ -21,6 +21,10 @@ const clientFileSchema = new mongoose.Schema({
     required: true,
     trim: true,
   },
+  version: {
+    type: String,
+    required: true
+  },
   note: {
     type: String,
     default: "",

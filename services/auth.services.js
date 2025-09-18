@@ -6,7 +6,11 @@ import AppError from '../utils/app.error.class.js'
 import { sendEmail } from '../utils/email.util.js';
 import jwt from 'jsonwebtoken'
 import { 
-    JWT_ACCESS_EXPIRE, JWT_ACCESS_SECRET, JWT_REFRESH_EXPIRE, JWT_REFRESH_SECRET, FRONTEND_URL
+    JWT_ACCESS_EXPIRE, 
+    JWT_ACCESS_SECRET, 
+    JWT_REFRESH_EXPIRE, 
+    JWT_REFRESH_SECRET, 
+    FRONTEND_URL
 } from '../config/config.js'
 
 export default class authServices{
@@ -34,14 +38,18 @@ export default class authServices{
 
             // Generate access token
             const accessToken = jwt.sign(
-                {"userId": newAdmin._id},
+                { 
+                    userId: newAdmin._id, 
+                },
                 JWT_ACCESS_SECRET,
                 {expiresIn: JWT_ACCESS_EXPIRE}
             );
 
             // Generate refresh token
             const refreshToken = jwt.sign(
-                {"userId": newAdmin._id},
+                { 
+                    userId: newAdmin._id, 
+                },
                 JWT_REFRESH_SECRET,
                 {expiresIn: JWT_REFRESH_EXPIRE}
             );
@@ -82,7 +90,6 @@ export default class authServices{
             const accessToken = jwt.sign(
                 { 
                     userId: admin._id, 
-                    role: admin.role
                 },
                 JWT_ACCESS_SECRET,
                 {expiresIn: JWT_ACCESS_EXPIRE }
@@ -91,7 +98,6 @@ export default class authServices{
             const refreshToken = jwt.sign(
                 { 
                     userId: admin._id, 
-                    role: admin.role
                 },
                 JWT_REFRESH_SECRET,
                 { expiresIn: JWT_REFRESH_EXPIRE }

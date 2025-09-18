@@ -25,9 +25,8 @@ export default class clientFileController {
   // Download a file by filename (GET /api/clients/files/download/:filename)
   downloadClientFile = async (req, res, next) => {
     try {
-      const { filePath, filename } = await clientFileServ.downloadFile(req);
-      // Use express res.download to send file
-      res.download(filePath, filename);
+      const { url } = await clientFileServ.downloadFile(req);
+      res.status(200).json({url}); // Cloudinary handles the download
     } catch (error) {
       next(error);
     }

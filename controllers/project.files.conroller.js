@@ -27,23 +27,6 @@ export default class projectFileController{
         }
     }
 
-    downLoadFile = async (req, res, next) => {
-        try {
-            // Call the dowanload function
-            const {filePath, filename} = await projectFileServ.downloadFile(req)
-
-            // Download file
-            res.download(filePath, filename, (err) => {
-                if (err) {
-                    console.error('Download error:', err);
-                    res.status(500).json({ error: 'Error downloading file' });
-                }
-            });
-        } catch (error) {
-            next(error);
-        }
-    }
-
     deleteFile = async (req, res, next) => {
         try {
             // Call deleteFile function

@@ -6,7 +6,8 @@
   "scripts": {
     "ssrdev": "nodemon app.js",
     "dev": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
@@ -17,6 +18,7 @@
     "agenda": "^5.0.0",
     "bcrypt": "^6.0.0",
     "chrome-launcher": "^1.2.0",
+    "cloudinary": "^1.41.3",
     "compression": "^1.8.0",
     "cookie-parser": "^1.4.7",
     "cors": "^2.8.5",
@@ -32,6 +34,7 @@
     "lighthouse": "^12.8.1",
     "mongoose": "^8.16.0",
     "multer": "^2.0.2",
+    "multer-storage-cloudinary": "^4.0.0",
     "node-cron": "^4.2.1",
     "nodemailer": "^7.0.5",
     "vue": "^3.5.16"

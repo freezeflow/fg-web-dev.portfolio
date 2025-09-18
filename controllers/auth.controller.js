@@ -1,4 +1,5 @@
 import auhtServices from "../services/auth.services.js";
+import { COOKIE_SECURE, COOKIE_SAMESITE } from "../config/config.js";
 
 const auhtServ = new auhtServices()
 
@@ -10,8 +11,8 @@ export default class auhtController{
             res.cookie('jwt', newAdmin.refreshToken[newAdmin.refreshToken.length - 1], 
                 {
                     httpOnly: true, 
-                    sameSite: 'lax', 
-                    secure: false, 
+                    sameSite: COOKIE_SAMESITE, 
+                    secure: COOKIE_SECURE === 'true', 
                     maxAge: 24 * 60 * 60 * 1000
                 }
             )
@@ -34,8 +35,8 @@ export default class auhtController{
                 refreshToken, 
                 {
                     httpOnly: true, 
-                    sameSite: 'lax',
-                    secure: false, 
+                    sameSite: COOKIE_SAMESITE, 
+                    secure: COOKIE_SECURE === 'true',
                     maxAge: 24 * 60 * 60 * 1000
                 }
             )
@@ -58,7 +59,11 @@ export default class auhtController{
             await auhtServ.logoutAdmin(req)
 
             // Clear cookies
-            res.clearCookie('jwt', {httpOnly: true, sameSite: 'lax', secure: true});
+            res.clearCookie('jwt', {
+                httpOnly: true, 
+                sameSite: COOKIE_SAMESITE, 
+                secure: COOKIE_SECURE === 'true',
+            });
 
             // Send response
             res.status(201).json({success: true})

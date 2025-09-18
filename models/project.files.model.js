@@ -7,6 +7,12 @@ const projectFilesSchema = Schema({
         ref: "Project",
         default: null
     },
+
+    fileName: {
+        type: String,
+        required: true
+    },
+
     filePath: {
         type: String,
         required: true

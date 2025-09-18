@@ -65,7 +65,7 @@ export async function startAgenda() {
   await agenda.every("0 2 * * *", "daily lighthouse audit");
 
   // Daily uptime check: every day at 00:10 AM
-  await agenda.every("*/60 * * * *", "uptime check");
+  await agenda.every("*/59 * * * *", "uptime check");
 }
 
 export default agenda;

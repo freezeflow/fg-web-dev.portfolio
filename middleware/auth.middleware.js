@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import Admin from '../models/admin.model.js';
-import { JWT_ACCESS_SECRET } from '../config/config.js';
 
 const authenticate = (req, res, next) => {
     // Check if there is an auth header
@@ -13,13 +12,13 @@ const authenticate = (req, res, next) => {
     // Verify token
     jwt.verify(
         token,
-        JWT_ACCESS_SECRET,
+        process.env.JWT_ACCESS_SECRET,
         async (err, decoded) => {
-            if(err) return res.status(403).json({message: 'Forbidden'});
+            if(err) return res.status(403).json({message: 'Forbidden error'});
 
             // Check if user exists
             const admin = await Admin.findById(decoded.userId)
-            if(!admin) return res.status(403).json({message: 'Forbidden'});
+            if(!admin) return res.status(403).json({message: 'Forbidden user'});
 
             // Set id in request
             req.id = decoded.userId;

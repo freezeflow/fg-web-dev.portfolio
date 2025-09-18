@@ -1,4 +1,5 @@
 import clientServices from "../services/clients.services.js";
+import { COOKIE_SAMESITE, COOKIE_SECURE } from "../config/config.js";
 const clientServ = new clientServices();
 
 export default class clientsController {
@@ -19,8 +20,8 @@ export default class clientsController {
 
       res.cookie('client_jwt', accessToken, {
         httpOnly: true,
-        sameSite: 'lax',
-        secure: false,
+        sameSite: COOKIE_SAMESITE, 
+        secure: COOKIE_SECURE === 'true',
         maxAge: 1000 * 60 * 60 // 1 hour
       });
 
@@ -30,9 +31,14 @@ export default class clientsController {
     }
   };
 
+  // LOGOUT CLIENT
   logoutClient = async (req, res, next) => {
     try {
-      res.clearCookie('client_jwt', {httpOnly: true, sameSite: 'lax', secure: true});
+      res.clearCookie('client_jwt', {
+        httpOnly: true, 
+        sameSite: COOKIE_SAMESITE, 
+        secure: COOKIE_SECURE === 'true',
+      });
       res.status(200)
     } catch (error) {
       next(error)

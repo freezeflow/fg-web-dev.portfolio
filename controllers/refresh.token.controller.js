@@ -1,4 +1,5 @@
 import tokenServices from "../services/token.services.js"
+import { COOKIE_SAMESITE, COOKIE_SECURE } from "../config/config.js";
 
 const refreshTokenController = async (req, res, next) =>{
     try {
@@ -19,8 +20,8 @@ const refreshTokenController = async (req, res, next) =>{
         res.cookie('jwt', newRefreshToken, 
             {
                 httpOnly: true, 
-                sameSite: 'lax',
-                secure: false, 
+                sameSite: COOKIE_SAMESITE, 
+                secure: COOKIE_SECURE === 'true', 
                 maxAge: 24 * 60 * 60 * 1000
             }
         );

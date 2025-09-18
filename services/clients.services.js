@@ -1,10 +1,12 @@
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import Client from "../models/client.model.js";
+import ClientFile from "../models/client.files.model.js";
 import AppError from "../utils/app.error.class.js";
 import { sendEmail } from '../utils/email.util.js';
 import { toObjectId } from '../utils/mongoose.utils.js';
 import { JWT_ACCESS_SECRET } from "../config/config.js";
+import { v2 as cloudinary } from "cloudinary";
 
 export default class clientServices {
 
@@ -261,11 +263,38 @@ export default class clientServices {
       const id = req.params.id;
 
       const client = await Client.findById(id);
-      if (!client) throw new AppError({message: "Client not found", status: 404});
+      if (!client) throw new AppError({ message: "Client not found", status: 404 });
+
+      const clientFiles = await ClientFile.find({ client: id });
+      const results = [];
+
+      if (clientFiles.length > 0) {
+        await Promise.all(clientFiles.map(async (file) => {
+          try {
+            const publicId = file.filePath; // ⚠️ ensure this is the Cloudinary public_id
+            if (!publicId) {
+              results.push({ file, reason: "Missing public_id" });
+              return;
+            }
+
+            const cloudRes = await cloudinary.uploader.destroy(publicId, {
+              resource_type: "raw",
+            });
+
+            if (cloudRes.result === "ok") {
+              await ClientFile.findByIdAndDelete(file._id);
+            } else {
+              results.push({ file, status: "failed", reason: cloudRes.result });
+            }
+          } catch (err) {
+            results.push({ file, status: "failed", reason: err.message });
+          }
+        }));
+      }
 
       await Client.findByIdAndDelete(id);
 
-      return { success: true, message: "Client deleted successfully" };
+      return { success: true, message: "Client deleted successfully", file_result: results };
     } catch (error) {
       throw error;
     }

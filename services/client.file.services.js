@@ -1,8 +1,6 @@
 import ClientFile from "../models/client.files.model.js";
 import AppError from "../utils/app.error.class.js";
-import { fileURLToPath } from "url";
-import path from "path";
-import fs from "fs/promises";
+import { v2 as cloudinary } from "cloudinary";
 
 export default class clientFileServices {
 
@@ -11,28 +9,32 @@ export default class clientFileServices {
     try {
       const clientId = req.params.id;
 
-      const __filename = fileURLToPath(import.meta.url);
-      const __dirname = path.dirname(__filename);
+      if (!req.file) {
+        throw new AppError({ message: "No file uploaded", status: 400 });
+      }
 
-      const file = req.files && req.files.file;
-      if (!file) throw new AppError({ message: "No file uploaded", status: 400 });
+      const { originalname, mimetype, path, filename } = req.file;
 
-      // Save file to /client-uploads
-      const uploadPath = path.join(__dirname, '..', '..', 'client-uploads', file.name);
-      await file.mv(uploadPath);
+      // filename from multer = public_id
+      const public_id = filename;
 
-      const dbFilePath = `/client-uploads/${file.name}`;
+      // extract version from URL
+      const versionMatch = path.match(/\/v(\d+)\//);
+      const version = versionMatch ? versionMatch[1] : null;
 
       // Save in DB
       const newClientFile = await ClientFile.create({
         client: clientId,
-        filePath: dbFilePath,
-        fileName: file.name,
-        fileType: file.mimetype,
-        note: req.body.note || ''
+        filePath: public_id,
+        fileName: originalname, 
+        fileType: mimetype,
+        version: version,
+        note: req.body.note || "",
       });
 
-      if (!newClientFile) throw new AppError({ message: "Client file not created", status: 500 });
+      if (!newClientFile) {
+        throw new AppError({ message: "Client file not created", status: 500 });
+      }
 
       return newClientFile;
     } catch (error) {
@@ -60,21 +62,21 @@ export default class clientFileServices {
   downloadFile = async (req) => {
     try {
       const filename = req.params.filename;
+      const fileDoc = await ClientFile.findOne({ fileName: filename });
 
-      const __filename = fileURLToPath(import.meta.url);
-      const __dirname = path.dirname(__filename);
-      const FILES_DIR = path.join(__dirname, '..', '..', 'client-uploads');
-
-      const filePath = path.join(FILES_DIR, filename);
-
-      // Prevent directory traversal
-      if (path.relative(FILES_DIR, filePath).includes('..')) {
-        throw new AppError({ message: "Forbidden", status: 403 });
+      if (!fileDoc) {
+        throw new AppError({ message: "File not found", status: 404 });
       }
 
-      await fs.access(filePath, fs.constants.F_OK);
+      // Generate signed URL
+      const signedUrl = cloudinary.url(fileDoc.filePath, {
+        resource_type: "raw",
+        sign_url: true,
+        expires_at: Math.floor(Date.now() / 1000) + 60,
+        flags: 'attachment'
+      });
 
-      return { filePath, filename };
+      return { url: signedUrl, filename: fileDoc.fileName };
     } catch (error) {
       throw error;
     }
@@ -88,26 +90,17 @@ export default class clientFileServices {
       const clientFile = await ClientFile.findById(fileId);
       if (!clientFile) throw new AppError({ message: "File not found", status: 404 });
 
-      const relativePath = clientFile.filePath;
-      if (!relativePath) throw new AppError("File path not found", 404);
+      // Delete from Cloudinary
+      const cloudRes = await cloudinary.uploader.destroy(clientFile.filePath, {resource_type: "raw"});
 
-      const __filename = fileURLToPath(import.meta.url);
-      const __dirname = path.dirname(__filename);
-      const absolutePath = path.join(__dirname, '..', '..', relativePath);
-
-      // Delete physical file
-      try {
-        await fs.unlink(absolutePath);
-      } catch (err) {
-        if (err.code !== 'ENOENT') {
-          throw new AppError({ message: "Something went wrong while deleting file", status: 505 });
-        }
+      if (cloudRes.result === "ok") {
+        await ClientFile.findByIdAndDelete(fileId);
+        return { message: "File deleted successfully", clientFile };
+      } else if (cloudRes.result === "not found") {
+        throw new AppError({ message: "File not found on Cloudinary", status: 404 });
+      } else {
+        throw new AppError({ message: "File could not be deleted from Cloudinary", status: 500 });
       }
-
-      // Delete record in DB
-      await ClientFile.findByIdAndDelete(fileId);
-
-      return { success: true };
     } catch (error) {
       throw error;
     }
