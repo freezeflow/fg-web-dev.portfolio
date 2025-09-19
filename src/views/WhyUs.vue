@@ -30,7 +30,7 @@
             />
         </section>
         <section class="more-info">
-            <a href="/fg-web-dev.portfolio/more-info " aria-label="Learn more about our web development qualities">More info</a>
+            <a href="/more-info " aria-label="Learn more about our web development qualities">More info</a>
         </section>
     </div>
 </template>

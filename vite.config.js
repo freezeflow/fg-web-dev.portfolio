@@ -17,7 +17,6 @@ export default defineConfig(({ command, ssrBuild }) => {
       compress()
     ],
     build: {
-      ssr: buildTarget === 'server' ? 'entry.server.js' : false,
       outDir: 'dist/client',
       ssrManifest: buildTarget !== 'server', // only client build needs ssrManifest
       rollupOptions: {
