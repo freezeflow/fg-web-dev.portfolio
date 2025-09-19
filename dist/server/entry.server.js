@@ -24,7 +24,7 @@ function createRouter() {
       {
         path: "/",
         name: "home",
-        component: () => import("./assets/Home-CFdK4XDv.js")
+        component: () => import("./assets/Home-DfsCfEE8.js")
       },
       {
         path: "/more-info",

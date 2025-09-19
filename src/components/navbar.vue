@@ -78,7 +78,7 @@
     <nav class="navbar" :class="[{ 'navOpen': isMenuOpen} , isNavVisible? 'showNav':'hideNav']">
         <div class="navbar-header">
             <div class="logo">
-                <img src="../assets/Asset-3100.svg" alt="Logo" />
+                <img src="../assets/logo.svg" alt="Logo" />
                 <p class="logo-name">FG WEB DEVELOPMENT</p>
             </div>
             <div class="hamburger-container" :class="{ 'cross': isMenuOpen }"  aria-label="Toggle navigation menu" @click="isMenuOpen = !isMenuOpen">

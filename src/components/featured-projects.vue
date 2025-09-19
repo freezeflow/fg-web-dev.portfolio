@@ -8,7 +8,7 @@
             type: String,
             required: true
         },
-        imageUrl: {
+        imgUrl: {
             type: String,
             required: true
         },
@@ -45,7 +45,7 @@
 
 <template>
     <div class="project-container" ref="el">
-        <img :src="imageUrl" alt="Project image" v-if="!isMoreInfoVisible">
+        <img :src="`http://localhost:8080${encodeURI(imgUrl)}`" alt="Project image" v-if="!isMoreInfoVisible">
         <div :class="['project-info', isMoreInfoVisible ? 'more-info' : '']">
             <div class="project-title">
                 <button class="back" @click="toggleMoreInfo" v-if="isMoreInfoVisible">&#8592;</button>
@@ -100,17 +100,19 @@
     box-sizing: border-box;
     flex-shrink: 0;
     scroll-snap-align: center;
+    border: 1px solid white;
 }
 
 img {
+    flex: 2;
     width: 100%;
-    height: 70%;
     object-fit: cover;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
 
 .project-info {
+    flex: 1;
     text-align: center;
     background-color: white;
     display: flex;
@@ -118,7 +120,6 @@ img {
     justify-content: space-between;
     align-items: center;
     width: 100%;
-    height: 30%;
     color: black;
     margin-top: auto;
     border-bottom-right-radius: 10px;
@@ -154,6 +155,7 @@ img {
 }
 
 .project-info.more-info {
+    margin: 0;
     height: 100%;
     transition: all 0.7s ease-in-out;
     border-radius: 10px;
@@ -161,7 +163,6 @@ img {
     align-items: flex-start;
     text-align: left;
     gap: 2rem;
-    min-height: 0;
     overflow-y: auto;
 }
 

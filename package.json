@@ -5,9 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build:client": "cross-env BUILD_TARGET=client vite build",
-    "build:server": "cross-env BUILD_TARGET=server vite build --ssr entry.server.js",
-    "build": "npm run build:client && npm run build:server",
+    "build": "vite build",
     "preview": "vite preview",
     "lint": "eslint . --fix",
     "format": "prettier --write src/"
