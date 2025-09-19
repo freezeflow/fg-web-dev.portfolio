@@ -6,42 +6,20 @@ import compress from 'vite-plugin-compression'
 
 const buildTarget = process.env.BUILD_TARGET
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 export default defineConfig(({ command, ssrBuild }) => {
-  const isSSR = !!ssrBuild
-
-   return {
-    base: '/',
-
+  return {
+    base: isProduction ? '/' : '/fg-web-dev.portfolio/', // use '/' in production
     plugins: [
       vue(),
       compress()
     ],
     build: {
-      outDir: 'dist/client',
-      ssrManifest: buildTarget !== 'server', // only client build needs ssrManifest
+      outDir: 'dist/client',        // your current output folder
       rollupOptions: {
-        input: './index.html',
-        output: {
-          format: 'esm',
-        },
-        external: buildTarget === 'server' ? [
-          'vue',
-          'vue-router',
-          'pinia'
-        ] : []
+        input: './index.html'
       }
-    },
-    ssr: {
-      noExternal: [
-        'chart.js',
-        'vue-chartjs',
-        'vue3-apexcharts',
-        'apexcharts',
-        'vue-i18n',
-        'vue-router',
-        'pinia',
-        'vue-demi'
-      ]
     },
     resolve: {
       alias: {
@@ -49,5 +27,6 @@ export default defineConfig(({ command, ssrBuild }) => {
       }
     }
   }
-})
+});
+
 
