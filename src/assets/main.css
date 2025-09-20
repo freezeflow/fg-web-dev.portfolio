@@ -26,7 +26,7 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 3rem;
+  gap: 1.5rem;
   justify-content: center;
   align-items: center;
 }
@@ -171,8 +171,9 @@
 }
 
 @media screen and (max-width: 767px){
+
   .why-us-container .info-cards-container{
-    gap: 5rem;
+    gap: 2rem;
   }
 
   .why-us-container .more-info{
