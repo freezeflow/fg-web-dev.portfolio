@@ -39,7 +39,7 @@ export default class clientsController {
         sameSite: COOKIE_SAMESITE, 
         secure: COOKIE_SECURE === 'true',
       });
-      res.status(200)
+      res.status(200).json({ success: true })
     } catch (error) {
       next(error)
     }
