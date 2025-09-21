@@ -31,6 +31,25 @@
   align-items: center;
 }
 
+body::-webkit-scrollbar {
+  width: 8px;
+}
+
+body::-webkit-scrollbar-track {
+  background: var(--off-color); /* Track background */
+  border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb {
+  background: var(--secondary); /* Scrollbar thumb */
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+  background: #0458c7; /* Hover state */
+}
+
 /* Hero */
 .home-section{
   min-height: 100vh;
@@ -494,7 +513,6 @@
   overflow: hidden;
   position: relative;
   pointer-events: auto;
-  cursor: pointer;
 }
 
 .process-container{

@@ -1,6 +1,4 @@
 <script setup>
-    import { ref, watch } from 'vue';
-
     const props = defineProps({
         icons: {
             type: Array,
@@ -58,6 +56,8 @@
         z-index: 1;
         position: relative;
         overflow: visible;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
     }
 
     @media screen and (max-width: 768px) {
