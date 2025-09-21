@@ -42,7 +42,7 @@ export default class projectsController{
 
     toggleFeatured = async (req, res, next) => {
         try {
-            const updatedProject = await projectService.toggleFeaturedProject(req);
+            const updatedProject = await projectServ.toggleFeaturedProject(req);
             res.status(200).json(updatedProject);
         } catch (err) {
             next(err);

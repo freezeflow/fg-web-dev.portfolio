@@ -172,7 +172,7 @@ export const validators = {
     return [
       body(field)
         .custom(requiredCheck(optional, field, message))
-        .optional(optional)
+        .optional({ nullable: optional })
         .isISO8601().withMessage(`${field} must be a date value`)
         .toDate()
     ];
@@ -183,7 +183,7 @@ export const validators = {
     return [
       body(field)
         .custom(requiredCheck(optional, field, message))
-        .optional(optional)
+        .optional({ nullable: optional })
         .isURL().withMessage(`Invalid url`)
     ];
   },
