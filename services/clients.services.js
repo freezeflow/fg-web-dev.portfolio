@@ -160,30 +160,30 @@ export default class clientServices {
     try {
       const id = req.params.id;
 
-      const client = await Client.findById(id);
-      if (!client) throw new AppError({message: "Client not found", status: 404});
+      let client = await Client.findById(id);
+      if (!client) throw new AppError({ message: "Client not found", status: 404 });
 
       const { name, email, phone, company, location, status, projects } = req.body;
 
-      // Check if client already exists
-      if(email){
-        const existingClientEmail = client.email;
+      // Check if email is already used by another client
+      if (email && email !== client.email) {
+        const existingClientEmail = await Client.findOne({ email, _id: { $ne: id } });
         if (existingClientEmail) {
           throw new AppError({ message: "Email already in use", status: 400 });
         }
+        client.email = email;
       }
-      
-      // Check if phone number exists
-      if(phone){
-        const existingClientPhone = client.phone;
+
+      // Check if phone number is already used by another client
+      if (phone && phone !== client.phone) {
+        const existingClientPhone = await Client.findOne({ phone, _id: { $ne: id } });
         if (existingClientPhone) {
           throw new AppError({ message: "Contact number already in use", status: 400 });
         }
+        client.phone = phone;
       }
-      
+
       if (name !== undefined) client.name = name;
-      if (email !== undefined) client.email = email;
-      if (phone !== undefined) client.phone = phone;
       if (company !== undefined) client.company = company;
       if (location !== undefined) client.location = location;
       if (status !== undefined) client.status = status;
@@ -195,6 +195,7 @@ export default class clientServices {
       throw error;
     }
   };
+
 
   updateClientStatus = async (req) => {
     try {
