@@ -11,13 +11,8 @@
             v-for="(project, index) in projects"
             :key="index"
             ref="projectRef"
-            :title="project.title"
-            :description="project.description"
             :imgUrl="project.imgUrl"
             :link="project.link"
-            :dateAdded="project.dateAdded"
-            :summary="project.summary"
-            :tech="project.tech"
           />
           <notFound v-else msg="Projects still in development, stay tuned" />
         </div>
@@ -42,13 +37,12 @@
 
   const projectStore = useProjectStore()
   
-
   const projects = ref([])
-  // projects = [
+  // const projects = [
   //   {
   //     title: "TechHub.io",
   //     description: "TechHub.io is a cutting-edge platform that connects tech enthusiasts with the latest trends in technology. It features articles, tutorials, and community discussions.",
-  //     imageUrl: "/src/assets/Desktop dashboard.jpg",
+  //     imageUrl: "",
   //     link: "/projects/techhub",
   //     dateAdded: "2023-10-01",
   //     summary: "A platform for tech enthusiasts to explore the latest trends and technologies.",

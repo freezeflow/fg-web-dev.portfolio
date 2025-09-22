@@ -21,7 +21,7 @@ export const useProjectStore = defineStore('project', {
         };
 
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/projects/featured?fields=title description summary link tech dateCompleted`,
+          `${import.meta.env.VITE_API_URL}/api/projects/featured?fields=title link`,
           fetchOptions
         );
 
