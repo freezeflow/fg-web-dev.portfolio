@@ -35,7 +35,7 @@ export const useProjectStore = defineStore('project', {
           const filesData = await Promise.all(
             projects.map(async (p) => {
               const fileRes = await fetch(
-                `http://localhost:8080/api/project/files/${p._id}`,
+                `${import.meta.env.VITE_API_URL}/api/project/files/${p._id}`,
                 fetchOptions
               );
               if (!fileRes.ok) throw new Error("Failed to fetch project files");
