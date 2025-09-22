@@ -124,7 +124,7 @@ img {
     border-bottom-left-radius: 10px;
     padding: 10px;
     transition: height 0.7s ease-in-out;
-    height: 120px;
+    height: 180px;
     box-sizing: border-box;
 }
 
@@ -154,7 +154,8 @@ img {
 
 .project-info.more-info {
     margin: 0;
-    height: 520px;
+    flex: 1;
+    height: 780px;
     transition: all 0.7s ease-in-out;
     border-radius: 10px;
     justify-content: flex-start;
