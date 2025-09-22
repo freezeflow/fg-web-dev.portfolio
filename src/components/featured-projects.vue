@@ -106,6 +106,7 @@
 img {
     flex: 2;
     width: 100%;
+    max-height: 60%;
     object-fit: cover;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
