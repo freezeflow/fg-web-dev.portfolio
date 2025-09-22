@@ -1,6 +1,6 @@
 <template>
   <div class="projects-view">
-    <h1 class="h2-white">Some of our best projects</h1>
+    <h1 class="h2-white">Some of our featured projects</h1>
     <div class="projects-container">
         <button v-if="projects.length" class="carousel-controls" aria-label="Previous" @click="prevProject">&#8592;</button>
         

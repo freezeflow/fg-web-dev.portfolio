@@ -21,7 +21,7 @@
 
 <template>
   <div class="project-container" ref="el">
-    <img src="../assets/logo.svg" alt="" draggable="false">
+    <img :src="props.imgUrl" alt="" draggable="false">
 
     <!-- Button overlays on image -->
     <button class="overlay-btn">
