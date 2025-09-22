@@ -93,10 +93,7 @@
     color: white;
     border-radius: 10px;
     width: 90%;
-    height: 100%;
-    font-family: var(--paragraph-font);
-    min-height: 350px;
-    max-height: 600px;
+    height: 600px;
     box-sizing: border-box;
     flex-shrink: 0;
     scroll-snap-align: center;
@@ -106,7 +103,8 @@
 img {
     flex: 2;
     width: 100%;
-    max-height: 40%;
+    height: 400px;
+    object-fit: cover;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
 }
@@ -308,9 +306,6 @@ button:hover {
     .project-info, .project-info.more-info {
         width: 100%;
         padding: 8px;
-    }
-    img {
-        height: 60%;
     }
 
     .client-image {
