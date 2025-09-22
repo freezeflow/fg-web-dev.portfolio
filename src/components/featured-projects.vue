@@ -93,7 +93,7 @@
     color: white;
     border-radius: 10px;
     width: 90%;
-    height: 600px;
+    height: 100%;
     box-sizing: border-box;
     flex-shrink: 0;
     scroll-snap-align: center;
