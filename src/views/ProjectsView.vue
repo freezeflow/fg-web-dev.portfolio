@@ -41,6 +41,7 @@
   import notFound from '@/components/notFound.vue';
 
   const projectStore = useProjectStore()
+  
 
   const projects = ref([])
   // projects = [

@@ -50,7 +50,7 @@ export const useProjectStore = defineStore('project', {
             const fileInfo = filesData.find((f) => f.id === proj._id);
             return {
               ...proj,
-              imgUrl: fileInfo ? fileInfo.filePath.filePath : '',
+              imgUrl: fileInfo ? fileInfo.file.filePath : '',
             };
           });
         }
