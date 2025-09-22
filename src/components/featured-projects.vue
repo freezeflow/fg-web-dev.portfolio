@@ -1,5 +1,5 @@
 <script setup>
-    defineProps({
+    const props = defineProps({
         title: {
             type: String,
             required: true
@@ -45,7 +45,7 @@
 
 <template>
     <div class="project-container" ref="el">
-        <img :src="`http://localhost:8080${encodeURI(imgUrl)}`" alt="Project image" v-if="!isMoreInfoVisible">
+        <img :src="props.imgUrl" alt="Project image" v-if="!isMoreInfoVisible">
         <div :class="['project-info', isMoreInfoVisible ? 'more-info' : '']">
             <div class="project-title">
                 <button class="back" @click="toggleMoreInfo" v-if="isMoreInfoVisible">&#8592;</button>
