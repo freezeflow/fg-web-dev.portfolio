@@ -2,7 +2,7 @@ import RefreshHandler from './refresh.util.js'
 
 export class ProjectService extends  RefreshHandler{
   constructor() {
-    super('http://localhost:8080/api/projects')
+    super('/api/projects')
   }
 
   async getAllProjects() {

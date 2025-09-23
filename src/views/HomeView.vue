@@ -6,7 +6,7 @@
         <div v-else-if="errorMessage && !adminStore.loading">
           <ErrorMessage :msg="errorMessage" />
         </div>
-        <div v-else-if="!errorMessage && adminStore.loading">
+        <div v-if="adminStore.loading">
           <loader />
         </div>
       </div>
@@ -29,11 +29,12 @@
 <script setup>
   import { ref, nextTick, defineAsyncComponent } from 'vue';
   import { useRouter } from 'vue-router';
-  const ErrorMessage = defineAsyncComponent(() => import('@/components/error-message.vue'));
   import { formUtility } from '@/utils/form.utils.js';
   import { useAdminStore } from '@/stores/admin.js';
-  import loader from '@/components/loader.vue'
   import { useAuthStore } from '@/stores/auth.store.js';
+
+  import loader from '@/components/loader.vue'
+  const ErrorMessage = defineAsyncComponent(() => import('@/components/error-message.vue'));
 
   // Move these outside the component scope
   const formUtil = new formUtility();
@@ -45,7 +46,9 @@
     email: '',
     password: ''
   })
-  const errorMessage = ref('');
+
+  console.log(adminStore.loading)
+  const errorMessage = ref(null);
   const emailInput = ref(null)
   const passwordInput = ref(null)
 

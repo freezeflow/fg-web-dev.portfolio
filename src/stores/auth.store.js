@@ -18,6 +18,7 @@ export const useAuthStore = defineStore( 'auth', {
             this.error = null
             try {
                 const res = await authServ.adminLogin(form)
+
                 this.accessToken = res.accessToken
                 return res
             } catch (error) {
@@ -71,7 +72,7 @@ export const useAuthStore = defineStore( 'auth', {
         async refreshAccessToken(){
             try {
                 // Call api endpoint
-                const response = await fetch('http://localhost:8080/api/refresh', {
+                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/refresh`, {
                     method: 'POST',
                     credentials: 'include'
                 });

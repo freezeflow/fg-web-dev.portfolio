@@ -64,14 +64,14 @@
     )
 
     async function handleImgDelete() {
-        await props.deleteImg(imgData.value._id)
+        await props.deleteImg(props.project._id)
     }
 </script>
 
 <template>
     <div class="project-container">
         <button v-if="fileImgPath" @click="handleImgDelete"><Trash/></button>
-        <img :src="`http://localhost:8080${encodeURI(fileImgPath)}`" alt="Project image" v-if="fileImgPath">
+        <img :src="`${fileImgPath}`" alt="Project image" v-if="fileImgPath">
         <div v-if="!fileImgPath" class="image-input">
             <label for="">Add pic</label>
             <input type="file" src="" alt="" @change="(e) => handleFileChange(e, props.project._id)">

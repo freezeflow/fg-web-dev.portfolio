@@ -90,7 +90,7 @@ export default class fetchApi{
     async refresh(response){
         if (response.status !== 403) return response
 
-        const refreshRes = await fetch('http://localhost:8080/api/refresh/', {
+        const refreshRes = await fetch(`${import.meta.env.VITE_API_URL}/api/refresh/`, {
             method: 'POST',
             credentials: 'include'
         })

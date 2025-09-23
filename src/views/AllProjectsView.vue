@@ -3,13 +3,14 @@
     <div class="all-projects-view">
         <header>
             <h1 class="h2-white">All Projects</h1>
-            <search-projects v-model="search" />
+            <search-projects v-model="search" v-if="projects.length !== 0" />
         </header>
         <div class="all-projects-controlls">
             <button class="new-project-btn" @click="newProject = true">Add new project</button>
         </div>
         <div class="projects-list">
             <all-projects
+                v-if="projects.length !== 0"
                 :projects="projects"
                 @viewProject="projectsStore.getProject"
                 @projectTask="projectsStore.getProject"
@@ -17,6 +18,7 @@
                 :tasksByProject="tasksByProject"
                 :clients="clients"
             />
+            <notFoundMsg v-else msg="No projects found, please add some" />
         </div>
 
         <Teleport to="body">
@@ -29,12 +31,13 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 
 import adminNav from '@/components/admin-nav.vue';
 import allProjects from '@/components/projects-comps/all-projects.vue';
 import searchProjects from '@/components/projects-comps/search-projects.vue';
 import addProject from '@/components/modal-cards/add-project.vue';
+import notFoundMsg from '@/components/modal-cards/not-found-msg.vue';
 
 import { useProjectStore } from '@/stores/projects.store';
 import { useTaskStore } from '@/stores/task.store';

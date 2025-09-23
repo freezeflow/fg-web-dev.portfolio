@@ -2,12 +2,12 @@
     <admin-nav />
     <div class="client-view">
         <div class="client-controls">
-            <input type="search" placeholder="Search client..." v-model="search">
+            <input type="search" placeholder="Search client..." v-model="search" v-if="clientsList.length !== 0">
             <button @click="add = !add">Create client</button>
         </div>
-        <div class="client-list" v-if="clientsList">
+        <div class="client-list" v-if="clientsList.length !== 0">
             <clients
-                v-if="clientsList"
+                v-if="clientsList.length !== 0"
                 v-for="(client, index) in clientsList"
                 :key="index"
                 :clientInfo="client"
@@ -15,7 +15,7 @@
             />
         </div>
         <div v-else>
-            <h2>No clients, please add some</h2>
+            <not-found-msg msg="No clients found, feel free to add some"/>
         </div>
     </div>
 
@@ -32,6 +32,8 @@
     import adminNav from '@/components/admin-nav.vue';
     import clients from '@/components/client-comps/clients.vue';
     import addClient from '@/components/client-comps/add-client.vue';
+    import notFoundMsg from '@/components/modal-cards/not-found-msg.vue';
+
     import { useClientStore } from '@/stores/client.store';
     import { computed, onMounted, ref } from 'vue';
 

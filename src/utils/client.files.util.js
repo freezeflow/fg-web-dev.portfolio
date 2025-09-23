@@ -2,7 +2,7 @@ import RefreshHandler from './refresh.util.js'
 
 export default class ClientFileService extends RefreshHandler {
   constructor() {
-    super('http://localhost:8080/api/client/files')
+    super('/api/client/files')
   }
 
   async uploadFile(clientId, fileData) {
@@ -31,18 +31,24 @@ export default class ClientFileService extends RefreshHandler {
   }
 
   async downloadFile(filename) {
-    const res = await this.withRefreshRetry(() =>
-      this.fetch.get(`${this.base_route}/download/${filename}`)
-    )
+  const res = await this.withRefreshRetry(() =>
+    this.fetch.get(`${this.base_route}/download/${filename}`)
+  );
 
-    if (!res.ok) throw new Error('Failed to download file')
+  if (!res.ok) throw new Error("Failed to get file URL");
 
-    const blob = await res.blob()
-    const link = document.createElement('a')
-    link.href = URL.createObjectURL(blob)
-    link.download = filename
-    document.body.appendChild(link)
-    link.click()
-    link.remove()
-  }
+  const { url, filename: serverFilename } = await res.json();
+
+  const fileRes = await fetch(url);
+  if (!fileRes.ok) throw new Error("Failed to fetch file from Cloudinary");
+
+  const blob = await fileRes.blob();
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = serverFilename || filename;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(link.href);
+}
 }

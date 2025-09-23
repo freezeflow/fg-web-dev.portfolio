@@ -2,7 +2,7 @@ import RefreshHandler from './refresh.util.js'
 
 export default class ClientService extends RefreshHandler {
   constructor() {
-    super('http://localhost:8080/api/client')
+    super('/api/client')
   }
 
   async getAllClients() {

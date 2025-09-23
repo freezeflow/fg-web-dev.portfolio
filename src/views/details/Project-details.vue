@@ -23,9 +23,8 @@
         <!-- Edit project modal -->
         <editProject v-if="isEditing && !clientRole"
         @close="isEditing = false"
-        :project="selectedProject"
-        :name="client[0].name"
-        :email="client[0].email"
+            :project="selectedProject"
+            :client="client[0]"
         />
 
         <!-- Delete modal -->
@@ -36,15 +35,16 @@
 </template>
 
 <script setup>
-    import { ref, onMounted, onUnmounted } from 'vue';
     import { useRouter } from 'vue-router';
-    import projectDetails from '@/components/projects-comps/project-details.vue';
+    import { ref, onMounted, onUnmounted } from 'vue';
     import { useTaskStore } from '@/stores/task.store';
     import { useClientStore } from '@/stores/client.store';
+    import { useLoggedClientStore } from '@/stores/logged.client.store';
+
+    import projectDetails from '@/components/projects-comps/project-details.vue';
     import editProject from '@/components/modal-cards/edit-project.vue';
     import deleteCard from '@/components/modal-cards/delete-card.vue';
     import adminNav from '@/components/admin-nav.vue';
-    import { useLoggedClientStore } from '@/stores/logged.client.store';
 
     const clientStore = useClientStore()
     const selectedProject = ref(null)
@@ -53,7 +53,7 @@
     const completeCount = ref()
     const todoCount = ref()
     const busyCount = ref()
-    const client = ref()
+    const client = ref([])
     const clientRole = ref()
     const loggedClientStore = useLoggedClientStore()
 

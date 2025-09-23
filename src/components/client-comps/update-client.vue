@@ -39,7 +39,7 @@
             status: props.clientInfo.status,
         }
         
-        console.log('Form submitted:', form)
+        // console.log('Form submitted:', form)
         // Add logic here to submit data to your API or store
         props.updateClient(props.clientInfo._id , form)
     }
@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="control">
-                    <button @click="saveForm" type="submit">Save</button>
+                    <button type="submit">Save</button>
                 </div>
             </form>
         </div>

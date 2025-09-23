@@ -119,6 +119,7 @@
   height: 100vh;
   display: flex;
   padding: 3rem;
+  padding-top: 5rem;
   box-sizing: border-box;
   flex-direction: column;
   align-items: center;
@@ -210,6 +211,7 @@
   height: 100vh;
   display: flex;
   padding: 3rem;
+  padding-top: 5rem;
   box-sizing: border-box;
   flex-direction: column;
   align-items: center;
@@ -356,10 +358,12 @@
 .client-view{
   width: 85%;
   margin-left: 12%;
+  margin-top: 2rem;
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 2rem;
 }
 

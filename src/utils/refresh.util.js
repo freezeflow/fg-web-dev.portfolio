@@ -6,7 +6,7 @@ export default class RefreshHandler {
   constructor(baseRoute) {
     this.authStore = useAuthStore()
     this.router = router
-    this.base_route = baseRoute
+    this.base_route = `${import.meta.env.VITE_API_URL}${baseRoute}`
     this.fetch = new fetchApi(true, this.authStore.accessToken)
   }
 

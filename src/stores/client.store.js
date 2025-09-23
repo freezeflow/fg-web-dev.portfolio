@@ -62,7 +62,12 @@ export const useClientStore = defineStore('clients', {
       this.loading = true
       this.error = null
       try {
+        this.clients.push(formData)
+
         const data = await clientService.createClient(formData)
+
+        this.clients.pop()
+
         this.clients.push(data.createdClient)
       } catch (err) {
         this.error = err.message

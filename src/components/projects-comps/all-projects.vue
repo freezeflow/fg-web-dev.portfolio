@@ -25,9 +25,9 @@
     }
     
     const handleDelete = (result) => {
-        console.log('Validation success:', result)
         // Continue to delete or trigger next action
-        props.deleteProject(props.projects[selectedIndex.value]._id)
+        if(result.success) props.deleteProject(props.projects[selectedIndex.value]._id)
+
     }
 
     function getClientNameByProjectId(projectId) {

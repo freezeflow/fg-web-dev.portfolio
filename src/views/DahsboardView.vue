@@ -1,7 +1,7 @@
 <template>
   <adminNav />
   <div class="dashboard-view" aria-label="Dashboard">
-    <h1 class="h2-white">Welcome back {{ name }}</h1>
+    <h1 class="h2-white">Welcome back</h1>
     <div class="dashboard-content" aria-label="Dashboard Content">
       <div class="activities-container" aria-label="Activities Container">
         <activities :lastDeployment="3" :totalProjects="projectStore.projects.length" :totalClients="clientStore.clients.length" />
@@ -32,10 +32,10 @@
   import averageLighthouseScore from '@/components/charts/average-lighthouse-score.vue';
   import { ChartBar } from 'lucide-vue-next';
   import { useAdminStore } from '@/stores/admin';
-  import { ref, reactive , onMounted, computed} from 'vue';
   import { useProjectStore } from '@/stores/projects.store';
   import { useClientStore } from '@/stores/client.store';
   import { useMetricsStore } from '@/stores/metrics.store';
+  import { onMounted } from 'vue';
 
   const adminStore = useAdminStore()
   const projectStore = useProjectStore()
@@ -56,6 +56,4 @@
   })
 
   adminStore.loadAdmin()
-
-  const name = adminStore.admin.name;
 </script>

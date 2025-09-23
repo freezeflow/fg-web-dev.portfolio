@@ -45,7 +45,6 @@
         // Send data to backend
         try {
             const response = await props.clientLogin(form)
-            console.log(response)
             if(props.error){
                 errorMessage.value = props.error.message || 'Login failed.';
                 return

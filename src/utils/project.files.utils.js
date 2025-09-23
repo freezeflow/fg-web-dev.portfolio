@@ -2,7 +2,7 @@ import RefreshHandler from './refresh.util.js'
 
 export default class ProjectFileService extends RefreshHandler {
   constructor() {
-    super('http://localhost:8080/api/project/files')
+    super('/api/project/files')
   }
 
   async fetchFilePath(projectId) {

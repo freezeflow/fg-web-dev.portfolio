@@ -1,10 +1,11 @@
 <script setup>
 import { ref } from 'vue'
+import { useProjectStore } from '@/stores/projects.store'
+
 import step1 from '@/components/edit-projects-comps/step-1.vue'
 import step2 from '../edit-projects-comps/step-2.vue';
-import { useProjectStore } from '@/stores/projects.store'
-import loader from '../loader.vue';
 import errorMessage from '../error-message.vue';
+import loader from '../loader.vue';
 
 const emits = defineEmits(['close'])
 const props = defineProps({
@@ -13,8 +14,7 @@ const props = defineProps({
     required: true
   },
 
-  name: String,
-  email: String
+  client: Object
 })
 
 const errorMsg = ref('')
@@ -30,7 +30,6 @@ const form = ref({
   featured: props.project.featured,
   complete: props.project.isCompleted,
   dateCompleted: props.project.dateCompleted,
-  selectedClientId: null,
 })
 
 function validateForm() {
@@ -78,11 +77,11 @@ function submitForm() {
     form.value.dateCompleted = null
   }
 
-  if(form.value.complete && form.value.dateCompleted && props.email){
+  if(form.value.complete && form.value.dateCompleted && props.client){
     const emailForm = {
       title: form.value.title,
-      email: props.email,
-      name: props.name
+      email: props.client.email,
+      name: props.client.name
     }
 
     projectStore.sendEmail(emailForm)

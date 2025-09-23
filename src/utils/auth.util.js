@@ -4,8 +4,8 @@ import { handleAdminLogout } from './admin.logout.util';
 
 export default class AuthClass {
     constructor(){
-        this.base_route = 'http://localhost:8080/api/auth';
-        this.client_route = 'http://localhost:8080/api/client';
+        this.base_route = `${import.meta.env.VITE_API_URL}/api/auth`;
+        this.client_route = `${import.meta.env.VITE_API_URL}/api/client`;
         this.fetch = new fetchApi(true)
     }
 

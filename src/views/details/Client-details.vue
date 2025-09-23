@@ -112,7 +112,7 @@ const files = ref([])
 let loggedClientStore
 
 const handleDelete = (result) =>{
-    if(result.success)  clientStore.deleteClient(client.value._id)
+    if(result.success) clientStore.deleteClient(client.value._id)
     router.push('/clients')
 }
 

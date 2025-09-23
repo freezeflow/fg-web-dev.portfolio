@@ -2,7 +2,10 @@
     import { ArrowRight } from 'lucide-vue-next';
     import router from '@/router';
     const props = defineProps({
-        clientInfo: Object,
+        clientInfo: {
+            type: Object,
+            default: {}
+        },
         getClient: Function
     })
 

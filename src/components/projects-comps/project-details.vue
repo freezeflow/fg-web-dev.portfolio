@@ -41,8 +41,6 @@
         role: Boolean
     })
 
-    const client = ref([])
-
     watch(() => props.client, (newVal) => {
         if (newVal) {
             
@@ -166,7 +164,7 @@
     }
 
     header{
-        width: 40%;
+        width: 50%;
         display: flex;
         flex-direction: row;
         justify-content: space-between;

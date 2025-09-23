@@ -2,7 +2,7 @@ import RefreshHandler from "./refresh.util";
 
 export default class adminServices extends RefreshHandler{
     constructor(){
-        super('http://localhost:8080/api/admin')
+        super('/api/admin')
     }
 
     async getAdmin(adminId) {

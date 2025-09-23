@@ -2,7 +2,7 @@ import RefreshHandler from './refresh.util.js'
 
 export default class metricsServices extends RefreshHandler{
     constructor(){
-        super('http://localhost:8080/api/metrics')
+        super('/api/metrics')
     }
 
     async getMetrics(){

@@ -2,7 +2,7 @@ import RefreshHandler from './refresh.util.js'
 
 export default class TaskService extends RefreshHandler {
   constructor() {
-    super('http://localhost:8080/api/tasks')
+    super('/api/tasks')
   }
 
   async getTask(id) {

@@ -17,7 +17,7 @@
         @view-project="projectsStore.getProject"
       />
       
-      <p v-if="!projects.length">No projects available. Please add some projects.</p>
+      <notFoundMsg v-if="!projects.length" msg="No featured projects found" />
     </div>
   </div>
 </template>
@@ -25,6 +25,8 @@
 <script setup> 
   import adminNav from '@/components/admin-nav.vue';
   import featuredProjects from '@/components/featured-project-comps/featured-projects.vue';
+  import notFoundMsg from '@/components/modal-cards/not-found-msg.vue';
+
   import { useProjectStore } from '@/stores/projects.store';
   import { useProjectFileStore } from '@/stores/file.store';
   import { computed, onMounted } from 'vue';

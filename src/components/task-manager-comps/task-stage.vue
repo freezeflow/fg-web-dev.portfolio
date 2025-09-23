@@ -82,7 +82,6 @@ function sendToTaskBoard() {
             <div>
                 <h3>Staged tasks</h3>
                 <button @click="addNewTask = !addNewTask">+</button>
-                <button @click="sendToTaskBoard">→</button>
             </div>
             <div>
                 <input

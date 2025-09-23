@@ -38,7 +38,7 @@
     }
 
     function saveForm() {
-    console.log('Form submitted:', form)
+    // console.log('Form submitted:', form)
     // Add logic here to submit data to your API or store
     props.createClient(form)
     }
@@ -77,7 +77,7 @@
                 </div>
 
                 <div class="control">
-                    <button @click="saveForm" type="submit">Save</button>
+                    <button type="submit">Save</button>
                 </div>
             </form>
         </div>
