@@ -57,8 +57,11 @@
     const clientRole = ref()
     const loggedClientStore = useLoggedClientStore()
 
+    // Deploy to vercel
     const router = useRouter()
     const taskStore = useTaskStore()
+
+
 
     onMounted(async () => {
         const storedRole = localStorage.getItem('role')
@@ -116,7 +119,6 @@
     onUnmounted(() => {
         if(!clientRole){
             localStorage.removeItem('selectedProject')
-            taskStore.clearTaskStorage()
         }
         
     })
