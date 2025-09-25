@@ -15,7 +15,7 @@ const clientAuth = async (req, res, next) => {
 
     // Check role
     if (decoded.role !== client.role) {
-      return res.status(403).json({ message: 'Forbidden: wrong role' });
+      return res.status(403).json({ message: 'Forbidden' });
     }
 
     // Attach client info to request
