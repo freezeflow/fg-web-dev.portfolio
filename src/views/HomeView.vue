@@ -47,7 +47,6 @@
     password: ''
   })
 
-  console.log(adminStore.loading)
   const errorMessage = ref(null);
   const emailInput = ref(null)
   const passwordInput = ref(null)

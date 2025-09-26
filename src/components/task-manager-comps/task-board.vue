@@ -108,7 +108,7 @@ const openBoard = (boardTitle) => {
   gap: 1rem;
   padding: 1rem;
   width: 80%;
-  min-height: calc(100vh - 2rem);
+  height: calc(100vh - 2rem);
   font-family: var(--paragraph-font);
 }
 
@@ -117,6 +117,27 @@ const openBoard = (boardTitle) => {
   border-radius: 1rem;
   border: 2px solid var(--off-color);
   padding: 1rem;
+  overflow-y: auto;
+}
+
+.kanban-column::-webkit-scrollbar {
+  height: 4px; /* Horizontal scrollbar height */
+  width: 3px;
+}
+
+.kanban-column::-webkit-scrollbar-track {
+  background: var(--bg-color); /* Track background */
+  border-radius: 4px;
+}
+
+.kanban-column::-webkit-scrollbar-thumb {
+  background: var(--secondary); /* Scrollbar thumb */
+  border-radius: 4px;
+  transition: all 0.3s ease-in-out;
+}
+
+.kanban-column::-webkit-scrollbar-thumb:hover {
+  background: #0458c7; /* Hover state */
 }
 
 .mobile-column-title{
@@ -137,6 +158,7 @@ const openBoard = (boardTitle) => {
   border-radius: 5px;
   font-family: var(--header-font);
   position: relative;
+  
 }
 
 .column-title span{

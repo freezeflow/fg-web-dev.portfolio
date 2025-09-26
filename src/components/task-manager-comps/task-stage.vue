@@ -6,7 +6,6 @@ const title = ref('')
 const description = ref('')
 const dueDate = ref(null)
 const searchTerm = ref('')
-const stagedTasks = ref({})
 
 const emit = defineEmits(['send-staged'])
 
@@ -28,7 +27,6 @@ const props = defineProps({
 })
 
 const addNewTask = ref(false)
-stagedTasks.value = props.stagedTasks
 
 // Drag logic
 function onDragStart(event, task) {
@@ -50,7 +48,7 @@ async function addTask() {
 
   try {
     const created = await props.createTask(formData)
-    stagedTasks.value[created._id] = created
+    props.stagedTasks[created._id] = created
 
     // Clear form
     title.value = ''
@@ -63,17 +61,10 @@ async function addTask() {
 
 // Search
 const filteredTasks = computed(() => {
-    return Object.values(stagedTasks.value).filter(task =>
+    return Object.values(props.stagedTasks).filter(task =>
         task.title.toLowerCase().includes(searchTerm.value.toLowerCase())
     );
 });
-
-// Emit to parent
-function sendToTaskBoard() {
-  if (Object.keys(stagedTasks.value).length === 0) return;
-  emit('send-staged', stagedTasks.value);
-  stagedTasks.value = {};
-}
 </script>
 
 <template>
@@ -137,6 +128,26 @@ function sendToTaskBoard() {
         padding-top: 2%;
         gap: 2rem;
         overflow-y: auto;
+    }
+
+    .stage::-webkit-scrollbar {
+        height: 4px; /* Horizontal scrollbar height */
+        width: 3px;
+    }
+
+    .stage::-webkit-scrollbar-track {
+        background: var(--bg-color); /* Track background */
+        border-radius: 4px;
+    }
+
+    .stage::-webkit-scrollbar-thumb {
+        background: var(--secondary); /* Scrollbar thumb */
+        border-radius: 4px;
+        transition: all 0.3s ease-in-out;
+    }
+
+    .stage::-webkit-scrollbar-thumb:hover {
+        background: #0458c7; /* Hover state */
     }
 
     .header{

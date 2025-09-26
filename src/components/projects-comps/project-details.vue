@@ -214,6 +214,7 @@
         background-color: var(--secondary);
         padding: 0 15px;
         border-radius: 5px;
+        text-align: center
     }
 
     .progress-details{
@@ -308,6 +309,10 @@
             width: 100%;
             justify-content: start;
             align-items: start;
+        }
+
+        .editor-actions{
+            display: none;
         }
     }
 

@@ -3,12 +3,12 @@ import { RouterLink, useRoute } from 'vue-router';
 import { handleClientLogout } from '@/utils/logout.client.js'
 import { handleAdminLogout } from '@/utils/admin.logout.util';
 import { ref, watch, computed } from 'vue';
+import { Briefcase, LayoutDashboard, Users, Settings, LogOut, User } from 'lucide-vue-next'
 
 const route = useRoute();
 const prevActive = ref(null);
 const currentActive = ref(route.path);
 const projectsOpen = ref(false);
-const edit = ref(false)
 const role = ref()
 const projects = ref([])
 
@@ -40,22 +40,22 @@ watch(
 const menuItems = computed(() => {
   if (role.value === 'admin') {
     return [
-      { label: 'Dashboard', to: '/dashboard' },
+      { icon: LayoutDashboard, label: 'Dashboard', to: '/dashboard' },
       {
-        label: 'Projects',
+        icon: Briefcase, label: 'Projects',
         dropdown: [
           { label: 'All', to: '/projects/all' },
           { label: 'Featured', to: '/projects/featured' }
         ]
       },
-      { label: 'Clients', to: '/clients' },
-      { label: 'Logout', to: '/admin/login', action: handleAdminLogout }
+      { icon: Users, label: 'Clients', to: '/clients' },
+      { icon: LogOut, label: 'Logout', to: '/admin/login', action: handleAdminLogout }
     ]
   } else {
     return [
-      { label: 'Profile', to: '/clients/client' },
+      { icon: User, label: 'Profile', to: '/clients/client' },
       {
-        label: 'Projects',
+        icon: Briefcase, label: 'Projects',
         dropdown: projects.value?.length
           ? projects.value.map(p => ({
               label: p.title,
@@ -64,7 +64,7 @@ const menuItems = computed(() => {
             }))
           : [{ label: 'No projects', to: '#' }]
       },
-      { label: 'Logout', to: '/', action: handleClientLogout }
+      { icon: LogOut, label: 'Logout', to: '/', action: handleClientLogout }
     ]
   }
 })
@@ -96,12 +96,13 @@ const toggleMobileDropdown = (label) => {
           @click="item.action?.()" 
           :class="isActive(item.to) ? 'active-nav' : 'inactive-nav'"
         >
-          {{ item.label }}
+          <component :is="item.icon" />
         </RouterLink>
 
         <!-- Dropdown -->
         <div v-else>
-          <span>{{ item.label }}</span>
+          <span><component :is="item.icon" /></span>
+          <component :is="" />
           <Transition name="dropdown-fade">
             <ul v-show="projectsOpen" class="dropdown">
               <li v-for="sub in item.dropdown" :key="sub.label">
