@@ -40,9 +40,22 @@ export const useAdminStore = defineStore('admin', {
       this.loading = true
       this.error = ''
       try {
-        const res = adminServ.updateAdmin(id, form)
+        const res = await adminServ.updateAdmin(id, form)
         const admin = res.updatedAdmin
+        console.log(admin)
         this.setAdmin(admin, admin._id, admin.role)
+      } catch (error) {
+        this.error = error.message
+      } finally {
+        this.loading = false
+      }
+    },
+
+    async changePassword(id, form){
+      this.loading = true
+      this.error = ''
+      try {
+        await adminServ.changePassword(id, form)
       } catch (error) {
         this.error = error.message
       } finally {

@@ -1,7 +1,6 @@
 <template>
   <adminNav />
   <div class="dashboard-view" aria-label="Dashboard">
-    <h1 class="h2-white">Welcome back</h1>
     <div class="dashboard-content" aria-label="Dashboard Content">
       <div class="activities-container" aria-label="Activities Container">
         <activities :lastDeployment="3" :totalProjects="projectStore.projects.length" :totalClients="clientStore.clients.length" />

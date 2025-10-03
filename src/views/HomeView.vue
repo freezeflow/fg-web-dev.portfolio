@@ -2,13 +2,13 @@
   <main class="admin-login" aria-label="Admin Login Page">
     <form @submit="handleSubmit" class="form-container" aria-label="Admin Login Form">
       <div class="form-header">
-        <h2 v-if="!errorMessage && !adminStore.loading" class="h2-white">Admin Login</h2>
-        <div v-else-if="errorMessage && !adminStore.loading">
-          <ErrorMessage :msg="errorMessage" />
-        </div>
         <div v-if="adminStore.loading">
           <loader />
         </div>
+        <div v-else-if="errorMessage">
+          <ErrorMessage :msg="errorMessage" />
+        </div>
+        <h2 v-else class="h2-white">Admin Login</h2>
       </div>
       <div>
         <div class="floating-label">
@@ -16,8 +16,9 @@
           <label for="email">Email</label>
         </div>
         <div class="floating-label">
-          <input ref="passwordInput" v-model="form.password" type="password" id="password" name="password" placeholder=""  aria-label="Password"/>
+          <input ref="passwordInput" v-model="form.password" :type="passType" id="password" name="password" placeholder=""  aria-label="Password"/>
           <label for="password">Password</label>
+          <component :is="passType === 'password'? Eye : EyeOff" class="icon" @click="togglePassType" />
         </div>
         <button type="submit" class="btn-primary" aria-label="Submit login form">Login</button>
       </div>
@@ -32,13 +33,13 @@
   import { formUtility } from '@/utils/form.utils.js';
   import { useAdminStore } from '@/stores/admin.js';
   import { useAuthStore } from '@/stores/auth.store.js';
-
+  import { Eye, EyeOff } from 'lucide-vue-next';
   import loader from '@/components/loader.vue'
   const ErrorMessage = defineAsyncComponent(() => import('@/components/error-message.vue'));
 
   // Move these outside the component scope
   const formUtil = new formUtility();
-
+  
   const router = useRouter();
   const adminStore = useAdminStore()
   const auth = useAuthStore()
@@ -47,9 +48,21 @@
     password: ''
   })
 
-  const errorMessage = ref(null);
+  const errorMessage = ref();
   const emailInput = ref(null)
   const passwordInput = ref(null)
+  const passType = ref("password")
+
+  const togglePassType = () =>{
+    if(passType.value === "password"){
+      passType.value = "text"
+      console.log(passType)
+      return
+    }else{
+      passType.value = "password"
+      return
+    }
+  }
 
   const handleSubmit = async (event) => {
     event.preventDefault();

@@ -9,7 +9,7 @@ defineProps({
 
 <template>
   <section class="error-message">
-    <span class="error-icon">!</span><p>{{ msg }}</p>
+    <p>{{ msg }}</p>
   </section>
 </template>
 
@@ -17,14 +17,21 @@ defineProps({
 .error-message {
   background-color: transparent;
   color: white;
-  border: 1px solid #0584d8;
   padding: 10px 1rem;
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
-  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+  font-family: var(--paragraph-font);
+  text-align: center;
+}
+
+p{
+  background-color: rgb(250, 44, 44);
+  border: red;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 @media screen and (max-width: 724px){
@@ -35,22 +42,5 @@ defineProps({
   .error-message p{
     font-size: 12px;
   }
-}
-
-@media screen and (max-width: 458px){
-  
-}
-
-.error-icon {
-  margin-right: 0.5rem;
-  background-color: red;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  font-weight: 800;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 </style>

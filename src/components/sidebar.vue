@@ -1,7 +1,6 @@
 <script setup>
 import { RouterLink, useRoute } from 'vue-router';
 import { handleClientLogout } from '@/utils/logout.client.js'
-import { handleAdminLogout } from '@/utils/admin.logout.util';
 import { ref, watch, computed } from 'vue';
 import { Briefcase, LayoutDashboard, Users, Settings, LogOut, User } from 'lucide-vue-next'
 
@@ -49,7 +48,6 @@ const menuItems = computed(() => {
         ]
       },
       { icon: Users, label: 'Clients', to: '/clients' },
-      { icon: LogOut, label: 'Logout', to: '/admin/login', action: handleAdminLogout }
     ]
   } else {
     return [
@@ -95,14 +93,14 @@ const toggleMobileDropdown = (label) => {
           :to="item.to" 
           @click="item.action?.()" 
           :class="isActive(item.to) ? 'active-nav' : 'inactive-nav'"
+          class="item-label"
         >
-          <component :is="item.icon" />
+          <component :is="item.icon" class="icons"/> {{ item.label }}
         </RouterLink>
 
         <!-- Dropdown -->
         <div v-else>
-          <span><component :is="item.icon" /></span>
-          <component :is="" />
+          <span class="item-label" :class="route.path.startsWith('/project') ? 'active-nav' : 'inactive-nav'"><component :is="item.icon" class="icons" /> {{ item.label }}</span>
           <Transition name="dropdown-fade">
             <ul v-show="projectsOpen" class="dropdown">
               <li v-for="sub in item.dropdown" :key="sub.label">
@@ -169,6 +167,7 @@ const toggleMobileDropdown = (label) => {
 <style scoped>
     .desktop-nav{
       background-color: var(--off-color);
+      border-right: 1px solid #000146;
       color: white;
       padding: 10px;
       position: fixed;
@@ -187,14 +186,24 @@ const toggleMobileDropdown = (label) => {
       margin: 0;
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      align-items: center;
       gap: 2rem;
+    }
+
+    .icons{
+      width: 20px;
+      height: auto;
+    }
+
+    .item-label{
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
     }
 
     .desktop-nav .desktop-nav-list li{
       font-size: 1rem;
       font-family: var(--paragraph-font);
+      font-weight: bold;
     }
 
     .desktop-nav .desktop-nav-list li a{
@@ -202,7 +211,10 @@ const toggleMobileDropdown = (label) => {
       text-decoration: none;
     }
 
-    .desktop-nav .desktop-nav-list li .active-nav::after,
+    .desktop-nav .desktop-nav-list li .active-nav .icons{
+      color: var(--secondary);
+    }
+
     .mobile-nav .desktop-nav-list li .active-nav::after{
       content: '';
       position: relative;
@@ -229,7 +241,6 @@ const toggleMobileDropdown = (label) => {
       }
     }
 
-    .desktop-nav .desktop-nav-list li .inactive-nav::after,
     .mobile-nav .desktop-nav-list li .inactive-nav::after {
       content: '';
       position: relative;

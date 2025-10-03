@@ -18,8 +18,18 @@ export default class adminServices extends RefreshHandler{
         const res = await this.withRefreshRetry(() =>
             this.fetch.put(`${this.base_route}/${adminId}`, form)
         )
-        if (!res.ok) throw new Error('Failed to update admin')
-        
+        if (!res.ok) throw new Error('Failed to update profile')
+    
+        return await res.json()
+    }
+
+    async changePassword(adminId, form){
+        const res = await this.withRefreshRetry(() =>
+            this.fetch.put(`${this.base_route}/password/${adminId}`, form)
+        )
+
+        if (!res.ok) throw new Error(res.message)
+
         return await res.json()
     }
 }
