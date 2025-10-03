@@ -196,7 +196,6 @@ export default class clientServices {
     }
   };
 
-
   updateClientStatus = async (req) => {
     try {
       const id = toObjectId(req.params.id);

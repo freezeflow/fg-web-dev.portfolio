@@ -54,14 +54,24 @@ export default class adminController{
     update = async (req, res, next) =>{
         try {
             // Call updateAdmin function from admin service class
-            const admin = adminServ.updateAdmin(req);
+            const result = await adminServ.updateAdmin(req);
 
-            console.log(admin)
             // Send response
-            res.status(200).json({success: true, admin});
+            res.status(200).json(result);
         } catch (error) {
             next(error);
         }
-        
+    }
+
+    updatePassword = async (req, res, next) => {
+        try {
+            // Call updateAdmin function from admin service class
+            const result = await adminServ.changePassword(req);
+
+            // Send response
+            res.status(200).json(result);
+        } catch (error) {
+            next(error);
+        }
     }
 }

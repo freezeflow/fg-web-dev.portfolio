@@ -44,8 +44,6 @@ export default class adminServices{
         } catch (error) {
             throw error
         }
-       
-
     }
 
     getAdmin = async (req) => {
@@ -90,7 +88,7 @@ export default class adminServices{
 
             // Check if admin is in database
             const admin = await Admin.findById(Id);
-            if(!admin) throw new AppError("Admin not found", 404);
+            if(!admin) throw new AppError({message: "Admin not found", status: 404});
 
             // Get information from request body
             const {name, email} = req.body;
@@ -99,23 +97,61 @@ export default class adminServices{
             if (email) {
                 const foundAdmin = await Admin.findOne({ email });
                 if (foundAdmin && foundAdmin._id.toString() !== Id) {
-                    throw new AppError("Email already in use", 403);
+                    throw new AppError({message: "Email already in use", status: 403});
                 }
             }
             
-            const updatedAdmin = await Admin.findByIdAndUpdate(
+            const newAdminData = await Admin.findByIdAndUpdate(
                 Id,
                 {name, email},
                 {new: true, runValidators: true}
             );
 
-            if(!updatedAdmin) throw new AppError("Admin not found", 404);
+            if(!newAdminData) throw new AppError({message: "Admin not found", status: 404});
+
+            const updatedAdmin = {
+                name: newAdminData.name,
+                email: newAdminData.email,
+                role: newAdminData.role,
+                _id: newAdminData._id
+            }
 
             // Send response
-            return updatedAdmin;
+            return {success: true, updatedAdmin};
         } catch (error) {
             throw error
         }
         
+    }
+
+    changePassword = async (req) => {
+        const id = req.params.id
+        const {newPassword, currentPassword} = req.body
+
+        try{
+            const admin = await Admin.findById(id).select('+password')
+
+            if(!admin) throw new AppError({message: "Invalid credentials", status: 400})
+
+            const currentIsSame = await bcrypt.compare(currentPassword, admin.password);
+            if (!currentIsSame) throw new AppError({ message: "Invalid credentials", status: 400 });
+
+            const isSame = await bcrypt.compare(newPassword, admin.password);
+            if (isSame) throw new AppError({ message: "Invalid credentials", status: 400 });
+
+            if(newPassword.length < 12) throw new AppError({message: "Password must be at least 12 characters long.", status: 400})
+
+            if (!/\d/.test(newPassword)) throw new AppError({message: "Password must contain at least one number.", status: 400})
+
+            if (!/[^A-Za-z0-9]/.test(newPassword)) throw new AppError({message: "Password must contain at least one symbol.", status: 400})
+
+            const hashedPassword = await bcrypt.hash(newPassword, 12);
+            admin.password = hashedPassword;
+            await admin.save();
+
+            return { success: true, message: "Password updated successfully." };
+        }catch(err){
+            throw err
+        }
     }
 }

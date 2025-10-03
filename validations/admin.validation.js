@@ -20,3 +20,10 @@ export const validateAdminId = [
     validators.paramObjectId('id'),
     validate
 ];
+
+export const validateUpdatePassword = [
+    validators.paramObjectId('id'),
+    validators.bodyString({field: 'currentPassword'}),
+    validators.bodyString({field: 'newPassword'}),
+    validate
+]
