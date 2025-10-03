@@ -40,7 +40,7 @@ function toggleDropdown() {
     .topbar{
         background-color: var(--off-color);
         border-bottom: 1px solid #000146;
-        width: 97vw;
+        width: calc(100vw - 20px);
         height: 20px;
         padding: 10px;
         position: fixed;
