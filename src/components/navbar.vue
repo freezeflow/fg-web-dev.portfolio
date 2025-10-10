@@ -111,14 +111,12 @@
     background-color: var(--off-color);
     color: var(--secondary);
     padding: 1rem 2%;
-
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 80px;
     z-index: 1000;
-
     display: flex;
     flex-direction: column;
     transition: all 0.3s ease-in-out;
@@ -204,7 +202,7 @@
     flex-direction: row;
     align-items: center;
     gap: 0.7rem;
-    font-family: Bahnschrift, sans-serif;
+    font-family: var(--header-font);
 }
 
 .logo-name {
@@ -213,11 +211,10 @@
     font-weight: 600;
     letter-spacing: 1px;
     width: 100px;
-    text-align: center;
 }
 
 img {
-    width: 40px;
+    width: 30px;
 }
 
 .lOne,
