@@ -39,7 +39,7 @@ export default class authServices{
             // Generate access token
             const accessToken = jwt.sign(
                 { 
-                    userId: newAdmin._id, 
+                    user: { name: newAdmin.name, email: newAdmin.email, role: newAdmin.role, _id: newAdmin._id }, 
                 },
                 JWT_ACCESS_SECRET,
                 {expiresIn: JWT_ACCESS_EXPIRE}
@@ -48,7 +48,7 @@ export default class authServices{
             // Generate refresh token
             const refreshToken = jwt.sign(
                 { 
-                    userId: newAdmin._id, 
+                    user: { name: newAdmin.name, email: newAdmin.email, role: newAdmin.role, _id: newAdmin._id }, 
                 },
                 JWT_REFRESH_SECRET,
                 {expiresIn: JWT_REFRESH_EXPIRE}
@@ -89,7 +89,7 @@ export default class authServices{
             // Generate tokens
             const accessToken = jwt.sign(
                 { 
-                    userId: admin._id, 
+                    user: { name: admin.name, email: admin.email, role: admin.role, _id: admin._id }, 
                 },
                 JWT_ACCESS_SECRET,
                 {expiresIn: JWT_ACCESS_EXPIRE }
@@ -97,22 +97,21 @@ export default class authServices{
 
             const refreshToken = jwt.sign(
                 { 
-                    userId: admin._id, 
+                    user: { name: admin.name, email: admin.email, role: admin.role, _id: admin._id },
                 },
                 JWT_REFRESH_SECRET,
                 { expiresIn: JWT_REFRESH_EXPIRE }
             );
 
             // Save refresh token in DB
-            admin.refreshToken.push(refreshToken);
-            if (admin.refreshToken.length > 2) {
-                admin.refreshToken = admin.refreshToken.slice(-2);
-            }
+            admin.refreshToken.push(refreshToken)
             await admin.save();
 
             const savedAdmin = { name: admin.name, email: admin.email, role: admin.role, _id: admin._id };
 
-            return { savedAdmin, accessToken, refreshToken };
+            const latestToken = admin.refreshToken[admin.refreshToken.length - 1]
+
+            return { savedAdmin, accessToken, latestToken };
         } catch (error) {
             throw error;
         }
@@ -128,7 +127,7 @@ export default class authServices{
             if(!foundAdmin) return {success: true}
 
             // Clear tokens from database
-            foundAdmin.refreshToken = [];
+            foundAdmin.refreshToken = "";
             await foundAdmin.save();
 
             // Send success

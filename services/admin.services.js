@@ -31,32 +31,10 @@ export default class adminServices{
         
     }
 
-    getAllAdmins = async () => {
-        try {
-            // Get all admins
-            const admins = await Admin.find();
-
-            // Check if there are any admins
-            if(admins.length === 0) throw new AppError("No admins found", 404);
-
-            // Send admins if found
-            return admins
-        } catch (error) {
-            throw error
-        }
-    }
-
     getAdmin = async (req) => {
         try {
-            // Get admin id from request params
-            const Id = req.params.id;
-
-            // Check if admin is in database
-            const foundAdmin = await Admin.findById(Id);
-            if(!foundAdmin) throw new AppError("Unauthorized", 403)
-
             // Send response
-            return foundAdmin
+            return req.user
         } catch (error) {
             throw error
         }
@@ -64,8 +42,7 @@ export default class adminServices{
 
     deleteAdmin = async (req) => {
         try {
-            // Get id from request params
-            const Id = req.params.id;
+            const Id = req.user.id;
 
             // Check if admin is in database
             const admin = await Admin.findById(Id);
@@ -84,7 +61,7 @@ export default class adminServices{
     updateAdmin = async (req) => {
         try {
             // Get id from request params
-            const Id = req.params.id;
+            const Id = req.user.id;
 
             // Check if admin is in database
             const admin = await Admin.findById(Id);
@@ -125,7 +102,7 @@ export default class adminServices{
     }
 
     changePassword = async (req) => {
-        const id = req.params.id
+        const id = req.user.id
         const {newPassword, currentPassword} = req.body
 
         try{

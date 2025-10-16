@@ -18,7 +18,7 @@ export default class clientsController {
     try {
       const {accessToken, client} = await clientServ.loginClient(req);
 
-      res.cookie('client_jwt', accessToken, {
+      res.cookie('access', accessToken, {
         httpOnly: true,
         sameSite: COOKIE_SAMESITE, 
         secure: COOKIE_SECURE === 'true',
@@ -34,7 +34,7 @@ export default class clientsController {
   // LOGOUT CLIENT
   logoutClient = async (req, res, next) => {
     try {
-      res.clearCookie('client_jwt', {
+      res.clearCookie('access', {
         httpOnly: true, 
         sameSite: COOKIE_SAMESITE, 
         secure: COOKIE_SECURE === 'true',
@@ -54,6 +54,15 @@ export default class clientsController {
       next(error);
     }
   };
+
+  getClientProfile = async (req, res, next) => {
+    try {
+      const foundClient = await clientServ.getClientProfile(req);
+      res.status(200).json({ success: true, client: foundClient });
+    } catch (error) {
+      next(error);
+    }
+  }
 
   // READ - ALL
   getAllClients = async (req, res, next) => {

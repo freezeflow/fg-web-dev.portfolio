@@ -8,7 +8,16 @@ export default class auhtController{
         try {
             const newAdmin = await auhtServ.registerAdmin(req)
             
-            res.cookie('jwt', newAdmin.refreshToken[newAdmin.refreshToken.length - 1], 
+            res.cookie('refresh', newAdmin.refreshToken, 
+                {
+                    httpOnly: true, 
+                    sameSite: COOKIE_SAMESITE, 
+                    secure: COOKIE_SECURE === 'true', 
+                    maxAge: 24 * 60 * 60 * 1000
+                }
+            )
+
+            res.cookie('access', newAdmin.accessToken, 
                 {
                     httpOnly: true, 
                     sameSite: COOKIE_SAMESITE, 
@@ -25,14 +34,11 @@ export default class auhtController{
     loginAdmin = async (req, res, next) => {
 
         try {
-            const loggedInAdmin = await auhtServ.loginAdmin(req);
-            const admin = loggedInAdmin.savedAdmin
-            const refreshToken = loggedInAdmin.refreshToken
-            const accessToken = loggedInAdmin.accessToken
+            const {savedAdmin, accessToken, latestToken} = await auhtServ.loginAdmin(req);
 
             // Set cookie
-            res.cookie('jwt', 
-                refreshToken, 
+            res.cookie('refresh', 
+                latestToken, 
                 {
                     httpOnly: true, 
                     sameSite: COOKIE_SAMESITE, 
@@ -41,10 +47,20 @@ export default class auhtController{
                 }
             )
 
+            res.cookie('access',
+                accessToken, 
+                {
+                    httpOnly: true, 
+                    sameSite: COOKIE_SAMESITE, 
+                    secure: COOKIE_SECURE === 'true',
+                    maxAge: 3 * 60 * 1000
+                }
+            )
+
             // Send response
             res.status(200).json({
                 success: true,
-                admin,
+                admin: savedAdmin,
                 accessToken
             });
         } catch (error) {
@@ -59,7 +75,13 @@ export default class auhtController{
             await auhtServ.logoutAdmin(req)
 
             // Clear cookies
-            res.clearCookie('jwt', {
+            res.clearCookie('refresh', {
+                httpOnly: true, 
+                sameSite: COOKIE_SAMESITE, 
+                secure: COOKIE_SECURE === 'true',
+            });
+
+            res.clearCookie('access', {
                 httpOnly: true, 
                 sameSite: COOKIE_SAMESITE, 
                 secure: COOKIE_SECURE === 'true',

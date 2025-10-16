@@ -12,7 +12,6 @@ import clientRouter from './routes/client.route.js';
 import clientFileRoutes from './routes/client.files.route.js';
 import clientAuthRouter from './routes/client-routes/client.auth.route.js';
 import loggedClientRouter from './routes/client-routes/client.routes.js';
-import metricsRouter from './routes/metrics.route.js';
 
 import errorHandler from './middleware/error.middleware.js';
 import appMiddlewares from './middleware/app.middlewares.js';
@@ -40,7 +39,6 @@ app.use('/api/client', clientRouter);
 app.use('/api/client/files', clientFileRoutes);
 app.use('/api/client/auth', clientAuthRouter);
 app.use('/api/client/client', loggedClientRouter);
-app.use('/api/metrics', metricsRouter)
 
 app.use(errorHandler);
 

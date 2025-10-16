@@ -9,20 +9,13 @@ export const validateRegister = [
 ];
 
 export const validateAdminUpdate = [
-    validators.paramObjectId('id'),
     validators.bodyString({field: 'username', optional: true}),
     validators.email({field: 'email', optional: true}),
     validators.bodyString({field: 'password', optional: true}),
     validate
 ];
 
-export const validateAdminId = [
-    validators.paramObjectId('id'),
-    validate
-];
-
 export const validateUpdatePassword = [
-    validators.paramObjectId('id'),
     validators.bodyString({field: 'currentPassword'}),
     validators.bodyString({field: 'newPassword'}),
     validate

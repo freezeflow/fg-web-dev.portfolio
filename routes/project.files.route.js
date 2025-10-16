@@ -1,6 +1,6 @@
 import multer from "multer";
 import { Router } from "express";
-import authenticate from '../middleware/auth.middleware.js'
+import {authenticate, authorizeRole} from '../middleware/auth.middleware.js'
 import projectFileController from "../controllers/project.files.conroller.js";
 
 import { storage } from "../config/cloudinary.js";
@@ -16,13 +16,13 @@ const projectFileControl = new projectFileController()
 
 projectFileRoutes.post('/:id', 
     validateFilesId, 
-    authenticate, 
+    authenticate, authorizeRole('admin'), 
     upload.single("file"),
     projectFileControl.createProjectFile 
 );
 
-projectFileRoutes.get('/:id', validateFilesId, projectFileControl.getFilepathControl)
+projectFileRoutes.get('/:id', validateFilesId, authenticate, authorizeRole('admin'), projectFileControl.getFilepathControl)
 
-projectFileRoutes.delete('/', validateDeleteFile, authenticate, projectFileControl.deleteFile)
+projectFileRoutes.delete('/', validateDeleteFile, authenticate, authorizeRole('admin'), projectFileControl.deleteFile)
 
 export default projectFileRoutes

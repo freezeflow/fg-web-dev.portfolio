@@ -15,18 +15,6 @@ export default class adminController{
         }
     }
 
-    getAllAdmins = async (req, res, next) => {
-        try {
-            // Call getAllAdmins function from admin services class
-            const admins = await adminServ.getAllAdmins()
-
-            // Send response
-            res.status(200).json({success: true, admins});
-        } catch (error) {
-            next(error)
-        }
-    }
-
     getAdmin = async (req, res, next) => {
         try {
             // Call getAdmin function from admin service class

@@ -83,8 +83,17 @@ export default class clientServices {
       // Generate JWT access token
       const accessToken = jwt.sign(
       {
-        userId: client._id,
-        role: client.role
+        user: {
+          _id: client._id,
+          name: client.name,
+          email: client.email,
+          phone: client.phone,
+          company: client.company,
+          location: client.location,
+          createdAt: client.createdAt,
+          projects: client.projects,
+          role: client.role
+        },
       },
       JWT_ACCESS_SECRET,
       { expiresIn: '1h' }
@@ -134,6 +143,10 @@ export default class clientServices {
       throw error;
     }
   };
+
+  getClientProfile = async (req) => {
+    return req.user
+  }
 
   getAllClients = async (req) => {
     try {

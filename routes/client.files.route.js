@@ -3,7 +3,7 @@ import multer from "multer";
 import clientFileController from "../controllers/client.files.controller.js";
 
 import { storage } from "../config/cloudinary.js";
-import authenticate from "../middleware/auth.middleware.js";
+import { authenticate, authorizeRole } from "../middleware/auth.middleware.js";
 import { validateFilename, validateId } from "../validations/client.file.validation.js";
 
 const upload = multer({
@@ -18,7 +18,7 @@ const clientFileControl = new clientFileController();
 clientFileRoutes.post(
   "/:id", 
   validateId,
-  authenticate,
+  authenticate, authorizeRole('admin'),
   upload.single("file"),
   clientFileControl.uploadClientFile
 );
@@ -27,7 +27,7 @@ clientFileRoutes.post(
 clientFileRoutes.get(
   "/:id",
   validateId,
-  authenticate,
+  authenticate, authorizeRole('admin'),
   clientFileControl.getClientFiles
 );
 
@@ -35,7 +35,7 @@ clientFileRoutes.get(
 clientFileRoutes.get(
   "/download/:filename",
   validateFilename,
-  authenticate,
+  authenticate, authorizeRole('admin'),
   clientFileControl.downloadClientFile
 );
 
@@ -43,7 +43,7 @@ clientFileRoutes.get(
 clientFileRoutes.delete(
   "/:id",
   validateId,
-  authenticate,
+  authenticate, authorizeRole('admin'),
   clientFileControl.deleteClientFile
 );
 

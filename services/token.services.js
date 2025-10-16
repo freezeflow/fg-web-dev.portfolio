@@ -1,68 +1,64 @@
 import jwt from 'jsonwebtoken'
 import Admin from '../models/admin.model.js'
 import AppError from '../utils/app.error.class.js'
-import { 
-    JWT_ACCESS_EXPIRE, 
-    JWT_ACCESS_SECRET,
-    JWT_REFRESH_EXPIRE, 
-    JWT_REFRESH_SECRET
-} from '../config/config.js'
+import { JWT_ACCESS_SECRET, JWT_REFRESH_SECRET, JWT_ACCESS_EXPIRE, JWT_REFRESH_EXPIRE } from '../config/config.js'
 
-class tokenServices{
-    rotateToken = async (refreshToken) =>{
-        try {
-            // Check if token is in databse
-            const admin = await Admin.findOne({refreshToken});
-            if(!admin) throw new AppError({message: "Forbidden1", status: 403});
+class tokenServices {
+  async rotateToken(req) {
+    try {
+        if(!req.cookies?.refresh) throw new AppError({message: 'Unauthorized', status: 401 })
 
-            // Check if refresh token is most recent
-            const isMostRecent = admin.refreshToken[admin.refreshToken.length - 1] === refreshToken
-            if(!isMostRecent){
+        const refreshToken = req.cookies.refresh
 
-                // Invalidate tokens
-                admin.refreshToken = [];
-                await admin.save();
-                throw new AppError({message: "Forbidden2", status: 403});
-            }
-            
-            // Verify refresh token
-            let decoded
-            try {
-                decoded = jwt.verify(refreshToken, JWT_REFRESH_SECRET)
-            } catch (error) {
-                throw new AppError({message:"Forbidden3", status: 403});
-            }
+        // 1. Find admin that owns this token
+        const admin = await Admin.findOne({
+          refreshToken: { $in: [req.cookies?.refresh.trim()] }
+        });
+        if (!admin) throw new AppError({ message: 'Forbidden', status: 403 });
 
-            // Check if user id from token matches id from database
-            const adminId = await Admin.findById(decoded.userId);
-            if (!adminId) throw new AppError({message: "Forbidden4", status: 403});
+        // 2. Verify the refresh token
+        let decoded;
+      try {
+        decoded = jwt.verify(refreshToken, JWT_REFRESH_SECRET);
+      } catch (err) {
+        throw new AppError({ message: 'Forbidden', status: 403 });
+      }
 
-            // Generate new access token
-            const accessToken = jwt.sign(
-                {"userId": adminId._id},
-                JWT_ACCESS_SECRET,
-                {expiresIn: JWT_ACCESS_EXPIRE}
-            );
+      // 3. Compare IDs
+      if (decoded.user._id.toString() !== admin._id.toString()) {
+        throw new AppError({ message: 'Forbidden', status: 403 });
+      }
 
-            // Generate new refresh token
-            const newRefreshToken = jwt.sign(
-                {"userId": adminId._id},
-                JWT_REFRESH_SECRET,
-                {expiresIn: JWT_REFRESH_EXPIRE}
-            );
+      // 4. Generate new tokens
+      const payload = {
+        user: {
+          _id: admin._id,
+          name: admin.name,
+          email: admin.email,
+          role: admin.role,
+        },
+      };
 
-            // Add new refresh token to database
-            admin.refreshToken.push(newRefreshToken);
+      const accessToken = jwt.sign(payload, JWT_ACCESS_SECRET, {
+        expiresIn: JWT_ACCESS_EXPIRE,
+      });
 
-            // Remove old token from database
-            if(admin.refreshToken.length > 2) admin.refreshToken = admin.refreshToken.slice(-2)
-            await admin.save();
+      const newRefreshToken = jwt.sign(payload, JWT_REFRESH_SECRET, {
+        expiresIn: JWT_REFRESH_EXPIRE,
+      });
 
-            return {accessToken, newRefreshToken};
-        } catch (error) {
-            throw error
-        }
+      // 5. Replace old refresh token with new one
+      admin.refreshToken = admin.refreshToken.filter(t => t !== refreshToken);
+      admin.refreshToken.push(newRefreshToken);
+      await admin.save();
+
+      // 6. Return new tokens
+      return { accessToken, newRefreshToken };
+
+    } catch (error) {
+      throw error;
     }
+  }
 }
 
-export default tokenServices
+export default tokenServices;
