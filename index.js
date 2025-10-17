@@ -16,7 +16,6 @@ import loggedClientRouter from './routes/client-routes/client.routes.js';
 import errorHandler from './middleware/error.middleware.js';
 import appMiddlewares from './middleware/app.middlewares.js';
 import { uploadsCors } from './middleware/app.middlewares.js';
-import { startAgenda } from './controllers/jobs.js';
 
 import db  from './database/db.js';
 import { PORT } from './config/config.js';
@@ -41,8 +40,6 @@ app.use('/api/client/auth', clientAuthRouter);
 app.use('/api/client/client', loggedClientRouter);
 
 app.use(errorHandler);
-
-await startAgenda()
 
 process.on('uncaughtException', (err) =>{
     console.log("Uncaught Exception:", err.message)

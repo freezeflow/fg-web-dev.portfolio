@@ -29,7 +29,7 @@ projectRoutes.post('/email', validateSendEmail, authenticate, authorizeRole('adm
 projectRoutes.get('/', validateGetProjects, authenticate, authorizeRole('admin'), projectControl.getAllProjects);
 
 // Get all featured projects
-projectRoutes.get("/featured", validateGetProjects, authenticate, authorizeRole('admin'), projectControl.getFeatured);
+projectRoutes.get("/featured", validateGetProjects, projectControl.getFeatured);
 
 // Get project by id
 projectRoutes.get('/:id', validateGetProject, authenticate, authorizeRole('admin', 'client'), projectControl.getProject);

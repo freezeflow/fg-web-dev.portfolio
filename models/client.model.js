@@ -54,9 +54,6 @@ const clientSchema = new Schema({
       ref: 'Project',
     },
   ],
-  refreshToken: [
-    String
-  ],
   passwordResetToken: String,
   passwordResetExpires: Date
 }, {
