@@ -21,7 +21,7 @@ projectFileRoutes.post('/:id',
     projectFileControl.createProjectFile 
 );
 
-projectFileRoutes.get('/:id', validateFilesId, authenticate, authorizeRole('admin'), projectFileControl.getFilepathControl)
+projectFileRoutes.get('/:id', validateFilesId, projectFileControl.getFilepathControl)
 
 projectFileRoutes.delete('/', validateDeleteFile, authenticate, authorizeRole('admin'), projectFileControl.deleteFile)
 
