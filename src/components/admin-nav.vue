@@ -1,13 +1,13 @@
 <script setup>
 import editAdminProfile from './admin-comps/edit-admin-profile.vue';
+import { useAdminStore } from '@/stores/user';
 import sidebar from './sidebar.vue'
 import topbar from './topbar.vue';
 import { ref } from 'vue';
 
-const role = ref()
+const adminStore = useAdminStore()
 
-const storedRole = localStorage.getItem('role')
-if(storedRole) role.value = JSON.parse(storedRole)
+const user = adminStore.user
 
 const edit = ref()
 </script>
@@ -16,15 +16,16 @@ const edit = ref()
   <div class="nav-bars">
     <!-- Topbar -->
     <topbar class="topbar"
-      v-if="role === 'admin'"
+      v-if="user?.role === 'admin'"
       @edit="edit = true"
     />
 
     <!-- Sidebar -->
-    <sidebar />
+    <sidebar 
+      :user="user"
+    />
   </div>
   
-
   <Teleport to="body">
     <editAdminProfile 
       v-if="edit"

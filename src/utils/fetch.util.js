@@ -1,125 +1,91 @@
-export default class fetchApi{
-    credentials = false
-    token = ''
-    constructor(credentials, token=''){
-        this.credentials = credentials
-        this.token = token
+import router from "@/router";
+
+export default class fetchApi {
+  constructor() {
+    this.baseURL = import.meta.env.VITE_API_URL;
+  }
+
+  async _request(url, options = {}, retry = true) {
+    const res = await fetch(url, { ...options, credentials: 'include' });
+
+    if (res.status === 401 && retry) {
+      // Try refreshing the token
+      const refreshRes = await fetch(`${this.baseURL}/api/refresh`, {
+        method: 'POST',
+        credentials: 'include'
+      });
+
+      if (refreshRes.ok) {
+        // Retry original request once
+        return this._request(url, options, false);
+      } else {
+        router.push('/admin/login')
+      }
+    } else if(res.status === 403){
+        router.push('/admin/login')
     }
 
-    _addAuthHeader(headers) {
-        if (this.token) {
-            headers['Authorization'] = `Bearer ${this.token}`;
-        }
+    return res;
+  }
+
+  async get(url) {
+    const res = await this._request(url, { method: 'GET' });
+    return res;
+  }
+
+  async post(url, body = null) {
+    const options = { method: 'POST', headers: {} };
+
+    if (body instanceof FormData) {
+      options.body = body;
+    } else if (body) {
+      options.headers['Content-Type'] = 'application/json';
+      options.body = JSON.stringify(body);
     }
 
-    async post(url, body = null) {
-        const fetchOptions = {
-            method: 'POST',
-            headers: {},
-            body: null
-        };
-        if (body instanceof FormData) {
-            fetchOptions.body = body;
-        } else {
-            fetchOptions.headers['Content-Type'] = 'application/json';
-            fetchOptions.body = JSON.stringify(body);
-        }
-        this._addAuthHeader(fetchOptions.headers);
-        if (this.credentials) {
-            fetchOptions.credentials = 'include';
-        }
-        const res = await fetch(url, fetchOptions);
-        return res;
+    const res = await this._request(url, options);
+    return res;
+  }
+
+  async put(url, body = null) {
+    const options = { method: 'PUT', headers: {} };
+
+    if (body instanceof FormData) {
+      options.body = body;
+    } else if (body) {
+      options.headers['Content-Type'] = 'application/json';
+      options.body = JSON.stringify(body);
     }
 
-    async get(url){
-        const fetchOptions = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        };
-        this._addAuthHeader(fetchOptions.headers);
-        if (this.credentials) {
-            fetchOptions.credentials = 'include';
-        }
-        const res = await fetch(url, fetchOptions);
-        return res;
+    const res = await this._request(url, options);
+    return res;
+  }
+
+  async patch(url, body = null) {
+    const options = { method: 'PATCH', headers: {} };
+
+    if (body instanceof FormData) {
+      options.body = body;
+    } else if (body) {
+      options.headers['Content-Type'] = 'application/json';
+      options.body = JSON.stringify(body);
     }
 
-    async put(url, body) {
-        const fetchOptions = {
-            method: 'PUT',
-            headers: {},
-            body: null
-        };
-        if (body instanceof FormData) {
-            fetchOptions.body = body;
-        } else {
-            fetchOptions.headers['Content-Type'] = 'application/json';
-            fetchOptions.body = JSON.stringify(body);
-        }
-        this._addAuthHeader(fetchOptions.headers);
-        if (this.credentials) {
-            fetchOptions.credentials = 'include';
-        }
-        const res = await fetch(url, fetchOptions);
-        return res;
+    const res = await this._request(url, options);
+    return res;
+  }
+
+  async delete(url, body = null) {
+    const options = { method: 'DELETE', headers: {} };
+
+    if (body instanceof FormData) {
+      options.body = body;
+    } else if (body) {
+      options.headers['Content-Type'] = 'application/json';
+      options.body = JSON.stringify(body);
     }
 
-    async delete(url, body) {
-        const fetchOptions = {
-            method: 'DELETE',
-            headers: {},
-            body: null
-        };
-        if (body instanceof FormData) {
-            fetchOptions.body = body;
-        } else if (body) {
-            fetchOptions.headers['Content-Type'] = 'application/json';
-            fetchOptions.body = JSON.stringify(body);
-        }
-        this._addAuthHeader(fetchOptions.headers);
-        if (this.credentials) {
-            fetchOptions.credentials = 'include';
-        }
-        const res = await fetch(url, fetchOptions);
-        return res;
-    }
-
-    async refresh(response){
-        if (response.status !== 403) return response
-
-        const refreshRes = await fetch(`${import.meta.env.VITE_API_URL}/api/refresh/`, {
-            method: 'POST',
-            credentials: 'include'
-        })
-
-        return refreshRes
-    }
-
-    async patch(url, body = null) {
-        const fetchOptions = {
-            method: 'PATCH',
-            headers: {},
-            body: null
-        };
-
-        if (body instanceof FormData) {
-            fetchOptions.body = body;
-        } else if (body) {
-            fetchOptions.headers['Content-Type'] = 'application/json';
-            fetchOptions.body = JSON.stringify(body);
-        }
-
-        this._addAuthHeader(fetchOptions.headers);
-
-        if (this.credentials) {
-            fetchOptions.credentials = 'include';
-        }
-
-        const res = await fetch(url, fetchOptions);
-        return res;
-    }
-
+    const res = await this._request(url, options);
+    return res;
+  }
 }

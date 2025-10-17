@@ -1,64 +1,43 @@
-import RefreshHandler from './refresh.util.js'
+import BaseService from './base.service.js'
 
-export default class TaskService extends RefreshHandler {
+export default class TaskService extends BaseService {
   constructor() {
     super('/api/tasks')
   }
 
   async getTask(id) {
-    const res = await this.withRefreshRetry(() =>
-      this.fetch.get(`${this.base_route}/${id}`)
-    )
-    if (!res.ok) throw new Error('Failed to fetch task')
-    return await res.json()
+    const res = await this.fetch.get(`${this.base_route}/${id}`)
+    return this.handleResponse(res, 'Failed to fetch task')
   }
 
   async getAllTasks(projectId) {
-    const res = await this.withRefreshRetry(() =>
-      this.fetch.get(`${this.base_route}/project/${projectId}`)
-    )
-    if (!res.ok) throw new Error('Failed to fetch tasks')
-    return await res.json()
+    const res = await this.fetch.get(`${this.base_route}/project/${projectId}`)
+    return this.handleResponse(res, 'Failed to fetch tasks')
   }
 
   async getTasks(query) {
-    const res = await this.withRefreshRetry(() =>
-      this.fetch.get(`${this.base_route}/?filter=${encodeURIComponent(query)}`)
-    )
-    if (!res.ok) throw new Error(`Failed to fetch ${query} tasks`)
-    return await res.json()
+    const res = await this.fetch.get(`${this.base_route}/?filter=${encodeURIComponent(query)}`)
+    return this.handleResponse(res, `Failed to fetch ${query} tasks`)
   }
 
   async createTask(formData) {
-    const res = await this.withRefreshRetry(() =>
-      this.fetch.post(`${this.base_route}/`, formData)
-    )
-    if (!res.ok) throw new Error('Failed to create task')
-    return await res.json()
+    const res = await this.fetch.post(`${this.base_route}/`, formData)
+    return this.handleResponse(res, 'Failed to create task')
   }
 
   async deleteTask(id) {
-    const res = await this.withRefreshRetry(() =>
-      this.fetch.delete(`${this.base_route}/${id}`)
-    )
-    if (!res.ok) throw new Error('Failed to delete task')
-    return await res.json()
+    const res = await this.fetch.delete(`${this.base_route}/${id}`)
+    return this.handleResponse(res, 'Failed to delete task')
   }
 
   async updateTask(id, updatedData) {
-    const res = await this.withRefreshRetry(() =>
-      this.fetch.patch(`${this.base_route}/${id}`, updatedData)
-    )
-    if (!res.ok) throw new Error('Failed to update task')
-    return await res.json()
+    const res = await this.fetch.patch(`${this.base_route}/${id}`, updatedData)
+    return this.handleResponse(res, 'Failed to update task')
   }
 
   async updateStatus(id, status) {
-    const res = await this.withRefreshRetry(() =>
-      this.fetch.patch(`${this.base_route}/update/status/${id}?status=${status}`)
-    )
-    if (!res.ok) throw new Error(`Failed to update task status to "${status}"`)
-    return await res.json()
+    const res = await this.fetch.patch(`${this.base_route}/update/status/${id}?status=${status}`)
+    return this.handleResponse(res, `Failed to update task status to "${status}"`)
   }
 
   async markAsComplete(id) {

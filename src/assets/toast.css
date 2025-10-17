@@ -1,0 +1,64 @@
+@import url('./variables.css');
+
+.Vue-Toastification__toast {
+  background: var(--off-color) !important;
+  color: #f5f5f5 !important;
+  border-radius: 14px !important;
+  border: 1px solid rgba(255, 255, 255, 0.05) !important;
+  box-shadow: 0 0 20px rgba(0, 255, 255, 0.15),
+              0 0 50px rgba(255, 0, 255, 0.05);
+  backdrop-filter: blur(6px);
+  font-family: var(--paragraph-font);
+  letter-spacing: 0.3px;
+  padding: 0.9rem 1.2rem !important;
+  transition: all 0.3s ease;
+}
+
+/* === Toast Types === */
+.Vue-Toastification__toast--success {
+  border-left: 4px solid #0584d8 !important;
+  text-shadow: 0 0 6px #0584d883;
+  box-shadow: 0 0 25px #0584d82f;
+}
+
+.Vue-Toastification__toast--error {
+  border-left: 4px solid #ff0000 !important;
+  text-shadow: 0 0 6px rgba(255, 0, 0, 0.5);
+  box-shadow: 0 0 25px rgba(255, 0, 0, 0.25);
+}
+
+.Vue-Toastification__toast--info {
+  border-left: 4px solid #00bcd4 !important;
+  text-shadow: 0 0 6px rgba(0, 188, 212, 0.5);
+  box-shadow: 0 0 25px rgba(0, 188, 212, 0.25);
+}
+
+.Vue-Toastification__toast--warning {
+  border-left: 4px solid #ff9800 !important;
+  text-shadow: 0 0 6px rgba(255, 152, 0, 0.5);
+  box-shadow: 0 0 25px rgba(255, 152, 0, 0.25);
+}
+
+/* === Progress Bar === */
+.Vue-Toastification__progress-bar {
+  background: linear-gradient(90deg, #0584d8, #020320) !important;
+  height: 3px;
+  border-radius: 0 0 3px 3px;
+}
+
+/* === Close Button === */
+.Vue-Toastification__close-button {
+  color: #ccc !important;
+  transition: color 0.3s ease;
+}
+
+.Vue-Toastification__close-button:hover {
+  color: #0584d8 !important;
+}
+
+/* === Hover Effect === */
+.Vue-Toastification__toast:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 30px rgba(0, 255, 255, 0.3),
+              0 0 60px rgba(255, 0, 255, 0.15);
+}

@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive } from 'vue'
-import { useAdminStore } from '@/stores/admin'
+import { useAdminStore } from '@/stores/user'
 import errorMessage from '../error-message.vue'
 import { Eye, EyeOff } from 'lucide-vue-next'
 

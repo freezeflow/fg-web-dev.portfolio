@@ -4,19 +4,19 @@ import { handleClientLogout } from '@/utils/logout.client.js'
 import { ref, watch, computed } from 'vue';
 import { Briefcase, LayoutDashboard, Users, Settings, LogOut, User } from 'lucide-vue-next'
 
+const props = defineProps({
+  user: {type: Object, required: true}
+})
+
 const route = useRoute();
 const prevActive = ref(null);
 const currentActive = ref(route.path);
 const projectsOpen = ref(false);
-const role = ref()
 const projects = ref([])
 
 // Mobile nav variables
 const isOpen = ref(false);
 const mobileOpenDropdown = ref(null); // track which dropdown is open
-
-const storedRole = localStorage.getItem('role')
-if(storedRole) role.value = JSON.parse(storedRole)
 
 const storedProjects = localStorage.getItem('projects')
 if (storedProjects) {
@@ -37,7 +37,7 @@ watch(
 );
 
 const menuItems = computed(() => {
-  if (role.value === 'admin') {
+  if (props.user?.role === 'admin') {
     return [
       { icon: LayoutDashboard, label: 'Dashboard', to: '/dashboard' },
       {
@@ -175,7 +175,6 @@ const toggleMobileDropdown = (label) => {
       left: 0;
       z-index: 1000;
       height: 100vh;
-      width: 10%;
       display: grid;
       grid-template-rows: 1fr 1fr 1fr;
     }

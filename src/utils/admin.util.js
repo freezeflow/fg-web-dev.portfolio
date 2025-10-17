@@ -1,35 +1,22 @@
-import RefreshHandler from "./refresh.util";
+import BaseService from './base.service.js'
 
-export default class adminServices extends RefreshHandler{
-    constructor(){
-        super('/api/admin')
-    }
+export default class AdminService extends BaseService {
+  constructor() {
+    super('/api/admin')
+  }
 
-    async getAdmin(adminId) {
-        const res = await this.withRefreshRetry(() =>
-            this.fetch.get(`${this.base_route}/${adminId}`)
-        )
-        if (!res.ok) throw new Error('Failed to fetch admin')
-        const data = await res.json()
-        return data
-    }
+  async getAdmin() {
+    const res = await this.fetch.get(`${this.base_route}/`)
+    return this.handleResponse(res, 'Failed to fetch admin')
+  }
 
-    async updateAdmin(adminId, form){
-        const res = await this.withRefreshRetry(() =>
-            this.fetch.put(`${this.base_route}/${adminId}`, form)
-        )
-        if (!res.ok) throw new Error('Failed to update profile')
-    
-        return await res.json()
-    }
+  async updateAdmin(form) {
+    const res = await this.fetch.put(`${this.base_route}/`, form)
+    return this.handleResponse(res, 'Failed to update profile')
+  }
 
-    async changePassword(adminId, form){
-        const res = await this.withRefreshRetry(() =>
-            this.fetch.put(`${this.base_route}/password/${adminId}`, form)
-        )
-
-        if (!res.ok) throw new Error(res.message)
-
-        return await res.json()
-    }
+  async changePassword(form) {
+    const res = await this.fetch.put(`${this.base_route}/password/`, form)
+    return this.handleResponse(res, 'Failed to update password')
+  }
 }

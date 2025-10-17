@@ -1,101 +1,53 @@
-import { defineStore } from "pinia";
-import router from "@/router";
-import AuthClass from "@/utils/auth.util";
-import { handleAdminLogout } from "@/utils/admin.logout.util";
+import { defineStore } from 'pinia'
+import AuthService from '@/utils/auth.util'
 
-const authServ = new AuthClass()
-export const useAuthStore = defineStore( 'auth', {
-    // Set state for access token
-    state: () =>({
-        accessToken: '',
-        loading: false,
-        error: null
-    }),
-    actions:{
-        // Login admin
-        async adminLogin(form){
-            this.loading = true
-            this.error = null
-            try {
-                const res = await authServ.adminLogin(form)
+const authServ = new AuthService()
 
-                this.accessToken = res.accessToken
-                return res
-            } catch (error) {
-                this.error = error
-            } finally {
-                this.loading = false
-            }
-        },
+export const useAuthStore = defineStore('auth', {
+  state: () => ({
+    loading: false,
+    error: null
+  }),
 
-        async clientLogin(form){
-            this.loading = true
-            this.error = null
-            try {
-                const res = await authServ.clientLogin(form)
-                this.accessToken = res.accessToken
-                return res
-            } catch (error) {
-                this.error = error
-            } finally {
-                this.loading = false
-            }
-        },
+  actions: {
+    async handleRequest(actionFn, form) {
+      this.loading = true
+      this.error = null
 
-        async verifyClientEmail(form){
-            this.loading = true
-            this.error = null
-            try {
-                const res = await authServ.verifyClientEmail(form)
-                return res
-            } catch (error) {
-                this.error = error
-            } finally {
-                this.loading = false
-            }
-        },
+      try {
+        const response = await actionFn(form)
+        return response
+      } catch (err) {
+        this.error = err instanceof Error ? err : new Error(String(err))
+        throw this.error // allow component-level handling (e.g., toast)
+      } finally {
+        this.loading = false
+      }
+    },
 
-        async resetPin(form){
-            this.loading = true
-            this.error = null
-            try {
-                const res = await authServ.resetPin(form)
-                return res
-            } catch (error) {
-                this.error = error
-            } finally {
-                this.loading = false
-            }
-        },
+    // 🔐 Admin login
+    async adminLogin(form) {
+      return this.handleRequest(authServ.adminLogin.bind(authServ), form)
+    },
 
-        // Create function to call api to refresh access token
-        async refreshAccessToken(){
-            try {
-                // Call api endpoint
-                const response = await fetch(`${import.meta.env.VITE_API_URL}/api/refresh`, {
-                    method: 'POST',
-                    credentials: 'include'
-                });
+    // 👤 Client login
+    async clientLogin(form) {
+      return this.handleRequest(authServ.clientLogin.bind(authServ), form)
+    },
 
-                // Set data
-                const data = await response.json()
+    // 📧 Verify client email
+    async verifyClientEmail(form) {
+      return this.handleRequest(authServ.verifyClientEmail.bind(authServ), form)
+    },
 
-                // Check if response is okay
-                if(!response.ok){
-                    this.accessToken = ''
-                    router.push('/admin/login');
-                    return false
-                }
+    // 🔄 Reset PIN
+    async resetPin(form) {
+      return this.handleRequest(authServ.resetPin.bind(authServ), form)
+    },
 
-                // Set access token if response is okay
-                this.accessToken = data.accessToken;
-                return true;
-            } catch (error) {
-                this.accessToken = ''
-                router.push('/admin/login');
-                handleAdminLogout()
-                return false
-            }
-        }
+    // 🧠 Validate password (admin)
+    async validatePassword(form) {
+      return this.handleRequest(authServ.validatePassword.bind(authServ), form)
     }
+  }
 })

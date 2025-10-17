@@ -9,10 +9,10 @@
                 :clientInfo="client"
                 :projects="projects"
                 :is-client="clientRole"
-                @delete="!clientRole && (isDeleting = true)"
-                @edit="!clientRole && (isUpdating = true)"
-                @add-project="!clientRole && (isAddingProject = true)"
-                @remove="(id) => { if(!clientRole) handleOpenRemoveProject(id) }"
+                @delete="(isDeleting = true)"
+                @edit="(isUpdating = true)"
+                @add-project="(isAddingProject = true)"
+                @remove="(id) => handleOpenRemoveProject(id)"
             />
         </div>
         <div class="client-files" v-if="!clientRole">
@@ -35,21 +35,21 @@
 
     <teleport to="body">
         <delete-card 
-            v-if="client && isDeleting && !clientRole"
+            v-if="client && isDeleting"
             :title="client.name"
             @close="isDeleting = false"
             @validation-result="handleDelete"
         />
 
         <update-client 
-            v-if="client && isUpdating && !clientRole"
+            v-if="client && isUpdating"
             :update-client="clientStore.updateClient.bind(clientStore)"
             @close="isUpdating = false"
             :client-info="client"
         />
 
         <add-projects 
-            v-if="client && isAddingProject && !clientRole"
+            v-if="client && isAddingProject"
             :update-client="clientStore.updateClient.bind(clientStore)"
             @close="isAddingProject = false"
             :client-id="client._id"
@@ -59,7 +59,7 @@
         />
 
         <remove-project 
-            v-if="client && isRemoving && !clientRole"
+            v-if="client && isRemoving"
             :update-client="clientStore.updateClient.bind(clientStore)"
             @close="isRemoving = false"
             :client-info="client"
@@ -68,7 +68,7 @@
         />
 
         <upload-file
-            v-if="isAdding && !clientRole"
+            v-if="isAdding"
             :validateSize="formUtil.isFileSizeValid.bind(formUtil)"
             :uploadFile="clientStore.uploadClientFile.bind(clientStore)"
             :clientId="client._id"
@@ -136,14 +136,7 @@ const handleRemoveProject = async () => {
 }
 
 onMounted(async () => {
-    const storedRole = localStorage.getItem('role')
-    if(storedRole){
-        const user = JSON.parse(storedRole)
-        clientRole.value = user === 'client'
-    }
-
     const stored = localStorage.getItem('selectedClient')
-    const storedClient = localStorage.getItem('client')
     
     if (stored) {
         client.value = JSON.parse(stored)
@@ -156,20 +149,6 @@ onMounted(async () => {
         if(ids.length != 0) projects.value = await projectStore.getProjects(ids, true)
 
         files.value = JSON.parse(storedFiles)
-    }else if(storedClient){
-        loggedClientStore = useLoggedClientStore()
-
-        loggedClientStore.loadClient()
-        client.value = loggedClientStore.client
-
-        if(client.value.projects){
-            const ids = client.value.projects
-
-            if(ids.length != 0) projects.value = await loggedClientStore.getProjects(ids)
-            loggedClientStore.loadProjects()
-            projects.value = loggedClientStore.projects
-        }
-        
     }
 })
 </script>

@@ -1,94 +1,30 @@
-import fetchApi from './fetch.util' 
-import router from '@/router';
-import { handleAdminLogout } from './admin.logout.util';
+import BaseService from './base.service.js'
 
-export default class AuthClass {
-    constructor(){
-        this.base_route = `${import.meta.env.VITE_API_URL}/api/auth`;
-        this.client_route = `${import.meta.env.VITE_API_URL}/api/client`;
-        this.fetch = new fetchApi(true)
-    }
+export default class AuthService extends BaseService {
+  constructor() {
+    super('/api/auth')
+    this.client_route = `${import.meta.env.VITE_API_URL}/api/client`
+  }
 
-    async adminLogin(form){
-        try {
-            const res = await this.fetch.post(`${this.base_route}/sign-in`, form)
+  async adminLogin(form) {
+    const res = await this.fetch.post(`${this.base_route}/sign-in`, form)
+    if (res.status === 404) throw new Error('Invalid password or email')
+    return this.handleResponse(res, 'Failed to validate admin')
+  }
 
-            if(res.status === 404) throw new Error('Invalid password or email');
+  async clientLogin(form) {
+    const res = await this.fetch.post(`${this.client_route}/sign-in`, form)
+    if (res.status === 404) throw new Error('Invalid password or email')
+    return this.handleResponse(res, 'Failed to validate client')
+  }
 
-            if (!res.ok) throw new Error('Failed to validate admin');
+  async verifyClientEmail(form) {
+    const res = await this.fetch.post(`${this.base_route}/verify`, form)
+    return this.handleResponse(res, 'Failed to validate email')
+  }
 
-            return await res.json();
-        } catch (error) {
-            throw error
-        }
-    }
-
-    async clientLogin(form){
-        try {
-            const res = await this.fetch.post(`${this.client_route}/sign-in`, form)
-
-            if(res.status === 404) throw new Error('Invalid password or email');
-
-            if (!res.ok) throw new Error('Failed to validate client');
-
-            return await res.json();
-        } catch (error) {
-            throw error
-        }
-        
-    }
-
-    async verifyClientEmail(form){
-        try {
-            const res = await this.fetch.post(`${this.base_route}/verify`, form)
-
-            if (!res.ok) throw new Error('Failed to validate email');
-
-            return await res.json();
-        } catch (error) {
-            throw error
-        }
-        
-    }
-
-    async resetPin(form){
-        try {
-            const res = await this.fetch.put(`${this.base_route}/reset/${form.token}`, form)
-
-            if (!res.ok) throw new Error('Failed to reset pin');
-
-            return await res.json();
-        } catch (error) {
-            throw error
-        }
-        
-    }
-
-    async validatePassword(password) {
-        const stored = localStorage.getItem('admin')
-        let email
-        if(!stored){
-            router.push('/admin/login')
-            handleAdminLogout()
-        } 
-
-        const adminInfo = JSON.parse(stored)
-
-        email = adminInfo.email
-
-        const form = { email, password };
-
-        try {
-            const res = await this.fetch.post(`${this.base_route}/sign-in`, form)
-
-            if(res.status === 404) throw new Error('Invalid password');
-
-            if (!res.ok) throw new Error('Failed to validate password');
-
-            const data = await res.json();
-            return { message: data.message, success: data.success };
-        } catch (err) {
-            return { message: this.error, success: false };
-        }
-    }
+  async resetPin(form) {
+    const res = await this.fetch.put(`${this.base_route}/reset/${form.token}`, form)
+    return this.handleResponse(res, 'Failed to reset pin')
+  }
 }

@@ -9,137 +9,86 @@ export const useProjectStore = defineStore('projects', {
     projects: [],
     selectedProject: null,
     loading: false,
-    error: null
+    error: null,
   }),
 
   actions: {
-    async getAllProjects() {
+    async handleRequest(fn, ...args) {
       this.loading = true
       this.error = null
       try {
-        this.projects = await projectService.getAllProjects()
+        return await fn(...args)
       } catch (err) {
-        this.error = err.message
+        this.error = err instanceof Error ? err : new Error(String(err))
+        throw this.error
       } finally {
         this.loading = false
       }
+    },
+
+    async getAllProjects() {
+      this.projects = await this.handleRequest(projectService.getAllProjects.bind(projectService))
     },
 
     async getProject(id, url) {
-      this.loading = true
-      this.error = null
-      try {
-        const data = await projectService.getProject(id)
-        this.selectedProject = data.foundProject
+      const data = await this.handleRequest(projectService.getProject.bind(projectService), id)
+      this.selectedProject = data?.foundProject || null
+      if (this.selectedProject) {
         localStorage.setItem('selectedProject', JSON.stringify(this.selectedProject))
-        if(this.selectedProject && url) router.push(url)
-      } catch (err) {
-        this.error = err.message
-      } finally {
-        this.loading = false
+        if (url) router.push(url)
       }
+      return this.selectedProject
     },
 
     async getProjects(ids = [], storeInLocalStorage = true) {
-      this.loading = true
-      this.error = null
-
-      try {
+      const results = await this.handleRequest(async () => {
         const promises = ids.map(id => projectService.getProject(id))
-        const results = await Promise.all(promises)
+        return Promise.all(promises)
+      })
 
-        const validProjects = results
-          .map(res => res?.foundProject)
-          .filter(Boolean)
+      const validProjects = results
+        .map(res => res?.foundProject)
+        .filter(Boolean)
 
-        if (storeInLocalStorage) {
-          localStorage.setItem('selectedProjects', JSON.stringify(validProjects))
-        }
-
-        return validProjects
-      } catch (err) {
-        this.error = err.message
-        return []
-      } finally {
-        this.loading = false
+      if (storeInLocalStorage) {
+        localStorage.setItem('selectedProjects', JSON.stringify(validProjects))
       }
+
+      return validProjects
     },
 
     async getFeaturedProjects() {
-      this.loading = true
-      this.error = null
-      try {
-        const res = await projectService.getFeaturedProjects()
-        this.projects = res.Projects
-      } catch (err) {
-        this.error = err.message
-      } finally {
-        this.loading = false
-      }
+      const res = await this.handleRequest(projectService.getFeaturedProjects.bind(projectService))
+      this.projects = res?.Projects || []
     },
 
     async createProject(formData) {
-      this.loading = true
-      this.error = null
-      try {
-        const data = await projectService.createProject(formData)
-        this.projects.push(data.project)
-      } catch (err) {
-        this.error = err.message
-      } finally {
-        this.loading = false
-      }
+      const data = await this.handleRequest(projectService.createProject.bind(projectService), formData)
+      if (data?.project) this.projects.push(data.project)
+      return data
     },
 
     async deleteProject(id) {
-      this.loading = true
-      this.error = null
-      try {
-        await projectService.deleteProject(id)
-        // remove deleted project from local state
-        this.projects = this.projects.filter(p => p._id !== id)
-        if (this.selectedProject?._id === id) {
-          this.selectedProject = null
-          localStorage.removeItem('selectedProject')
-        }
-      } catch (err) {
-        this.error = err.message
-      } finally {
-        this.loading = false
+      await this.handleRequest(projectService.deleteProject.bind(projectService), id)
+      this.projects = this.projects.filter(p => p._id !== id)
+      if (this.selectedProject?._id === id) {
+        this.selectedProject = null
+        localStorage.removeItem('selectedProject')
       }
     },
 
     async updateProject(id, updatedData) {
-      this.loading = true
-      this.error = null
-      try {
-        const updated = await projectService.updateProject(id, updatedData)
+      const updated = await this.handleRequest(projectService.updateProject.bind(projectService), id, updatedData)
 
-        // update local state
-        this.projects = this.projects.map(p => p._id === id ? updated.updatedProject : p)
-
-        if (this.selectedProject?._id === id) {
-          this.selectedProject = updated.updatedProject
-          localStorage.removeItem('selectedProject')
-          localStorage.setItem('selectedProject', JSON.stringify(this.selectedProject))
-        }
-      } catch (err) {
-        this.error = err.message
-      } finally {
-        this.loading = false
+      this.projects = this.projects.map(p => p._id === id ? updated?.updatedProject : p)
+      if (this.selectedProject?._id === id && updated?.updatedProject) {
+        this.selectedProject = updated.updatedProject
+        localStorage.setItem('selectedProject', JSON.stringify(this.selectedProject))
       }
     },
 
     async sendEmail(form) {
-      this.loading = true
-      this.error = null
-      try {
-        await projectService.sendEmail(form)
-      } catch (err) {
-        this.error = err.message
-      } finally {
-        this.loading = false
-      }
+      await this.handleRequest(projectService.sendEmail.bind(projectService), form)
     },
-  }
+  },
 })
