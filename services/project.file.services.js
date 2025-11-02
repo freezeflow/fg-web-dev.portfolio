@@ -1,4 +1,5 @@
 import projectFile from "../models/project.files.model.js";
+import Featured from "../models/featured.model.js";
 import AppError from "../utils/app.error.class.js";
 import { v2 as cloudinary } from "cloudinary";
 
@@ -6,28 +7,36 @@ export default class projectFileServices{
 
     createProjectFiles = async (req) => {
         try {
-            // Get project id from request params
-            const id = req.params.id
+            const id = req.params.id;
 
-            // Get file
-            const { path, filename } = req.file;
+            if (!req.file) {
+                throw new AppError({ message: "No file uploaded", status: 400 });
+            }
 
-            // Create new file document in database
+            // const featured = await Featured.findById(id)
+
+            // if(!featured) throw new AppError({message: "Project not found", status: 404})
+
+            const { path, filename, mimetype } = req.file;
+            
+            const result = req.file;
+
+            // 💾 Save file info in MongoDB
             const newProjectFile = await projectFile.create({
                 projectId: id,
                 fileName: filename,
-                filePath: path
+                filePath: path,
             });
 
-            // Check if project was saved in the database
-            if(!newProjectFile) throw new AppError({message: "Project file not created", status: 500})
+            if (!newProjectFile) {
+                throw new AppError({ message: "Project file not created", status: 500 });
+            }
 
-            // Send response
-            return newProjectFile
+            return newProjectFile;
         } catch (error) {
-            throw error
+            throw error;
         }
-    }
+    };
 
     getFilepath = async (req) => {
         // Get project id
@@ -60,10 +69,9 @@ export default class projectFileServices{
             }
 
             // Delete from Cloudinary
-            const cloudRes = await cloudinary.uploader.destroy(deletedFile.fileName, {resource_type: 'image'});
+            const cloudRes = await cloudinary.uploader.destroy(deletedFile.fileName, {resource_type: 'video'});
 
             if (cloudRes.result === "ok") {
-            // Only clean up DB if Cloudinary deleted the file
                 await projectFile.findOneAndDelete({ projectId: id });
                 return { message: "File deleted successfully", deletedFile };
             } else if (cloudRes.result === "not found") {

@@ -4,7 +4,6 @@ import validate from "../middleware/validate.middleware.js";
 export const validateCreateProject = [
     validators.bodyString('title'),
     validators.bodyString('description'),
-    validators.bodyString('summary'),
     validators.bodyString('type'),
     validators.bodyStringArray('tech'),
     validate
@@ -13,11 +12,9 @@ export const validateCreateProject = [
 export const validateUpdateProject = [
     validators.paramObjectId('id'),
     validators.bodyString({field: 'title', optional: true}),
-    validators.bodyString({field: 'description', optional: true}),
     validators.bodyString({field: 'summary', optional: true}),
     validators.bodyString({field: 'type', optional: true}),
     validators.bodyStringArray({field: 'tech', optional: true}),
-    validators.bodyLink({field: 'link', optional: true}),
     validators.bodyBoolean({field: 'featured', optional: true}),
     validators.bodyBoolean({field: 'complete', optional: true}),
     validators.bodyDate({field: 'dateCompleted', optional: true}),

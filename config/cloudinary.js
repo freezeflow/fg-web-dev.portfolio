@@ -1,6 +1,10 @@
 import { v2 as cloudinary } from 'cloudinary';
 import { CloudinaryStorage } from 'multer-storage-cloudinary';
-import { CLOUDINARY_API_KEY, CLOUDINARY_CLOUD_NAME, CLOUDINARY_API_SECRET} from './config.js';
+import {
+  CLOUDINARY_API_KEY,
+  CLOUDINARY_CLOUD_NAME,
+  CLOUDINARY_API_SECRET
+} from './config.js';
 
 cloudinary.config({
   cloud_name: CLOUDINARY_CLOUD_NAME,
@@ -12,9 +16,18 @@ const storage = (use) => {
   if (use === "projects") {
     return new CloudinaryStorage({
       cloudinary,
-      params: {
-        folder: "project/uploads",
-        allowed_formats: ["jpg", "png", "jpeg"], // restrict to images
+      params: async (req, file) => {
+        const isVideo = file.mimetype.startsWith("video/");
+        return {
+          resource_type: isVideo ? "video" : "image",
+          allowed_formats: isVideo
+            ? ["mp4", "mov", "webm"]
+            : ["jpg", "jpeg", "png"],
+          public_id: `${Date.now()}-${file.originalname.split('.')[0]}`,
+          transformation: isVideo
+            ? [{ duration: 15 }] // limit to 15s videos
+            : [{ quality: "auto", fetch_format: "auto" }],
+        };
       },
     });
   } else if (use === "clients") {

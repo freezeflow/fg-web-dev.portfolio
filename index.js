@@ -11,6 +11,7 @@ import projectFileRoutes from './routes/project.files.route.js'
 import clientRouter from './routes/client.route.js';
 import clientFileRoutes from './routes/client.files.route.js';
 import clientAuthRouter from './routes/client-routes/client.auth.route.js';
+import featuredRouter from './routes/featured.route.js';
 import loggedClientRouter from './routes/client-routes/client.routes.js';
 
 import errorHandler from './middleware/error.middleware.js';
@@ -32,6 +33,7 @@ app.use('/api/auth', authRouter);
 app.use('/api/admin', adminRouter);
 app.use('/api/refresh', refreshRouter);
 app.use('/api/project/files', projectFileRoutes);
+app.use('/api/featured', featuredRouter);
 app.use('/api/projects', projectRoutes);
 app.use('/api/tasks', taskRouter);
 app.use('/api/client', clientRouter);

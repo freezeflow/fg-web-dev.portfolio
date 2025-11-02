@@ -8,21 +8,38 @@ import { validateDeleteFile, validateDownloadFile, validateFilesId } from "../va
 
 const upload = multer({
     storage: storage("projects"),
-    limits: { fileSize: 5 * 1024 * 1024 }
 });
 
 const projectFileRoutes = Router()
 const projectFileControl = new projectFileController()
 
-projectFileRoutes.post('/:id', 
-    validateFilesId, 
-    authenticate, authorizeRole('admin'), 
+projectFileRoutes.post(
+    '/:id',
+    validateFilesId,
+    authenticate, authorizeRole('admin'),
     upload.single("file"),
-    projectFileControl.createProjectFile 
+    projectFileControl.createProjectFile
 );
 
-projectFileRoutes.get('/:id', validateFilesId, projectFileControl.getFilepathControl)
+projectFileRoutes.get('/:id', validateFilesId, authenticate, authorizeRole('admin'), projectFileControl.getFilepathControl)
 
 projectFileRoutes.delete('/', validateDeleteFile, authenticate, authorizeRole('admin'), projectFileControl.deleteFile)
 
 export default projectFileRoutes
+
+// function binarySearch(arr, target) {
+
+//     let start = 0
+//     let end = arr.length - 1
+
+//     while (start <== end) {
+        
+//         let mid = Math.floor((end + start) / 2)
+//         if (arr[mid] === target) {
+//             return arr[mid] = target
+//         } else if(arr[mid] < end) {end = mid}
+//         else {start = mid}
+//     }
+
+//     return 'Not found'
+// }

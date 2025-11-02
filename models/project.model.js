@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import Featured from "./featured.model.js"
 const { Schema } = mongoose;
 
 const projectsSchema = new Schema({
@@ -14,26 +15,14 @@ const projectsSchema = new Schema({
     trim: true
   },
 
-  summary: {
-    type: String,
-    required: true,
-    trim: true
-  },
-
-  link: {
-    type: String,
-    trim: true,
-    validate: {
-      validator: v => !v || /^https?:\/\/.+\..+/.test(v),
-      message: props => `${props.value} is not a valid URL!`
-    },
-    default: null
-  },
-
   tech: {
     type: [String],
     required: true,
-    validate: [arr => arr.length > 0, 'At least one tech is required']
+    validate: {
+      validator: (arr) => arr.length > 0,
+      message: "At least one tech is required"
+    },
+    enum: ['Vue.js', 'Node.js', 'Express.js', 'Tailwind CSS', 'Nuxt.js', 'MongoDB', 'PostgreSQL', 'Socket.io', 'Stripe API', 'Chart.js', 'JavaScript', 'CSS3', 'HTML5']
   },
 
   type: {
@@ -59,6 +48,43 @@ const projectsSchema = new Schema({
 
 }, {
   timestamps: true
+});
+
+projectsSchema.pre("save", function (next) {
+  if (this.isCompleted && !this.dateCompleted) {
+    this.dateCompleted = new Date();
+  }
+  if (Array.isArray(this.tech)) {
+    this.tech = this.tech.map((t) => t.trim());
+  }
+  next();
+});
+
+projectsSchema.post("save", async function (doc) {
+  await Featured.updateMany(
+    { projectId: doc._id },
+    {
+      $set: {
+        "projectInfo.title": doc.title,
+        "projectInfo.description": doc.description,
+        "projectInfo.tech": doc.tech,
+      },
+    }
+  );
+});
+
+projectsSchema.post("findOneAndUpdate", async function (doc) {
+  if (!doc) return;
+  await Featured.updateMany(
+    { projectId: doc._id },
+    {
+      $set: {
+        "projectInfo.title": doc.title,
+        "projectInfo.description": doc.description,
+        "projectInfo.tech": doc.tech,
+      },
+    }
+  );
 });
 
 const Project = mongoose.model("Project", projectsSchema);

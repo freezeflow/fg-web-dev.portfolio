@@ -60,5 +60,30 @@ const clientSchema = new Schema({
   timestamps: true,
 })
 
+clientSchema.post("save", async function (doc) {
+  await Featured.updateMany(
+    { clientId: doc._id },
+    {
+      $set: {
+        "clientInfo.name": doc.name,
+        "clientInfo.company": doc.company,
+      },
+    }
+  );
+});
+
+clientSchema.post("findOneAndUpdate", async function (doc) {
+  if (!doc) return;
+  await Featured.updateMany(
+    { clientId: doc._id },
+    {
+      $set: {
+        "clientInfo.name": doc.name,
+        "clientInfo.company": doc.company,
+      },
+    }
+  );
+});
+
 const Client = mongoose.model('Client', clientSchema)
 export default Client

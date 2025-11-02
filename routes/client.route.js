@@ -1,4 +1,3 @@
-// routes/client.route.js
 import express from "express";
 import clientsController from "../controllers/client.controller.js";
 import {authenticate, authorizeRole} from "../middleware/auth.middleware.js";
