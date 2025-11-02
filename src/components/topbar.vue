@@ -13,7 +13,7 @@ function toggleDropdown() {
 </script>
 
 <template>
-    <div class="topbar">
+    <div class="topbar bg-navy border-0 border-b border-[#000146] fixed top-0 left-0 flex flex-row justify-between items-center w-screen min-h-5 p-1 z-40">
         <div class="logo">
             <img src="../assets/logo.svg" alt="Logo" />
             <p class="logo-name">FG WEB <span>DEVELOPMENT</span></p>
@@ -37,22 +37,6 @@ function toggleDropdown() {
 </template>
 
 <style scoped>
-    .topbar{
-        background-color: var(--off-color);
-        border-bottom: 1px solid #000146;
-        width: calc(100vw - 20px);
-        height: 20px;
-        padding: 10px;
-        position: fixed;
-        top: 0;
-        left: 0;
-        z-index: 10001;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-    }
-
     .logo{
       display: flex;
       flex-direction: row;

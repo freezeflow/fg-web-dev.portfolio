@@ -43,7 +43,7 @@ const menuItems = computed(() => {
       {
         icon: Briefcase, label: 'Projects',
         dropdown: [
-          { label: 'All', to: '/projects/all' },
+          // { label: 'Tasks', to: '/projects/all' },
           { label: 'Featured', to: '/projects/featured' }
         ]
       },
@@ -77,7 +77,7 @@ const toggleMobileDropdown = (label) => {
 
 <template>
   <!-- Desktop Sidebar -->
-  <nav class="desktop-nav">
+  <nav class="desktop-nav z-30">
     <div>
     </div>
     <ul class="desktop-nav-list">
@@ -100,7 +100,7 @@ const toggleMobileDropdown = (label) => {
 
         <!-- Dropdown -->
         <div v-else>
-          <span class="item-label" :class="route.path.startsWith('/project') ? 'active-nav' : 'inactive-nav'"><component :is="item.icon" class="icons" /> {{ item.label }}</span>
+          <span class="item-label cursor-pointer" :class="route.path.startsWith('/project') ? 'active-nav' : 'inactive-nav'"><component :is="item.icon" class="icons" /> {{ item.label }}</span>
           <Transition name="dropdown-fade">
             <ul v-show="projectsOpen" class="dropdown">
               <li v-for="sub in item.dropdown" :key="sub.label">
@@ -173,7 +173,6 @@ const toggleMobileDropdown = (label) => {
       position: fixed;
       top: 0;
       left: 0;
-      z-index: 1000;
       height: 100vh;
       display: grid;
       grid-template-rows: 1fr 1fr 1fr;

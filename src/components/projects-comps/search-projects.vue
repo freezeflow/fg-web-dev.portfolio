@@ -9,8 +9,9 @@
 </script>
 
 <template>
-    <form>
+    <form class="w-1/2">
         <input 
+            class="w-full rounded border border-secondary p-1 outline-0"
             type="text"
             :value="modelValue"
             @input="emit('update:modelValue', $event.target.value)"
@@ -20,15 +21,8 @@
 </template>
 
 <style scoped>
-    form{
-        width: 60%;
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-    }
 
-    form input{
+    /* form input{
         width: 90%;
         height: 25px;
         border-radius: 5px;
@@ -36,5 +30,5 @@
         background-color: white;
         padding: 0 5px;
         outline: none;
-    }
+    } */
 </style>

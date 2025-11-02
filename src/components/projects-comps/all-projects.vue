@@ -93,7 +93,7 @@
     }
 
     .project-div{
-        width: calc(60% - 2rem);
+        width: 100%;
         padding: 1rem;
         background-color: var(--off-color);
         border-radius: 5px;
