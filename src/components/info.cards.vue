@@ -1,5 +1,5 @@
 <script setup>
-    import { ref, onMounted, onUnmounted } from 'vue';
+    import { ref, onMounted } from 'vue';
 
     const props = defineProps({
         title: {
@@ -36,14 +36,13 @@
 
 <template>
     <section 
-        class="info-card" 
-        :class="colorClass" 
+        class="w-full bg-[#000116] border border-[#0584d8]/20 text-white p-5 flex flex-col gap-2 rounded-lg"
         aria-labelledby="card-title"
         ref="cardRef"
     >
-        <component v-if="icon" :is="icon" class="info-card-icon" aria-hidden="true" />
-        <h3 class="card-title" id="card-title">{{ $props.title }}</h3>
-        <p class="card-description">
+        <component v-if="icon" :is="icon" class="size-10 text-[#0584d8]" aria-hidden="true" />
+        <h3 class="text-xl font-bold" id="card-title">{{ $props.title }}</h3>
+        <p class="text-lg text-white/80 font-display">
             {{ $props.description }}
         </p>
     </section>
@@ -64,14 +63,14 @@
     }
 
     @keyframes fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
     }
 </style>
 

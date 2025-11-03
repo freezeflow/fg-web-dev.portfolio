@@ -3,10 +3,6 @@
         icons: {
             type: Array,
         },
-        activeIndex: {
-            type: Number,
-            default: 0
-        }
     });
 
     defineEmits([
@@ -25,96 +21,24 @@
 </script>
 
 <template>
-    <div class="process-nav" aria-label="Process navigation">
-        <div class="icon-wrapper" :class="{active: props.activeIndex === 0}">
-            <component v-if="props.icons.length" :is="UserRoundSearch" class="info-card-icon" aria-hidden="true" @click="$emit('icon1')" />
+    <div class="flex flex-col w-full" aria-label="Process navigation">
+        <div class="flex items-center justify-center p-2 border-2 border-blue-500 rounded-full">
+            <component v-if="props.icons.length" :is="UserRoundSearch" class="size-7 text-blue-500" aria-hidden="true" @click="$emit('icon1')" />
         </div>
-        <span></span>
-        <div class="icon-wrapper" :class="{active: props.activeIndex === 1}">
-            <component v-if="props.icons.length" :is="Palette" class="info-card-icon" aria-hidden="true" @click="$emit('icon2')"/>
+        <span class="w-1 h-24 bg-blue-500 mx-auto"></span>
+        <div class="flex items-center justify-center p-2 border-2 border-blue-500 rounded-full" >
+            <component v-if="props.icons.length" :is="Palette" class="size-7 text-blue-500" aria-hidden="true" @click="$emit('icon2')"/>
         </div>
-        <span></span>
-        <div class="icon-wrapper" :class="{active: props.activeIndex === 2}">
-            <component v-if="props.icons.length" :is="Code2" class="info-card-icon" aria-hidden="true" @click="$emit('icon3')"/>
+        <span class="w-1 h-24 bg-blue-500 mx-auto"></span>
+        <div class="flex items-center justify-center p-2 border-2 border-blue-500 rounded-full" >
+            <component v-if="props.icons.length" :is="Code2" class="size-7 text-blue-500" aria-hidden="true" @click="$emit('icon3')"/>
         </div>
-        <span></span>
-        <div class="icon-wrapper" :class="{active: props.activeIndex === 3}">
-            <component v-if="props.icons.length" :is="Rocket" class="info-card-icon" aria-hidden="true" @click="$emit('icon4')"/>
+        <span class="w-1 h-24 bg-blue-500 mx-auto"></span>
+        <div class="flex items-center justify-center p-2 border-2 border-blue-500 rounded-full">
+            <component v-if="props.icons.length" :is="Rocket" class="size-7 text-blue-500" aria-hidden="true" @click="$emit('icon4')"/>
         </div>
     </div>
 </template>
 
 <style scoped>
-    .info-card-icon {
-        width: 1.5rem;
-        height: 1.5rem;
-        color: var(--secondary);
-        border: 2px solid var(--secondary);
-        padding: 10px;
-        border-radius: 360px;
-        background: transparent;
-        z-index: 1;
-        position: relative;
-        overflow: visible;
-        cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
-    }
-
-    @media screen and (max-width: 768px) {
-        .info-card-icon {
-            width: 1.5rem;
-            height: 1.5rem;
-            padding: 8px;
-        }
-    }
-
-    .icon-wrapper {
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .icon-wrapper.active::before {
-        content: '';
-        position: absolute;
-        z-index: 0;
-        top: 0;
-        left: 50%;
-        border-radius: 50%;
-        background-color: var(--secondary);
-        animation: fillIconBackground 0.5s ease-in-out forwards;
-    }
-
-    @keyframes fillIconBackground {
-        from {
-            width: 0;
-            height: 0;
-        }
-        to {
-            width: 100%;
-            height: 100%;
-            left: 0;
-        }
-    }
-
-    .icon-wrapper.active .info-card-icon {
-        color: var(--primary);
-        border-color: var(--secondary);
-    }
-
-    .process-nav {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 450px;
-    }
-
-    span{
-        width: 5px;
-        height: 25%;
-        background-color: var(--secondary);
-    }
 </style>

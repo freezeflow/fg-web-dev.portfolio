@@ -1,41 +1,29 @@
 <template>
-    <div class="why-us-container">
-        <section class="why-us-content" aria-labelledby="why-us-title">
-            <h2 class="h2-white" id="why-us-title">The qualities you can expect from our websites</h2>
+    <div class="w-screen px-20 flex flex-col gap-10">
+        <section class="" aria-labelledby="why-us-title">
+            <h2 class="text-4xl text-white font-semibold" id="why-us-title">The types of websites we specialize in</h2>
         </section>
-        <section class="info-cards-container" aria-label="Website Qualities">
+        <section class="w-full flex flex-row gap-10 justify-between items-center" aria-label="Website Qualities">
             <InfoCards 
                 :icon="MonitorSmartphone"
-                color-class="blue"
-                title="Built For Every Screen"
-                description="From mobile to desktop, your website will feel native on any device. We design and build interfaces that adapt smoothly ensuring your users get the same freate experience no matter where they're browsing from." 
+                title="Portfolio & Business sites"
+                description="Showcase your brand with fast, modern web design" 
             />
             <InfoCards
-                :icon="LayoutTemplate"
-                color-class="purple"
-                title="Design That Makes Sense"
-                description="No clutter, no fluff. Just thoughtful, clean design built around your goals. Every element serves a purpose to guide user, express your brand, and help your product stand out without distractions."
+                :icon="ShoppingCart"
+                title="E-commerce"
+                description="Improve sales with simple & effective e-commerce sites"
             />
             <InfoCards 
-                :icon="Rocket"
-                color-class="blue"
-                title="Blazing Fast, Always Optimized"
-                description="We obsess over performance. From optimized assets to clean code, your site will load fast, feel smooth, and work like it should - even on slower networks. Because speed isn't just a feature, its trust."
+                :icon="ToolCase"
+                title="Web tools"
+                description="Simplify workflows through powerful online tools"
             />
-            <InfoCards
-                :icon="TrendingUp"
-                color-class="purple"
-                title="Ready To Grow With You"
-                description="Whether it's v1 or v10, we build with growth in mind. Our systems are modular, extendable, and built to evolve as your business scales - so you never have to start from scratch again."
-            />
-        </section>
-        <section class="more-info">
-            <a href="/more-info " aria-label="Learn more about our web development qualities">More info</a>
         </section>
     </div>
 </template>
 
 <script setup>
     import InfoCards from '@/components/info.cards.vue';
-    import { MonitorSmartphone, LayoutTemplate, Rocket, TrendingUp } from 'lucide-vue-next';
+    import { MonitorSmartphone, ShoppingCart, ToolCase } from 'lucide-vue-next';
 </script>

@@ -10,9 +10,9 @@ export function createRouter() {
         component: () => import('../views/Home.vue'),
       },
       {
-        path: '/more-info',
-        name: 'more-info',
-        component: () => import('../views/MoreInfo.vue'),
+        path: '/project/:id',
+        name: 'project',
+        component: () => import('../views/ProjectDetails.vue'),
       },
     ],
   })

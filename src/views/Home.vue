@@ -8,14 +8,14 @@
   process="process"
   contact="contact"/>
   
-  <main class="home">
+  <main class="home w-full">
     <section class="home-section" aria-label="Hero section" id="hero">
       <Hero class="hero" />
     </section>
     <section class="why-us-section" aria-label="Why Choose FG Web Development" id="whyUs" v-fade-in>
       <WhyUs />
     </section>
-    <section class="projects-section" aria-label="Featured projects" id="projects" v-fade-in>
+    <section class="projects-section mt-32" aria-label="Featured projects" id="projects" v-fade-in>
       <ProjectsView />
     </section>
     <section class="process-section" aria-label="Our process" id="process" v-fade-in>

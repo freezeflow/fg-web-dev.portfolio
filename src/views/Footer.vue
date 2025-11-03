@@ -4,18 +4,23 @@
             <h2>Your thoughts, our inbox, lets talk</h2>
         </div>
         <div class="footer-content">
-            <h3>Contact us at:</h3>
-            <div>
-                <div>
-                    <Mail class="contact-icons" /> <a href="mailto:fgweb.int@gmail.com">fgweb.int@gmail.com</a>
+            <form action="" @submit.prevent class="flex flex-col gap-5 w-1/3">
+                <div class="flex flex-row gap-5 w-full">
+                    <div class="w-full">
+                        <input type="email" name="" id="" placeholder="example@email.com" class="bg-primary p-2 rounded min-w-full">
+                    </div>
+                    <div class="w-full">
+                        <input type="text" name="" id="" placeholder="Joe Shmoe" class="bg-primary p-2 rounded w-full">
+                    </div>
                 </div>
                 <div>
-                    <Phone class="contact-icons" /> <a href="tel:+264 81 737 6386">+264 81 737 6386</a>
+                    <textarea name="" id="" class="bg-primary p-2 rounded w-full"></textarea>
                 </div>
-            </div>
+                <button type="submit" class="outline-0 border-2 border-secondary bg-primary w-1/2 rounded cursor-pointer">Send</button>
+            </form>
             <div class="socials">
                 <a href="https://www.facebook.com/people/FG-web-development/61575824611472/">
-                    <Facebook class="social-icons"/>
+                    <Facebook class="text-secondary"/>
                 </a>
             </div>
         </div>

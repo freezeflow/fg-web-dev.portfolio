@@ -1,74 +1,25 @@
 <script setup>
-
-    import { Link } from 'lucide-vue-next';
+    import { ref } from 'vue';
+    import { ArrowRightIcon } from 'lucide-vue-next';
+    import { RouterLink } from 'vue-router';
 
     const props = defineProps({
-        imgUrl: {
-            type: String,
-            required: true
-        },
-        link: {
-            type: String,
-            required: true
-        },
+        project: {
+          type: Object,
+          required: true
+        }
     });
 
-    import { ref } from 'vue';
-
-    const el = ref(null);
-    defineExpose({ el })
+    const isActiveItem = ref('')
 </script>
 
 <template>
-  <div class="project-container" ref="el">
-    <img :src="props.imgUrl" alt="" draggable="false">
+  <div class="bg-[#020320] w-full p-10 rounded-lg flex flex-col gap-5">
+    <img src="../assets/background2.png" alt="" draggable="false" class="border-gradient" @mouseover="isActiveItem = 'active-item'" @mouseleave="isActiveItem = ''" :class="isActiveItem">
 
-    <!-- Button overlays on image -->
-    <button class="overlay-btn">
-      <Link />
-    </button>
+    <RouterLink :to="{name: 'project', params: {id: props.project.id}}" class="flex flex-row items-center gap-5">
+      <p class="text-xl text-white cursor-pointer">{{ props.project.title }}</p>
+      <ArrowRightIcon class="text-white hover:text-secondary transition-all ease-in-out cursor-pointer"/>
+    </RouterLink>
   </div>
 </template>
-
-<style scoped>
-.project-container {
-  position: relative; /* enables absolute positioning inside */
-  color: white;
-  border-radius: 10px;
-  width: 90%;
-  height: 300px;
-  box-sizing: border-box;
-  flex-shrink: 0;
-  scroll-snap-align: center;
-  border: 1px solid white;
-  overflow: hidden; /* ensures button/image don't spill out */
-}
-
-img {
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-}
-
-/* Overlay button */
-.overlay-btn {
-  width: 2rem;
-  height: 2rem;
-  border-radius: 50%;
-  background-color: white;
-  border: 0;
-  outline: 0;
-  position: absolute;
-  top: 10px;   /* distance from top */
-  right: 10px; /* distance from right */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: opacity 0.2s ease;
-}
-
-.overlay-btn:hover {
-  opacity: 0.8;
-}
-</style>
