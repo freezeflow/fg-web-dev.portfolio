@@ -13,10 +13,9 @@ function toggleDropdown() {
 </script>
 
 <template>
-    <div class="topbar bg-navy border-0 border-b border-[#000146] fixed top-0 left-0 flex flex-row justify-between items-center w-screen min-h-5 p-1 z-40">
+    <div class="topbar fixed top-0 left-0 flex flex-row justify-between items-center w-screen min-h-5 px-2 pt-2 z-40">
         <div class="logo">
-            <img src="../assets/logo.svg" alt="Logo" />
-            <p class="logo-name">FG WEB <span>DEVELOPMENT</span></p>
+            <img src="/logo.svg" alt="Logo" />
         </div>
         <div class="route">
             <ul>

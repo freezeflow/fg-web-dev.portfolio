@@ -1,8 +1,7 @@
 <script setup>
 import { RouterLink, useRoute } from 'vue-router';
-import { handleClientLogout } from '@/utils/logout.client.js'
 import { ref, watch, computed } from 'vue';
-import { Briefcase, LayoutDashboard, Users, Settings, LogOut, User } from 'lucide-vue-next'
+import { LayoutDashboard, Settings } from 'lucide-vue-next';
 
 const props = defineProps({
   user: {type: Object, required: true}
@@ -12,21 +11,10 @@ const route = useRoute();
 const prevActive = ref(null);
 const currentActive = ref(route.path);
 const projectsOpen = ref(false);
-const projects = ref([])
 
 // Mobile nav variables
 const isOpen = ref(false);
 const mobileOpenDropdown = ref(null); // track which dropdown is open
-
-const storedProjects = localStorage.getItem('projects')
-if (storedProjects) {
-  const projectsArray = JSON.parse(storedProjects)
-  projects.value = projectsArray.map(p => p.foundProject)
-}
-
-const setProject = (project) =>{
-  localStorage.setItem('selectedProject', JSON.stringify(project))
-}
 
 watch(
   () => route.path,
@@ -37,34 +25,11 @@ watch(
 );
 
 const menuItems = computed(() => {
-  if (props.user?.role === 'admin') {
-    return [
-      { icon: LayoutDashboard, label: 'Dashboard', to: '/dashboard' },
-      {
-        icon: Briefcase, label: 'Projects',
-        dropdown: [
-          // { label: 'Tasks', to: '/projects/all' },
-          { label: 'Featured', to: '/projects/featured' }
-        ]
-      },
-      { icon: Users, label: 'Clients', to: '/clients' },
-    ]
-  } else {
-    return [
-      { icon: User, label: 'Profile', to: '/clients/client' },
-      {
-        icon: Briefcase, label: 'Projects',
-        dropdown: projects.value?.length
-          ? projects.value.map(p => ({
-              label: p.title,
-              to: '/projects/project',
-              action: () => setProject(p)
-            }))
-          : [{ label: 'No projects', to: '#' }]
-      },
-      { icon: LogOut, label: 'Logout', to: '/', action: handleClientLogout }
-    ]
-  }
+  
+  return [
+    { icon: LayoutDashboard, label: 'Dashboard', to: '/dashboard' },
+    { icon: Settings, label: 'Settings',},
+  ]
 })
 
 // check if route matches for underline highlight
@@ -97,24 +62,6 @@ const toggleMobileDropdown = (label) => {
         >
           <component :is="item.icon" class="icons"/> {{ item.label }}
         </RouterLink>
-
-        <!-- Dropdown -->
-        <div v-else>
-          <span class="item-label cursor-pointer" :class="route.path.startsWith('/project') ? 'active-nav' : 'inactive-nav'"><component :is="item.icon" class="icons" /> {{ item.label }}</span>
-          <Transition name="dropdown-fade">
-            <ul v-show="projectsOpen" class="dropdown">
-              <li v-for="sub in item.dropdown" :key="sub.label">
-                <RouterLink 
-                  :to="sub.to" 
-                  @click="sub.action?.()"
-                  :class="isActive(sub.to) ? 'active-nav' : 'inactive-nav'"
-                >
-                  {{ sub.label }}
-                </RouterLink>
-              </li>
-            </ul>
-          </Transition>
-        </div>
       </li>
     </ul>
   </nav>

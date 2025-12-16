@@ -5,12 +5,11 @@
 </script>
 
 <template>
-    <p>{{ msg }}</p>
+    <p class="max-sm:text-center">{{ msg }}</p>
 </template>
 
 <style scoped>
     p{
-        font-size: 1.1rem;
         font-family: var(--paragraph-font);
         color: white;
     }

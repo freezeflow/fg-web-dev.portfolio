@@ -5,8 +5,8 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: () => import('../views/ClientLogin.vue'),
+      name: 'login',
+      component: () => import('../views/AdminLogin.vue'),
     },
     {
       path: '/dashboard',
@@ -14,49 +14,9 @@ const router = createRouter({
       component: () => import('../views/DahsboardView.vue'),
     },
     {
-      path: '/projects/all',
-      name: 'projects/all',
-      component: () => import('../views/AllProjectsView.vue'),
-    },
-    {
-      path: '/projects/featured',
-      name: 'projects/featured',
+      path: '/projects/featured/:id',
+      name: 'projects/featured/:id',
       component: () => import('../views/FeaturedProjectsView.vue'),
-    },
-    {
-      path: '/projects/project',
-      name: 'projects/project',
-      component: () => import('../views/details/Project-details.vue'),
-    },
-    {
-      path: '/projects/tasks',
-      name: 'projects/tasks',
-      component: () => import('../views/TaskManagerView.vue'),
-    },
-    {
-      path: '/admin/login',
-      name: 'admin/login',
-      component: () => import('../views/AdminLogin.vue'),
-    },
-    {
-      path: '/clients',
-      name: 'clients',
-      component: () => import('../views/ClientView.vue'),
-    },
-    {
-      path: '/clients/client',
-      name: 'clients/client',
-      component: () => import('../views/details/Client-details.vue'),
-    },
-    {
-      path: '/verify/email',
-      name: 'verify/email',
-      component: () => import('../views/forgot-password/VerifyEmailView.vue'),
-    },
-    {
-      path: '/forgot/reset-password/:token',
-      name: 'forgot/reset-password/:token',
-      component: () => import('../views/forgot-password/ChangePinView.vue'),
     },
   ],
 })

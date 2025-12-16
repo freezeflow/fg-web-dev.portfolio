@@ -43,7 +43,7 @@
 
     import projectDetails from '@/components/projects-comps/project-details.vue';
     import editProject from '@/components/modal-cards/edit-project.vue';
-    import deleteCard from '@/components/modal-cards/delete-card.vue';
+    import deleteCard from '@/components/delete-card.vue';
     import adminNav from '@/components/admin-nav.vue';
 
     const clientStore = useClientStore()

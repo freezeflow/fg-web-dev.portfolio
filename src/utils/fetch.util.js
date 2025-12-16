@@ -19,10 +19,10 @@ export default class fetchApi {
         // Retry original request once
         return this._request(url, options, false);
       } else {
-        router.push('/admin/login')
+        router.push('/')
       }
     } else if(res.status === 403){
-        router.push('/admin/login')
+        router.push('/')
     }
 
     return res;

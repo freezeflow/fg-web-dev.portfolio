@@ -84,7 +84,7 @@ import { useProjectStore } from '@/stores/projects.store';
 import { useLoggedClientStore } from '@/stores/logged.client.store';
 import clientDetails from '@/components/client-comps/client-details.vue'
 import clientFiles from '@/components/client-comps/client-files.vue';
-import deleteCard from '@/components/modal-cards/delete-card.vue';
+import deleteCard from '@/components/delete-card.vue';
 import uploadFile from '@/components/client-comps/upload-file.vue';
 import updateClient from '@/components/client-comps/update-client.vue';
 import addProjects from '@/components/client-comps/add-projects.vue';

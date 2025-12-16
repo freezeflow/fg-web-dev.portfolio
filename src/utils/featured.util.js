@@ -16,19 +16,19 @@ export default class FeaturedProjectService extends BaseService {
     return this.handleResponse(res, 'Failed to create featured project')
   }
 
-  // async getFeaturedProject(id) {
-  //   const res = await this.fetch.get(`${this.base_route}/${id}`)
-  //   const data = await this.handleResponse(res, 'Failed to fetch featured project')
-  //   return data.project
-  // }
+  async getFeaturedProject(id) {
+    const res = await this.fetch.get(`${this.base_route}/${id}`)
+    const data = await this.handleResponse(res, 'Failed to fetch featured project')
+    return data.featuredProject
+  }
 
-  // async updateFeaturedProject(id, data) {
-  //   const res = await this.fetch.patch(`${this.base_route}/${id}`, data)
-  //   return this.handleResponse(res, 'Failed to update featured project')
-  // }
+  async updateFeaturedProject(id, data) {
+    const res = await this.fetch.patch(`${this.base_route}/${id}`, data)
+    return this.handleResponse(res, 'Failed to update featured project')
+  }
 
-  // async deleteFeaturedProject(id) {
-  //   const res = await this.fetch.delete(`${this.base_route}/${id}`)
-  //   return this.handleResponse(res, 'Failed to delete featured project')
-  // }
+  async deleteFeaturedProject(id) {
+    const res = await this.fetch.delete(`${this.base_route}/${id}`)
+    return this.handleResponse(res, 'Failed to delete featured project')
+  }
 }

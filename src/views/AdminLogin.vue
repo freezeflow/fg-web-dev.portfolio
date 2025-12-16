@@ -2,10 +2,7 @@
   <main class="admin-login" aria-label="Admin Login Page">
     <form @submit="handleSubmit" class="form-container" aria-label="Admin Login Form">
       <div class="form-header">
-        <div v-if="auth.loading">
-          <loader />
-        </div>
-        <h2 v-else class="h2-white">Admin Login</h2>
+        <h2 class="text-white text-4xl">Login</h2>
       </div>
       <div>
         <div class="floating-label">
@@ -17,7 +14,7 @@
           <label for="password">Password</label>
           <component :is="passType === 'password'? Eye : EyeOff" class="icon" @click="togglePassType" />
         </div>
-        <button type="submit" class="btn-primary" aria-label="Submit login form">Login</button>
+        <button type="submit" class="bg-white p-2 w-[60%] cursor-pointer hover:bg-white/90 transition-all rounded flex flex-row gap-2 justify-center items-center" aria-label="Submit login form"><loader2 :class="auth.loading? 'animate-spin':'hidden'"/> Login</button>
       </div>
     </form>
   </main>
@@ -30,8 +27,7 @@
   import { formUtility } from '@/utils/form.utils.js';
   import { useAuthStore } from '@/stores/auth.store.js';
   import { useAdminStore } from '@/stores/user';
-  import { Eye, EyeOff } from 'lucide-vue-next';
-  import loader from '@/components/loader.vue'
+  import { Eye, EyeOff, Loader2 } from 'lucide-vue-next';
   import { useToast } from 'vue-toastification';
 
   const formUtil = new formUtility();
