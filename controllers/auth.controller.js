@@ -95,28 +95,4 @@ export default class auhtController{
 
         
     };
-
-    verifyClientEmail = async (req, res, next) => {
-        try {
-            // Call verifyClientEmail function
-            await auhtServ.verifyClientEmail(req)
-
-            // Send response
-            res.status(201).json({success: true})
-        } catch (error) {
-            next(error)
-        }
-    };
-
-    resetPin = async (req, res, next) => {
-        try {
-            // Call resetPin function
-            await auhtServ.resetPin(req)
-
-            // Send response
-            res.status(200).json({success: true, message: 'Pin updated'})
-        } catch (error) {
-            next(error)
-        }
-    };
 }

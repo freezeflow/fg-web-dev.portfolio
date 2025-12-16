@@ -1,9 +1,6 @@
 import bcrypt from 'bcrypt'
-import crypto from "crypto";
 import Admin from '../models/admin.model.js'
-import Client from '../models/client.model.js'
 import AppError from '../utils/app.error.class.js'
-import { sendEmail } from '../utils/email.util.js';
 import jwt from 'jsonwebtoken'
 import { 
     JWT_ACCESS_EXPIRE, 
@@ -135,67 +132,6 @@ export default class authServices{
         } catch (error) {
             throw error
         }
-    };
-
-    verifyClientEmail = async (req) => {
-        // Extract email from req body
-        const { email } = req.body
-
-        try{
-            // Check if email was provided
-            if(!email) throw new AppError({message: 'Email required', status: 400});
-            
-            // Check if client is in database via email
-            const client = await Client.findOne({email: email});
-            if(!client) throw new AppError({message: 'User not found', status: 404})
-            
-            // Set reset and hashed reset tokens
-            const resetToken = crypto.randomBytes(32).toString("hex");
-            const hashedToken = crypto.createHash("sha256").update(resetToken).digest("hex");
-
-            // Update password reset token field
-            client.passwordResetToken = hashedToken;
-            client.passwordResetExpires = Date.now() + 15 * 60 * 1000;
-            await client.save();
-
-            // Send email with reset token
-            const url = `${FRONTEND_URL}forgot/reset-password/${resetToken}`;
-            try {
-                await sendEmail({to:email, subject:'Reset pin', templateName:'pinReset', variables:{email,url}})
-            } catch (error) {
-                client.passwordResetToken = undefined;
-                client.passwordResetExpires = undefined;
-                await client.save();
-                throw new AppError({message: 'Something went wrong: '+error, status: 500})
-            }
-
-            return true
-        } catch(err) {
-            throw err
-        }
-    };
-
-    resetPin = async (req) => {
-        const { token } = req.params;
-        const { pin } = req.body;
-
-        const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
-
-        const client = await Client.findOne({
-            passwordResetToken: hashedToken,
-            passwordResetExpires: { $gt: Date.now() }
-        }).select("+password");
-
-        if (!client) {
-            throw new AppError({message: 'Invalid or expired token', status: 400})
-        }
-
-        client.pin = await bcrypt.hash(pin, 10);
-        client.passwordResetToken = undefined;
-        client.passwordResetExpires = undefined;
-        await client.save();
-
-        return true
     };
 
 }

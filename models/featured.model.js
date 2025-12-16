@@ -2,53 +2,54 @@ import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const featuredSchema = new Schema({
-    projectId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Project',
-    },
+    title: { type: String, required: true },
+    description: { type: String },
+    company: { type: String },
 
-    clientId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Client',
-        default: null
-    },
-
-    projectInfo: {
-        title: String,
-        description: String,
-        tech: [String],
-    },
-
-    clientInfo: {
-        name: String,
-        company: String,
-        logo: String,
+    scope: { 
+        type: [String], 
+        default: [] 
     },
 
     link: {
         type: String,
         trim: true,
         validate: {
-            validator: v => !v || /^https?:\/\/.+\..+/.test(v),
+            validator: v => !v || /^https?:\/\/[^\s]+$/.test(v),
             message: props => `${props.value} is not a valid URL!`
-        },
+        }
     },
 
-    role: {
+    challenges: { type: String },
+    solution: { type: String },
+
+    deliveredFeats: {
+        type: [String],
+        default: []
+    },
+
+    tags: {
+        type: [String],
+        default: []
+    },
+
+    status: {
         type: String,
-        required: true,
-        enum: ['Full Stack Developer', 'Frontend Developer', 'Backend Developer', 'Software Engineer', 'Lead Developer', 'Web Designer']
+        enum: ["draft", "published"],
+        default: "draft"
     },
 
     testimonial: {
-        type: String,
-        required: true,
-        trim: true
+        feedback: { type: String },
+        pictureUrl: { type: String }
     },
 
-}, {
-  timestamps: true
-});
+    file: {
+        filePath: { type: String },
+        fileName: { type: String }
+    }
+
+}, { timestamps: true });
 
 const Featured = mongoose.model("Featured", featuredSchema);
 export default Featured;
