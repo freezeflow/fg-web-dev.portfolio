@@ -1,22 +1,44 @@
 <template>
-  <div class="w-screen h-screen px-20 flex flex-row justify-between">
-    <section class="flex flex-col gap-2 mt-36">
-      <h1 class="text-6xl text-white flex flex-col gap-2" id="hero">
-        FG WEB <span>DEVELOPMENT</span>
+  <section
+    class="w-screen px-[20px] sm:px-20 flex flex-col-reverse justify-center max-sm:items-center gap-3 max-sm:gap-3"
+    aria-labelledby="hero-heading"
+  >
+    <!-- Hero Content -->
+    <div class="flex flex-col items-center gap-4">
+      <h1
+        id="hero-heading"
+        class="text-center text-3xl sm:text-6xl text-white flex flex-col gap-2"
+      >
+        Web Development for Startups & Businesses in Namibia
+        <span class="sr-only">by Fynecode Development</span>
       </h1>
-      <p class="text-xl text-white w-4/5 font-display font-semibold" id="hero">
-        Building fast, responsive, and scalable websites and web tools designed to help startups grow
+
+      <p
+        class="text-center sm:text-xl text-white sm:w-4/5 font-display"
+      >
+        Fynecode Development builds fast, responsive, and scalable websites and
+        web tools designed to help startups and growing businesses succeed
+        online.
       </p>
-      <div class="flex flex-row gap-10 mt-10 text-white text-center">
-        <a href="#projects" class="w-32 py-1 border-2 rounded border-secondary hover:border-secondary/50 transition-all ease-in-out" aria-label="View our projects">View Projects</a>
-        <a href="#projects" class="w-32 py-1 border-2 rounded border-white hover:border-white/50 transition-all ease-in-out" aria-label="View our projects">Contact us</a>
+
+      <div class="flex items-center justify-center w-full mt-10 text-white">
+        <a
+          href="#projects"
+          class="flex max-sm:w-full w-3/5 items-center justify-center py-2 border-2 rounded border-secondary hover:border-secondary/50 transition-all ease-in-out"
+          aria-label="View web development projects by Fynecode"
+        >
+          View Projects
+        </a>
       </div>
-      
-    </section>
-    <section class="hero-img">
-      <div class="-translate-x-24 translate-y-40 animate-pulse" id="hero-img">
-        <img src="/FG-web-dev-img/netsvg.svg" loading="eager" alt="Illustration representing FG Web Development">
-      </div>
-    </section>
-  </div>
+    </div>
+
+    <!-- Hero Visual (SVG) -->
+    <div aria-hidden="true">
+      <stage1 />
+    </div>
+  </section>
 </template>
+
+<script setup>
+import stage1 from '../components/hero-comps/stage-1.vue'
+</script>

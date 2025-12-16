@@ -1,72 +1,59 @@
 <template>
-  <div class="w-screen px-20 flex flex-col justify-center gap-10 mt-32">
-    <h1 class="text-4xl text-white font-semibold">Our work on the web</h1>
+  <section
+    class="w-screen max-sm:px-[20px] px-20 flex flex-col justify-center gap-10"
+    aria-labelledby="projects-title"
+    id="projects"
+  >
+    <!-- Section Header -->
+    <header class="max-sm:text-center">
+      <h2
+        id="projects-title"
+        class="text-4xl max-sm:text-2xl text-white font-semibold"
+      >
+        Web Development Projects & Case Studies
+      </h2>
+
+      <p class="text-white/80 mt-2 max-w-3xl mx-auto">
+        A selection of websites and web tools built by Fynecode Development for
+        startups and businesses, focused on performance, clarity, and scalability.
+      </p>
+    </header>
+
+    <!-- Projects Grid -->
     <div class="projects-container flex items-center w-full relative">
-      <div ref="container" class="grid grid-cols-2 w-full gap-5">
-        <featuredProjects v-if="projects.length" v-for="(project, index) in projects" :key="index" :project="project" />
+      <div
+        ref="container"
+        class="grid grid-cols-2 max-sm:grid-cols-1 w-full gap-5"
+        role="list"
+      >
+        <FeaturedProjects
+          v-if="projects.length"
+          v-for="project in projects"
+          :key="project.id"
+          :project="project"
+          role="listitem"
+        />
       </div>
-      <notFound v-if="projects.length === 0" msg="Projects still in development, stay tuned" />
+
+      <NotFound
+        v-if="projects.length === 0"
+        msg="Projects are currently in development. Check back soon."
+      />
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup>
-import featuredProjects from '@/components/featured-projects.vue';
-import { useProjectStore } from '@/stores/projects.store';
-import { ref, onMounted, onBeforeUnmount } from 'vue';
-import notFound from '@/components/notFound.vue';
+import FeaturedProjects from '@/components/featured-projects.vue'
+import NotFound from '@/components/notFound.vue'
+import { useProjectStore } from '@/stores/projects.store'
+import { ref, onMounted } from 'vue'
 
 const projectStore = useProjectStore()
+const projects = ref([])
 
-// const projects = ref([])
-const projects = ref([
-  {
-    id: 1,
-    title: "TechHub.io",
-    imgUrl: "",
-    link: "/projects/techhub",
-    dateAdded: "2023-10-01",
-    tech: ['Vue.js', 'Node.js', 'Tailwind CSS']
-  },
-  {
-    id: 2,
-    title: "Greenline.com",
-    imgUrl: "something.jpg",
-    link: "/projects/greenline",
-    dateAdded: "2023-10-01",
-    tech: ['Vue.js', 'Node.js', 'Tailwind CSS']
-  },
-  {
-    id: 3,
-    title: "Optive.com",
-    imgUrl: "something.jpg",
-    link: "/projects/greenline",
-    dateAdded: "2023-10-01",
-    tech: ['Vue.js', 'Node.js', 'Tailwind CSS']
-  },
-  {
-    id: 4,
-    title: "Playboy.com",
-    imgUrl: "something.jpg",
-    link: "/projects/greenline",
-    dateAdded: "2023-10-01",
-    tech: ['Vue.js', 'Node.js', 'Tailwind CSS']
-  },
-  {
-    id: 5,
-    title: "Hairline.com",
-    imgUrl: "something.jpg",
-    link: "/projects/greenline",
-    dateAdded: "2023-10-01",
-    tech: ['Vue.js', 'Node.js', 'Tailwind CSS']
-  },
-  {
-    id: 6,
-    title: "Fans.com",
-    imgUrl: "something.jpg",
-    link: "/projects/greenline",
-    dateAdded: "2023-10-01",
-    tech: ['Vue.js', 'Node.js', 'Tailwind CSS']
-  }
-]);
+onMounted(async () => {
+  await projectStore.getProjects()
+  projects.value = projectStore.projects
+})
 </script>

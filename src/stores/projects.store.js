@@ -12,6 +12,12 @@ export const useProjectStore = defineStore('project', {
       this.loading = true;
       this.error = null;
 
+      const raw = localStorage.getItem("featured")
+      if(raw) {
+        const cached = JSON.parse(raw)
+        this.projects = cached
+      }
+
       try {
         const fetchOptions = {
           method: "GET",
@@ -21,7 +27,7 @@ export const useProjectStore = defineStore('project', {
         };
 
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/projects/featured?fields=title link`,
+          `${import.meta.env.VITE_API_URL}/api/public/`,
           fetchOptions
         );
 
@@ -29,32 +35,8 @@ export const useProjectStore = defineStore('project', {
 
         const data = await res.json();
         
-        let projects = data.Projects;
-        if (projects.length > 0) {
-          // Fetch all files in parallel
-          const filesData = await Promise.all(
-            projects.map(async (p) => {
-              const fileRes = await fetch(
-                `${import.meta.env.VITE_API_URL}/api/project/files/${p._id}`,
-                fetchOptions
-              );
-              if (!fileRes.ok) throw new Error("Failed to fetch project files");
-
-              const files = await fileRes.json(); // depends on your API response
-              return { id: p._id, file: files.filePath };
-            })
-          );
-
-          // Merge files into projects
-          projects = projects.map((proj) => {
-            const fileInfo = filesData.find((f) => f.id === proj._id);
-            return {
-              ...proj,
-              imgUrl: fileInfo ? fileInfo.file.filePath : '',
-            };
-          });
-        }
-        this.projects = projects;
+        localStorage.setItem("featured", JSON.stringify(data.featuredList))
+        this.projects = data.featuredList;
       } catch (error) {
         this.error = error;
       } finally {

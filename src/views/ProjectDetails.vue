@@ -1,174 +1,157 @@
 <template>
-    <div class="w-full p-5 flex flex-col gap-10">
-        <div class="w-1/2 rounded">
-            <img src="../assets/background2.png" alt="" class="rounded">
-        </div>
-        <div class="text-white w-1/2 flex flex-col gap-20">
-            <div class="w-full">
-                <p class="text-3xl underline">
-                    {{ project.title }}
-                </p>
-            </div>
-            <div class="w-full flex flex-row gap-5 items-center">
-                <Briefcase class="w-20 text-secondary"/>
-                <p class="text-lg">
-                    {{ project.description }}
-                </p>
-            </div>
-            <div class="w-full flex flex-row gap-5 items-center">
-                <component :is="roleIcons[project.role]" class="w-10 text-secondary" />
-                <p class="flex flex-row gap-1 text-lg">
-                    Role: {{ project.role }}
-                </p>
-            </div>
-            <div class="w-full flex flex-row gap-5 items-center">
-                <div class="flex flex-row gap-1 text-lg" v-for="(tech, index) in project.tech" :key="index">
-                    <component :is="techIcons[tech]" class="w-10 text-secondary" />
-                    <span>{{ tech }}</span>
-                </div>
-            </div>
-            <div class="w-full flex flex-row gap-5 items-center" v-if="project.client">
-                <User class="w-10 text-secondary"/>
-                <p class="text-lg">
-                    {{ project.client }}
-                </p>
-            </div>
-            <div class="w-full flex flex-row gap-5 items-center" v-if="project.client">
-                <Quote class="w-10 text-secondary"/>
-                <p class="text-lg">
-                    {{ project.testimonial }}
-                </p>
-            </div>
-        </div>
+  <article class="w-full p-5 flex flex-col gap-10">
+    <!-- Project Video -->
+    <div class="w-full md:w-1/2 rounded">
+      <video
+        :src="project.file.filePath"
+        controls
+        preload="metadata"
+        playsinline
+        muted
+        class="rounded"
+        :aria-label="`Preview video for ${project.title} project`"
+      >
+        Your browser does not support the video tag.
+      </video>
     </div>
+
+    <div class="text-white w-full md:w-1/2 flex flex-col gap-12">
+      <!-- Project Title -->
+      <h1 class="text-3xl underline">{{ project.title }}</h1>
+
+      <!-- Description -->
+      <section>
+        <h2 class="flex flex-row text-lg gap-2 w-fit items-center" aria-hidden="true">
+          Description <Briefcase size="20" class="text-secondary" aria-hidden="true"/>
+        </h2>
+        <p>{{ project.description }}</p>
+      </section>
+
+      <!-- Deliverables -->
+      <section v-if="project.deliveredFeats?.length">
+        <h2 class="flex flex-row text-lg gap-2 w-fit items-center" aria-hidden="true">
+          Deliverables <Hammer size="20" class="text-secondary" aria-hidden="true"/>
+        </h2>
+        <ol class="flex flex-col gap-1 list-disc ml-8">
+          <li v-for="(feat, index) in project.deliveredFeats" :key="index">{{ feat }}</li>
+        </ol>
+      </section>
+
+      <!-- Tags -->
+      <section v-if="project.tags?.length">
+        <h2 class="flex flex-row text-lg gap-2 w-fit items-center" aria-hidden="true">
+          Tags <Hash size="20" class="text-secondary" aria-hidden="true"/>
+        </h2>
+        <div class="flex flex-row gap-3 flex-wrap">
+          <span class="bg-secondary rounded-full px-4" v-for="(tag, idx) in project.tags" :key="idx">{{ tag }}</span>
+        </div>
+      </section>
+
+      <!-- Client -->
+      <section v-if="project.company">
+        <h2 class="flex flex-row text-lg gap-2 w-fit items-center" aria-hidden="true">
+          Client <User size="20" class="text-secondary" aria-hidden="true"/>
+        </h2>
+        <p>{{ project.company }}</p>
+      </section>
+
+      <!-- Live Demo -->
+      <section v-if="project.link">
+        <a
+          class="underline flex items-center gap-2"
+          :href="project.link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Link size="20" class="text-secondary" aria-hidden="true"/>
+          Live demo
+        </a>
+      </section>
+
+      <!-- Testimonial -->
+      <section v-if="project.testimonial">
+        <h2 class="text-xl">Testimonial</h2>
+        <div class="flex flex-row gap-3 items-center">
+          <img
+            class="size-10 object-cover border-2 bg-white border-secondary rounded-full"
+            :src="project.testimonial.pictureUrl"
+            alt="Picture of client"
+          />
+          <div class="flex flex-col gap-2">
+            <Quote class="w-10 text-secondary" aria-hidden="true"/>
+            <p>{{ project.testimonial.feedback }}</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </article>
 </template>
+
 <script setup>
-    import { ref, computed } from 'vue';
-    import { useRoute } from 'vue-router';
-    import {
-        Briefcase, User, Quote,
-        Layers, 
-        Layout, 
-        Server, 
-        Code, 
-        Cpu, 
-        Palette, 
-        Wind,
-        Database,
-        Leaf,
-        CreditCard,
-        BarChart2,
-        Wifi,
-        Triangle,
-        Rocket,
-        Flame,
-        Mountain,
-        GitBranch,
-        Shapes,
-        Bolt
-    } from 'lucide-vue-next';
+import { ref, computed, onMounted } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { Briefcase, User, Quote, Hash, Hammer, Link } from 'lucide-vue-next'
 
-    const router = useRoute() 
+const route = useRoute()
+const router = useRouter()
+const projects = ref([])
 
-    const id = Number(router.params.id)
+const id = route.params.id
+const raw = localStorage.getItem('featured')
 
-    const projects = ref([
-        {
-            id: 1,
-            title: "TechHub.io",
-            description: "A sleek online hub that curates the latest tech trends, tools, and startup stories. Features community discussions and AI-driven content recommendations.",
-            imgUrl: "/images/techhub-preview.jpg",
-            link: "/projects/techhub",
-            dateAdded: "2023-10-01",
-            tech: ['Vue.js', 'Node.js', 'Tailwind CSS', 'MongoDB'],
-            role: "Full Stack Developer",
-            client: "TechHub Media",
-            testimonial: "FG Web Development transformed our concept into a polished platform. The performance and clean design truly reflect our brand’s vision."
-        },
-        {
-            id: 2,
-            title: "Greenline Project Manager",
-            description: "A collaborative project management platform that helps teams plan, track, and deliver projects efficiently. Includes task boards, team chat, and real-time analytics.",
-            imgUrl: "/images/greenline-preview.jpg",
-            link: "/projects/greenline",
-            dateAdded: "2023-10-10",
-            tech: ['Vue.js', 'Node.js', 'Tailwind CSS', 'Socket.io'],
-            role: "Frontend Developer",
-        },
-        {
-            id: 3,
-            title: "Optive Analytics",
-            description: "A data visualization dashboard that helps small businesses track web performance, user behavior, and conversion rates using clear, minimal charts.",
-            imgUrl: "/images/optive-preview.jpg",
-            link: "/projects/optive",
-            dateAdded: "2023-11-02",
-            tech: ['Vue.js', 'Express.js', 'Chart.js', 'PostgreSQL'],
-            role: "Full Stack Developer",
-            client: "Optive Digital",
-            testimonial: "Floriaan was professional and attentive from day one. The analytics dashboard exceeded our expectations in speed and usability."
-        },
-        {
-            id: 4,
-            title: "Voyage Studio",
-            description: "A portfolio and client management system for a creative design agency. Includes automated quote generation and integrated chat support.",
-            imgUrl: "/images/voyage-preview.jpg",
-            link: "/projects/voyage",
-            dateAdded: "2023-11-15",
-            tech: ['Nuxt.js', 'Node.js', 'Prisma', 'PostgreSQL'],
-            role: "Full Stack Developer"
-        },
-        {
-            id: 5,
-            title: "Glowline Beauty",
-            description: "An e-commerce website for a beauty brand, featuring a custom product gallery, secure checkout, and responsive design optimized for mobile users.",
-            imgUrl: "/images/glowline-preview.jpg",
-            link: "/projects/glowline",
-            dateAdded: "2024-01-05",
-            tech: ['Vue.js', 'Express.js', 'Stripe API', 'Tailwind CSS'],
-            role: "Frontend Developer",
-            client: "Glowline Cosmetics",
-            testimonial: "FG Web Development gave us a store that feels premium yet simple to use. Our sales jumped 30% after launch."
-        },
-        {
-            id: 6,
-            title: "CreatorSpace",
-            description: "A platform that allows digital creators to manage memberships, upload exclusive content, and track earnings — built for speed and simplicity.",
-            imgUrl: "/images/creatorspace-preview.jpg",
-            link: "/projects/creatorspace",
-            dateAdded: "2024-03-21",
-            tech: ['Vue.js', 'Node.js', 'Supabase', 'Tailwind CSS'],
-            role: "Full Stack Developer"
+if (raw) {
+  projects.value = JSON.parse(raw)
+} else {
+  router.push('/')
+}
+
+const project = computed(() => projects.value.find(p => p._id === id))
+
+// JSON-LD schema setup
+const schemaJson = ref('')
+
+onMounted(() => {
+  if (!project.value) return
+
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "CreativeWork",
+    "name": project.value.title,
+    "description": project.value.description,
+    "url": window.location.href,
+    "keywords": project.value.tags || [],
+    "image": project.value.file?.filePath || undefined,
+    "author": project.value.company
+      ? {
+          "@type": "Organization",
+          "name": project.value.company
         }
-    ]);
+      : undefined,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": window.location.href
+    },
+    "potentialAction": project.value.link
+      ? {
+          "@type": "ViewAction",
+          "target": project.value.link,
+          "name": "Live demo"
+        }
+      : undefined,
+    "review": project.value.testimonial
+      ? {
+          "@type": "Review",
+          "author": project.value.testimonial.name || "Client",
+          "reviewBody": project.value.testimonial.feedback
+        }
+      : undefined
+  }
 
-    const roleIcons = {
-        "Full Stack Developer": Layers,
-        "Frontend Developer": Layout,
-        "Backend Developer": Server,
-        "Software Engineer": Code,
-        "Lead Developer": Cpu,
-        "Web Designer": Palette,
-    }
+  // Remove undefined fields
+  Object.keys(schema).forEach(
+    key => schema[key] === undefined && delete schema[key]
+  )
 
-    const techIcons = {
-        'Vue.js': Triangle,
-        'Node.js': Server,
-        'Express.js': GitBranch,
-        'Tailwind CSS': Wind,
-        'Nuxt.js': Mountain,
-        'MongoDB': Leaf,
-        'PostgreSQL': Database,
-        'Prisma': Shapes,
-        'Supabase': Rocket,
-        'Firebase': Flame,
-        'Socket.io': Wifi,
-        'Stripe API': CreditCard,
-        'Chart.js': BarChart2,
-        'JavaScript': Code,
-        'CSS3': Layers,
-        'HTML5': Code,
-        'Vite': Bolt
-    }
-
-    const project = computed(() => projects.value.find(p => p.id === id))
+  schemaJson.value = JSON.stringify(schema, null, 2)
+})
 </script>
