@@ -88,8 +88,8 @@ export default class featuredServices {
             // HANDLE FEATURED PROJECT VIDEO REPLACEMENT
             // req.files.video => [{ path, filename }]
             // ------------------------------------------
-            if (req.files?.video?.length > 0) {
-                const newVideo = req.files.video[0];
+            if (req.files?.file?.length > 0) {
+                const newVideo = req.files.file[0];
 
                 // Delete old video if exists
                 if (featured.file?.fileName) {

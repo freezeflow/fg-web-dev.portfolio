@@ -18,7 +18,7 @@ const featuredCtr = new featuredController();
 featuredRouter.post(
     "/",
     upload.fields([
-        { name: "video", maxCount: 1 },
+        { name: "file", maxCount: 1 },
         { name: "picture", maxCount: 1 }
     ]),
     validateCreateFeatured,
@@ -31,7 +31,7 @@ featuredRouter.post(
 featuredRouter.patch(
     "/:id",
     upload.fields([
-        { name: "video", maxCount: 1 },
+        { name: "file", maxCount: 1 },
         { name: "picture", maxCount: 1 }
     ]),
     validateUpdateFeatured,
