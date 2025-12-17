@@ -27,8 +27,8 @@
       >
         <!-- Video -->
         <video
-          v-if="form?.file.filePath"
-          :src="form.file.filePath"
+          v-if="form.file?.filePath"
+          :src="form.file?.filePath"
           controls
           class="w-full h-full object-cover"
         ></video>
@@ -338,9 +338,9 @@
         <div v-if="isDirty" class="mt-10 flex">
           <button
             @click="saveChanges"
-            class="px-6 py-3 bg-[#0584d8] hover:bg-[#0a66a5] rounded-lg text-white font-semibold"
+            class="px-6 py-3 bg-[#0584d8] hover:bg-[#0a66a5] rounded-lg text-white font-semibold flex flex-row gap-2"
           >
-            Save Changes
+            <Loader2 v-if="featuredStore.loading" class="animate-spin" /> Save Changes
           </button>
         </div>
 
@@ -354,6 +354,7 @@
 import { onMounted, ref, reactive, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useFeaturedProjectsStore } from "@/stores/featured.store";
+import { Loader2 } from "lucide-vue-next";
 import { useToast } from "vue-toastification";
 
 const route = useRoute();
@@ -392,7 +393,7 @@ const form = reactive({
   solution: "",
   status: "draft",
   link: "",
-  file: {},
+  file: null,
   testimonial: {
     pictureUrl: null,
     feedback: "",
@@ -433,7 +434,7 @@ function removeFromArray(field, index) {
 function onVideoUpload(e) {
   const file = e.target.files[0];
   if (!file) return;
-  form.video = file;
+  form.file = file;
 }
 
 function onPictureUpload(e) {
@@ -468,7 +469,6 @@ async function saveChanges() {
       else isEditing[k] = false;
     });
 
-    toast.success("Changes saved");
   } catch (err) {
     toast.error("Failed to save changes");
   }
