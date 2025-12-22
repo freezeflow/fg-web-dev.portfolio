@@ -11,11 +11,12 @@
 
 /* 2️⃣ Extend Tailwind theme */
 @theme {
-  --font-display: 'Inter', system-ui, sans-serif; 
-  --font-sans: 'Bahnscript', sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif; 
+  --font-display: 'Bahnscript', sans-serif;
   --color-primary: #010214;
   --color-secondary: #0584d8;
   --color-navy: #020320;
+  --color-accent: #ff00cc
 }
 
 body{

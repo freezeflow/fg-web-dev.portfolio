@@ -31,7 +31,7 @@ function pauseVideo() {
 
 <template>
   <article
-    class="bg-[#020320] w-full max-sm:p-5 p-10 rounded-lg flex flex-col gap-5"
+    class="bg-[#020320] w-full p-5 md:p-10 rounded-lg flex flex-col gap-5"
     :aria-labelledby="`project-${project._id}-title`"
   >
     <!-- Project Preview Video -->
@@ -59,7 +59,7 @@ function pauseVideo() {
     >
       <h3
         :id="`project-${project._id}-title`"
-        class="text-xl max-sm:text-lg text-white font-semibold group-hover:text-secondary transition-colors"
+        class="md:text-xl text-lg text-white font-semibold group-hover:text-secondary transition-colors"
       >
         {{ project.title }}
       </h3>

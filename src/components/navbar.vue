@@ -8,6 +8,7 @@ const props = defineProps({
   projects: String,
   process: String,
   contact: String,
+  services: String
 });
 
 const isMenuOpen = ref(false);
@@ -62,7 +63,7 @@ console.log(isMenuOpen.value)
       <!-- Mobile Toggle Button -->
       <button
         @click="isMenuOpen = !isMenuOpen"
-        class="sm:hidden text-white focus:outline-none"
+        class="md:hidden text-white focus:outline-none"
       >
         <svg v-if="!isMenuOpen" xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" stroke="currentColor">
           <path stroke-linecap="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
@@ -74,8 +75,9 @@ console.log(isMenuOpen.value)
       </button>
 
       <!-- Desktop Links -->
-      <ul class="hidden sm:flex gap-10 text-white">
+      <ul class="hidden md:flex gap-10 text-white">
         <li><a :href="'#' + props.hero" :class="{'text-cyan-400': props.activeSection === props.hero}">Home</a></li>
+        <li><a :href="'#' + props.services" :class="{'text-cyan-400': props.activeSection === props.services}">Services</a></li>
         <li><a :href="'#' + props.projects" :class="{'text-cyan-400': props.activeSection === props.projects}">Projects</a></li>
         <li><a :href="'#' + props.process" :class="{'text-cyan-400': props.activeSection === props.process}">Our Process</a></li>
         <li><a :href="'#' + props.contact" :class="{'text-cyan-400': props.activeSection === props.contact}">Contact Us</a></li>
@@ -86,9 +88,10 @@ console.log(isMenuOpen.value)
     <transition name="fade">
       <div
         v-if="isMenuOpen"
-        class="sm:hidden px-6 pb-6 flex flex-col gap-5 text-white bg-[#010214]/60 backdrop-blur-xl border-t border-white/10"
+        class="md:hidden px-6 pb-6 flex flex-col gap-5 text-white bg-[#010214]/60 backdrop-blur-xl border-t border-white/10"
       >
         <a @click="closeMenu" :href="'#' + props.hero" class="py-2" :class="{'text-cyan-400': props.activeSection === props.hero}">Home</a>
+        <a @click="closeMenu" :href="'#' + props.services" class="py-2" :class="{'text-cyan-400': props.activeSection === props.services}">Services</a>
         <a @click="closeMenu" :href="'#' + props.projects" class="py-2" :class="{'text-cyan-400': props.activeSection === props.projects}">Projects</a>
         <a @click="closeMenu" :href="'#' + props.process" class="py-2" :class="{'text-cyan-400': props.activeSection === props.process}">Our Process</a>
         <a @click="closeMenu" :href="'#' + props.contact" class="py-2" :class="{'text-cyan-400': props.activeSection === props.contact}">Contact Us</a>

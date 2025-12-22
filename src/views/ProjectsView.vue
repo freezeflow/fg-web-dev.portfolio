@@ -8,7 +8,7 @@
     <header class="max-sm:text-center">
       <h2
         id="projects-title"
-        class="text-4xl max-sm:text-2xl text-white font-semibold"
+        class="md:text-4xl sm:text-3xl text-2xl text-white font-semibold"
       >
         Web Development Projects & Case Studies
       </h2>
@@ -23,7 +23,7 @@
     <div class="projects-container flex items-center w-full relative">
       <div
         ref="container"
-        class="grid grid-cols-2 max-sm:grid-cols-1 w-full gap-5"
+        class="grid md:grid-cols-2 grid-cols-1 w-full gap-5"
         role="list"
       >
         <FeaturedProjects

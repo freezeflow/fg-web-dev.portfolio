@@ -8,7 +8,7 @@ const props = defineProps({
 </script>
 
 <template v-if="props.processes && props.processes.length">
-  <section aria-label="Process steps" class="flex flex-col gap-8">
+  <section aria-label="Process steps" class="flex flex-col gap-20">
     <article
       v-for="(process, index) in props.processes"
       :key="index"
@@ -18,7 +18,7 @@ const props = defineProps({
       <header>
         <h3
           :id="`process-step-${index}-title`"
-          class="text-2xl max-sm:text-xl font-display"
+          class="md:text-2xl text-xl font-display"
         >
           {{ process.title }}
         </h3>

@@ -5,7 +5,7 @@
     aria-labelledby="process-title"
   >
     <header>
-      <h2 id="process-title" class="text-4xl max-sm:text-2xl text-white font-semibold">
+      <h2 id="process-title" class="md:text-4xl sm:text-3xl text-2xl text-white font-semibold">
         Our Process
       </h2>
       <p class="text-white/80 max-w-3xl mt-2">

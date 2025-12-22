@@ -7,7 +7,7 @@
     <header>
       <h2
         id="services-title"
-        class="text-4xl max-sm:text-2xl max-sm:text-center text-white font-semibold"
+        class="md:text-4xl sm:text-3xl text-2xl max-sm:text-center text-white font-semibold"
       >
         Web Development Services We Specialize In
       </h2>
@@ -18,36 +18,80 @@
       </p>
     </header>
 
+    <div class="flex flex-row gap-3 text-white">
+      <button class="px-2 py-1 rounded-full cursor-pointer transition-all" :class="projectType === 1? 'bg-secondary':'hover:text-secondary'" @click="projectType = 1">Small businesses</button>
+      <button class="px-2 py-1 rounded-full cursor-pointer transition-all" :class="projectType === 2? 'bg-secondary':'hover:text-secondary'" @click="projectType = 2">E-commerce & E-learning/LMS</button>
+    </div>
+
     <!-- Services Grid -->
     <div
-      class="w-full grid gap-4 max-sm:grid-cols-1 grid-cols-3"
+      class="w-full"
       role="list"
     >
-      <InfoCards
-        role="listitem"
-        :icon="MonitorSmartphone"
-        title="Portfolio & Business Websites"
-        description="Professional portfolio and business websites designed for speed, clarity, and credibility."
-      />
+      <div class="w-full grid gap-4 max-sm:grid-cols-1 grid-cols-2" :class="projectType === 1? '':'hidden'">
+        <InfoCards
+          role="listitem"
+          :icon="MonitorSmartphone"
+          title="Business Website Development"
+          description="For businesses that need to look credible and professional online"
+          :points="[
+            'Custom website built for clarity',
+            'Ideal if your business has no site or an outdated one',
+            'Helps customers understand your services and contact you easily'
+          ]"
+          price="4000"
+        />
 
-      <InfoCards
-        role="listitem"
-        :icon="ShoppingCart"
-        title="E-commerce Website Development"
-        description="Simple, secure, and scalable e-commerce websites that help businesses sell online effectively."
-      />
+        <InfoCards
+          role="listitem"
+          :icon="MonitorSmartphone"
+          title="CMS Website Development"
+          description="For growing businesses that need control over their content"
+          :points="[
+            'Website with a content management system',
+            'Update pages, services, or content without calling a developer',
+            'Built to scale as your business grows'
+          ]"
+          price="6500"
+        />
+      </div>
+      
+      <div class="w-full grid gap-4 max-sm:grid-cols-1 grid-cols-2" :class="projectType === 2? '':'hidden'">
+        <InfoCards
+          role="listitem"
+          :icon="ShoppingCart"
+          title="E-commerce Website Development"
+          description="For businesses that want to sell products online"
+          :points="[
+            'Online store with product and store management',
+            'Secure checkout and mobile friendly design',
+            'Designed for reliability'
+          ]"
+          price="8500"
+        />
 
-      <InfoCards
-        role="listitem"
-        :icon="ToolCase"
-        title="Custom Web Tools & Applications"
-        description="Custom-built web tools that automate processes, improve efficiency, and support business growth."
-      />
+        <InfoCards
+          role="listitem"
+          :icon="GraduationCap"
+          title="E-learning/LMS Development"
+          description="For schools, trainers, and organizations delivering online learning"
+          :points="[
+            'Structured course systems with user accounts',
+            'Designed for clarity, progress, and long-term use',
+            'Suitable for training programs and institusions'
+          ]"
+          price="10000"
+        />
+      </div>
+      
     </div>
   </section>
 </template>
 
 <script setup>
+import { ref } from 'vue';
 import InfoCards from '@/components/info.cards.vue'
-import { MonitorSmartphone, ShoppingCart, ToolCase } from 'lucide-vue-next'
+import { MonitorSmartphone, ShoppingCart, GraduationCap } from 'lucide-vue-next'
+
+const projectType = ref(1)
 </script>

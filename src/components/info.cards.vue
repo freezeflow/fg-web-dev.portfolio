@@ -10,6 +10,14 @@ const props = defineProps({
     type: String,
     required: true
   },
+  points: {
+    type: Array,
+    required: true
+  },
+  price: {
+    type: String,
+    required: true
+  },
   icon: {
     type: [Object, Function],
     default: null
@@ -59,8 +67,27 @@ onMounted(() => {
       {{ title }}
     </h3>
 
-    <p class="text-lg max-sm:text-sm text-white/80 font-display">
+    <p
+      class="text-lg max-sm:text-sm text-white/80 font-display"
+    >
       {{ description }}
+    </p>
+
+    <ol 
+      class="flex flex-col list-disc gap-2 pl-4"
+    >
+      <li
+        v-for="(point, index) in points"
+        :key="index"
+      >
+        {{ point }}
+      </li>
+    </ol>
+
+    <p 
+      class="mt-4 font-bold underline decoration-secondary"
+    >
+      From: N${{ price }}
     </p>
   </article>
 </template>

@@ -6,13 +6,14 @@
       projects="projects"
       process="process"
       contact="contact"
+      services="services"
     />
   
   <main class="home w-full flex flex-col justify-center items-center gap-32">
     <section class="home-section" aria-label="Hero section" id="hero">
       <Hero class="hero" />
     </section>
-    <section class="why-us-section" aria-label="Why Choose FG Web Development" id="services" v-fade-in>
+    <section class="services-section" aria-label="Why Choose FG Web Development" id="services" v-fade-in>
       <Services />
     </section>
     <section class="projects-section " aria-label="Featured projects" id="projects" v-fade-in>
@@ -48,7 +49,7 @@
     window.addEventListener('scroll', handleScroll);
     const sections = [
       document.getElementById('hero'),
-      document.getElementById('whyUs'),
+      document.getElementById('services'),
       document.getElementById('projects'),
       document.getElementById('process'),
       document.getElementById('contact')

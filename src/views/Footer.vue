@@ -1,18 +1,18 @@
 <template>
-  <footer class="w-full h-full flex flex-col gap-8 px-5 max-sm:px-5" aria-label="Footer">
+  <footer class="w-full h-full flex flex-col gap-8 px-5" aria-label="Footer">
     <!-- Footer Header -->
     <header>
-      <h2 id="footer-contact" class="text-4xl max-sm:text-2xl text-white font-semibold">
+      <h2 id="footer-contact" class="md:text-4xl sm:text-3xl text-2xl text-white font-semibold">
         Your thoughts, our inbox, let's talk
       </h2>
     </header>
 
-    <div class="footer-content flex flex-col max-sm:flex-col gap-8">
+    <div class="footer-content flex flex-col gap-8">
       <!-- Contact Form -->
       <form
         action="#"
         @submit.prevent
-        class="flex flex-col gap-5 w-1/3 max-sm:w-full"
+        class="flex flex-col gap-5 md:w-1/3 sm:w-1/2 w-full"
         aria-labelledby="footer-contact"
       >
         <div class="flex flex-row max-sm:flex-col gap-5 w-full">
@@ -22,6 +22,7 @@
               type="email"
               id="email"
               name="email"
+              v-model="form.email"
               placeholder="example@email.com"
               required
               class="bg-primary p-2 rounded min-w-full"
@@ -29,14 +30,15 @@
           </div>
         </div>
 
-        <div>
+        <div class="w-full">
           <label for="message" class="sr-only">Message</label>
           <textarea
             id="message"
             name="message"
+            v-model="form.message"
             placeholder="Your message"
             required
-            class="bg-primary p-2 rounded w-full"
+            class="bg-primary p-2 rounded min-w-full"
           ></textarea>
         </div>
 
@@ -75,5 +77,11 @@
 </template>
 
 <script setup>
-import { Facebook, Github } from 'lucide-vue-next'
+import { Facebook, Github, Loader2 } from 'lucide-vue-next'
+import { reactive } from 'vue';
+
+const form = reactive({
+  email: '',
+  message: ''
+})
 </script>
