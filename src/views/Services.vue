@@ -1,6 +1,6 @@
 <template>
   <section
-    class="w-screen h-screen max-sm:px-[20px] max-md:px-[60px] px-20 flex flex-col justify-center max-sm:items-center gap-10"
+    class="w-screen min-h-screen max-sm:px-[20px] max-md:px-[60px] px-20 flex flex-col justify-center max-sm:items-center gap-10"
     aria-labelledby="services-title"
   >
     <!-- Section Heading -->
@@ -19,8 +19,8 @@
     </header>
 
     <div class="flex flex-row gap-3 text-white">
-      <button class="px-2 py-1 rounded-full cursor-pointer transition-all" :class="projectType === 1? 'bg-secondary':'hover:text-secondary'" @click="projectType = 1">Small businesses</button>
-      <button class="px-2 py-1 rounded-full cursor-pointer transition-all" :class="projectType === 2? 'bg-secondary':'hover:text-secondary'" @click="projectType = 2">E-commerce & E-learning/LMS</button>
+      <button class="px-2 py-1 rounded-full cursor-pointer transition-all max-sm:text-sm" :class="projectType === 1? 'bg-secondary':'hover:text-secondary'" @click="projectType = 1">Small businesses</button>
+      <button class="px-2 py-1 rounded-full cursor-pointer transition-all max-sm:text-sm" :class="projectType === 2? 'bg-secondary':'hover:text-secondary'" @click="projectType = 2">E-commerce & E-learning/LMS</button>
     </div>
 
     <!-- Services Grid -->

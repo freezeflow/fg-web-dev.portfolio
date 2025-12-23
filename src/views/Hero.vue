@@ -1,6 +1,6 @@
 <template>
   <section
-    class="w-screen px-[20px] sm:px-20 flex flex-col-reverse justify-center max-sm:items-center gap-3 max-sm:gap-3"
+    class="w-screen min-h-screen px-[20px] sm:px-20 flex flex-col-reverse justify-center max-sm:items-center gap-3 max-sm:gap-3"
     aria-labelledby="hero-heading"
   >
     <!-- Hero Content -->

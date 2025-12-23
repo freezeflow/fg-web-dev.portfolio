@@ -1,6 +1,6 @@
 <template>
   <section
-    class="flex flex-col gap-10 w-full max-sm:px-[20px] px-20"
+    class="flex flex-col md:gap-10 gap-20 w-full max-sm:px-[20px] px-20"
     id="process"
     aria-labelledby="process-title"
   >
