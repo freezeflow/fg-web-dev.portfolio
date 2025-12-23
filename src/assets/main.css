@@ -230,29 +230,6 @@ body::-webkit-scrollbar-thumb:hover {
   gap: 1rem;
 }
 
-.footer-content>h3{
-  font-size: var(--md-paragraph);
-  font-family: var(--paragraph-font);
-  font-style: italic;
-}
-
-.footer-content>div div{
-  display: flex;
-  flex-direction: row;
-  gap: 1rem;
-  align-items: center;
-}
-
-.contact-icons{
-  width: 1.2rem;
-  height: 1.2rem;
-  color: var(--secondary);
-}
-
-.footer-content>div a{
-  color: var(--secondary);
-  font-family: var(--paragraph-font);
-}
 
 .copy{
   font-size: 12px;

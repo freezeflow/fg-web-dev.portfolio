@@ -1,74 +1,47 @@
 <template>
-  <footer class="w-full h-full flex flex-col gap-8 px-5" aria-label="Footer">
-    <!-- Footer Header -->
-    <header>
-      <h2 id="footer-contact" class="md:text-4xl sm:text-3xl text-2xl text-white font-semibold">
-        Your thoughts, our inbox, let's talk
-      </h2>
-    </header>
-
-    <div class="footer-content flex flex-col gap-8">
-      <!-- Contact Form -->
-      <form
-        action="#"
-        @submit.prevent
-        class="flex flex-col gap-5 md:w-1/3 sm:w-1/2 w-full"
-        aria-labelledby="footer-contact"
-      >
-        <div class="flex flex-row max-sm:flex-col gap-5 w-full">
-          <div class="w-full">
-            <label for="email" class="sr-only">Email address</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              v-model="form.email"
-              placeholder="example@email.com"
-              required
-              class="bg-primary p-2 rounded min-w-full"
-            />
-          </div>
+  <footer class="w-full min-h-full flex flex-col gap-8 px-5" aria-label="Footer">
+    <div class="w-full flex flex-col sm:flex-row sm:gap-24 gap-8">
+      <header class="flex flex-col gap-3">
+        <div class="flex flex-row items-center gap-3">
+          <img src="/logo.svg" alt="" class="w-8"> <h1 class="text-2xl">Fynecode</h1>
         </div>
-
-        <div class="w-full">
-          <label for="message" class="sr-only">Message</label>
-          <textarea
-            id="message"
-            name="message"
-            v-model="form.message"
-            placeholder="Your message"
-            required
-            class="bg-primary p-2 rounded min-w-full"
-          ></textarea>
+        
+        <div class="text-slate-400 text-xs">
+          <p>15th Road 1393</p>
+          <p>Tsumeb, Namibia</p>
         </div>
+      </header>
 
-        <button
-          type="submit"
-          class="outline-0 border-2 border-secondary bg-primary w-1/2 rounded cursor-pointer"
-        >
-          Send
-        </button>
-      </form>
-
-      <!-- Social Links -->
-      <div class="flex flex-row gap-4">
-        <a
-          href="https://www.facebook.com/people/FG-web-development/61575824611472/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Fynecode Development on Facebook"
-        >
-          <Facebook class="text-secondary" aria-hidden="true" />
-        </a>
-        <a
-          href="https://github.com/your-github-username"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Fynecode Development on GitHub"
-        >
-          <Github class="text-secondary" aria-hidden="true" />
-        </a>
+      <div class="footer-content flex flex-col gap-12">
+        <div class="flex flex-col">
+          <h3>Quick links</h3>
+          <ol class="list-desc">
+            <li><a href="#hero" class="text-slate-400 text-xs">Home</a></li>
+            <li><a href="#services" class="text-slate-400 text-xs">Services</a></li>
+            <li><a href="#projects" class="text-slate-400 text-xs">Projects</a></li>
+            <li><a href="#process" class="text-slate-400 text-xs">Process</a></li>
+          </ol>
+        </div>
       </div>
+    </div>
+    
+
+    <div class="flex flex-col gap-2 border border-x-0 border-y-white py-2">
+      <h4>Contact details</h4>
+      <div class="text-xs text-slate-400 flex flex-col sm:flex-row sm:gap-24 gap-1">
+        <div class="flex flex-col">
+          <strong class="text-white">Email:</strong> <p>fynecode.dev@gmail.com</p>
+        </div>
+        <div class="flex flex-col">
+          <strong class="text-white">Tel:</strong> <p>+264 81 737 6386</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex flex-row gap-4">
+      <a href="https://www.facebook.com/profile.php?id=61575824611472">
+        <FacebookIcon size="20" class=""/>
+      </a>
     </div>
 
     <!-- Copyright -->
@@ -77,11 +50,5 @@
 </template>
 
 <script setup>
-import { Facebook, Github, Loader2 } from 'lucide-vue-next'
-import { reactive } from 'vue';
-
-const form = reactive({
-  email: '',
-  message: ''
-})
+import { FacebookIcon, InstagramIcon } from 'lucide-vue-next';
 </script>

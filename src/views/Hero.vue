@@ -24,7 +24,7 @@
       <div class="flex items-center justify-center w-full mt-10 text-white">
         <a
           href="#projects"
-          class="flex max-sm:w-full w-3/5 items-center justify-center py-2 border-2 rounded border-secondary hover:border-secondary/50 transition-all ease-in-out"
+          class="flex max-sm:w-full w-3/5 items-center justify-center py-2 rounded bg-secondary hover:bg-secondary/50 transition-all ease-in-out"
           aria-label="View web development projects by Fynecode"
         >
           View Projects
