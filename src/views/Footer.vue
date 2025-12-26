@@ -24,7 +24,6 @@
         </div>
       </div>
     </div>
-    
 
     <div class="flex flex-col gap-2 border border-x-0 border-y-white py-2">
       <h4>Contact details</h4>
@@ -50,5 +49,5 @@
 </template>
 
 <script setup>
-import { FacebookIcon, InstagramIcon } from 'lucide-vue-next';
+import { FacebookIcon } from 'lucide-vue-next';
 </script>
