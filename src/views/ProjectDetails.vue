@@ -69,7 +69,7 @@
       </section>
 
       <!-- Testimonial -->
-      <section v-if="project.testimonial">
+      <section v-if="project.testimonial.feedback">
         <h2 class="text-xl">Testimonial</h2>
         <div class="flex flex-row gap-3 items-center">
           <img

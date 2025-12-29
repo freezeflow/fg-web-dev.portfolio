@@ -7,15 +7,11 @@
     <header>
       <h2
         id="services-title"
-        class="md:text-4xl sm:text-3xl text-2xl max-sm:text-center text-white font-semibold"
+        class="md:text-4xl sm:text-3xl text-2xl text-white font-semibold"
       >
         Web Development Services We Specialize In
       </h2>
 
-      <p class="max-sm:text-center text-white/80 mt-2 max-w-3xl">
-        Fynecode Development builds modern, high-performance websites and web
-        applications tailored for startups and businesses in Namibia.
-      </p>
     </header>
 
     <div class="flex flex-row gap-3 text-white">

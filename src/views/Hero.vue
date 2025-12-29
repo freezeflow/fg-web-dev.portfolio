@@ -7,16 +7,16 @@
     <div class="flex flex-col items-center gap-4">
       <h1
         id="hero-heading"
-        class="text-center text-3xl sm:text-4xl md:text-6xl text-white flex flex-col gap-2"
+        class="text-3xl sm:text-4xl md:text-6xl text-white flex flex-col gap-2"
       >
-        Web Development for Startups & Businesses in Namibia
+        Web Development for Startups & Businesses
         <span class="sr-only">by Fynecode Development</span>
       </h1>
 
       <p
-        class="text-center sm:text-xl text-white md:w-4/5 font-display"
+        class="sm:text-xl text-white md:w-4/5 font-display"
       >
-        Fynecode Development builds fast, responsive, and scalable websites and
+        Fast, responsive, and scalable websites and
         web tools designed to help startups and growing businesses succeed
         online.
       </p>

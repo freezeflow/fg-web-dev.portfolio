@@ -9,7 +9,7 @@
         Our Process
       </h2>
       <p class="text-white/80 max-w-3xl mt-2">
-        At Fynecode Development, we follow a structured approach to bring your vision to life, ensuring quality, scalability, and performance at every step.
+        A structured approach to bring your vision to life, ensuring quality, scalability, and performance at every step.
       </p>
     </header>
 

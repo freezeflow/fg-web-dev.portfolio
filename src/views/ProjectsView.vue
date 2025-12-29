@@ -5,7 +5,7 @@
     id="projects"
   >
     <!-- Section Header -->
-    <header class="max-sm:text-center">
+    <header class="">
       <h2
         id="projects-title"
         class="md:text-4xl sm:text-3xl text-2xl text-white font-semibold"

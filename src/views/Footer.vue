@@ -3,7 +3,7 @@
     <div class="w-full flex flex-col sm:flex-row sm:gap-24 gap-8">
       <header class="flex flex-col gap-3">
         <div class="flex flex-row items-center gap-3">
-          <img src="/logo.svg" alt="" class="w-8"> <h1 class="text-2xl">Fynecode</h1>
+          <img src="/logo.svg" alt="" class="w-8"> <h1 class="text-xl">Fynecode Development</h1>
         </div>
         
         <div class="text-slate-400 text-xs">
