@@ -1,9 +1,9 @@
 import express from 'express';
-import featuredController from "../controllers/featured.controller.js";
+import {sendEmailCtr, getAllFeatured} from "../controllers/public.controller.js"
 
 const publicRouter = express.Router();
-const featuredCtr = new featuredController();
 
-publicRouter.get("/", featuredCtr.getAllFeatured);
+publicRouter.get("/", getAllFeatured);
+publicRouter.post("/email", sendEmailCtr)
 
 export default publicRouter

@@ -67,7 +67,6 @@ export default class featuredServices {
 
             if (status !== undefined) featured.status = status;
 
-
             // ------------------------------------------
             // ARRAY FIELDS
             // ------------------------------------------
@@ -82,7 +81,6 @@ export default class featuredServices {
                     ? tags
                     : tags.split(",").map(t => t.trim());
             }
-
 
             // ------------------------------------------
             // HANDLE FEATURED PROJECT VIDEO REPLACEMENT
@@ -131,7 +129,6 @@ export default class featuredServices {
                 featured.testimonial.pictureUrl = newPic.path;
             }
 
-
             // ------------------------------------------
             // SAVE AND RETURN
             // ------------------------------------------
@@ -142,7 +139,6 @@ export default class featuredServices {
             throw error;
         }
     };
-
 
     deleteFeatured = async (req) => {
         try {
