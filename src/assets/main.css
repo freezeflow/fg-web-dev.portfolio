@@ -11,7 +11,7 @@
 
 /* 2️⃣ Extend Tailwind theme */
 @theme {
-  --font-sans: 'Inter', system-ui, sans-serif; 
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif; 
   --font-display: 'Bahnscript', sans-serif;
   --color-primary: #010214;
   --color-secondary: #0584d8;
@@ -21,6 +21,10 @@
 
 body{
   overflow-x: hidden;
+}
+
+.contact-btn{
+  background: linear-gradient(120deg, #0584d8, #c4009d) border-box;
 }
 
 @keyframes organicReveal {

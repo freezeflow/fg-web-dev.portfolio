@@ -1,6 +1,8 @@
 <script setup>
 import { ref, watch, onMounted, onBeforeUnmount } from 'vue';
 
+const emits = defineEmits(['openContact'])
+
 const props = defineProps({
   isNavVisible: Boolean,
   activeSection: String,
@@ -22,21 +24,11 @@ function closeMenu() {
 }
 
 onMounted(() => {
-  // Scroll → close
   window.addEventListener('scroll', closeMenu);
 
-  // ESC → close
   window.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') closeMenu();
   });
-
-  // Outside click → close
-//   window.addEventListener('click', (e) => {
-//     const nav = document.querySelector('#fynecode-nav');
-//     if (nav && !nav.contains(e.target)) {
-//       closeMenu();
-//     }
-//   });
 });
 
 onBeforeUnmount(() => {
@@ -49,7 +41,7 @@ console.log(isMenuOpen.value)
 <template>
   <nav
     id="fynecode-nav"
-    class="fixed top-0 left-0 w-full z-50 backdrop-blur-xl bg-[#010214]/40 border-b border-white/10 transition-all duration-300"
+    class="fixed top-0 left-0 w-full z-40 backdrop-blur-xl bg-[#010214]/40 border-b border-white/10 transition-all duration-300"
     :class="props.isNavVisible ? 'translate-y-0 opacity-100' : '-translate-y-full opacity-0'"
   >
     <div class="flex items-center justify-between px-6 py-4">
@@ -61,18 +53,26 @@ console.log(isMenuOpen.value)
       </div>
 
       <!-- Mobile Toggle Button -->
-      <button
-        @click="isMenuOpen = !isMenuOpen"
-        class="md:hidden text-white focus:outline-none"
-      >
-        <svg v-if="!isMenuOpen" xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" stroke="currentColor">
-          <path stroke-linecap="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-        </svg>
+      <div class="md:hidden flex flex-row gap-2 justify-center">
+        <button
+          @click="isMenuOpen = !isMenuOpen"
+          class=" text-white focus:outline-none"
+        >
+          <svg v-if="!isMenuOpen" xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+          </svg>
 
-        <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" stroke="currentColor">
-          <path stroke-linecap="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-        </svg>
-      </button>
+          <svg v-else xmlns="http://www.w3.org/2000/svg" class="w-7 h-7" fill="none" stroke="currentColor">
+            <path stroke-linecap="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+
+        <button class="contact-btn text-xs px-3 rounded cursor-pointer hover:animate-pulse" @click="emits('openContact')">
+          Contact us
+        </button>
+      </div>
+      
+      
 
       <!-- Desktop Links -->
       <ul class="hidden md:flex gap-10 text-white">
@@ -80,7 +80,7 @@ console.log(isMenuOpen.value)
         <li><a :href="'#' + props.services" :class="{'text-cyan-400': props.activeSection === props.services}">Services</a></li>
         <li><a :href="'#' + props.projects" :class="{'text-cyan-400': props.activeSection === props.projects}">Projects</a></li>
         <li><a :href="'#' + props.process" :class="{'text-cyan-400': props.activeSection === props.process}">Our Process</a></li>
-        <li><a :href="'#' + props.contact" :class="{'text-cyan-400': props.activeSection === props.contact}">Contact Us</a></li>
+        <li><button class="contact-btn px-3 rounded cursor-pointer hover:animate-pulse" @click="emits('openContact')">Contact us</button></li>
       </ul>
     </div>
 

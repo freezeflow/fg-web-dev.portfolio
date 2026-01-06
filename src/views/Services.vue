@@ -35,7 +35,7 @@
             'Ideal if your business has no site or an outdated one',
             'Helps customers understand your services and contact you easily'
           ]"
-          price="4000"
+          price="4 000"
         />
 
         <InfoCards
@@ -48,7 +48,7 @@
             'Update pages, services, or content without calling a developer',
             'Built to scale as your business grows'
           ]"
-          price="6500"
+          price="6 500"
         />
       </div>
       
@@ -63,7 +63,7 @@
             'Secure checkout and mobile friendly design',
             'Designed for reliability'
           ]"
-          price="8500"
+          price="8 500"
         />
 
         <InfoCards
@@ -76,7 +76,7 @@
             'Designed for clarity, progress, and long-term use',
             'Suitable for training programs and institusions'
           ]"
-          price="10000"
+          price="10 000"
         />
       </div>
       

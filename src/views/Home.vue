@@ -5,8 +5,8 @@
       hero="hero"
       projects="projects"
       process="process"
-      contact="contact"
       services="services"
+      @open-contact="toggleForm = true"
     />
   
   <main class="home w-full flex flex-col justify-center items-center gap-32">
@@ -26,6 +26,13 @@
       <Footer />
     </section>
   </main>
+
+  <Teleport to="body">
+    <contactForm 
+      v-if="toggleForm"
+      @close="toggleForm = false"
+    />
+  </Teleport>
 </template>
 
 <script setup>
@@ -34,11 +41,13 @@
   import ProjectsView from './ProjectsView.vue';
   import Footer from './Footer.vue';
   import navbar from '@/components/navbar.vue';
+  import contactForm from '@/components/contact.form.vue';
   import Services from '@/views/Services.vue';
   import { ref, onMounted, onUnmounted } from 'vue';
 
   const isNavVisible = ref(false);
   const activeSection = ref('hero');
+  const toggleForm = ref(false)
 
   const handleScroll = () => {
     isNavVisible.value = window.scrollY > 0;

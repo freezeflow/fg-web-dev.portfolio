@@ -46,7 +46,7 @@ onMounted(() => {
 
 <template>
   <div class="w-full flex justify-center py-16 md:py-24">
-    <div class="preview relative w-[90vw] md:w-[40vw] max-w-[900px] aspect-[1200/700] neon-container">
+    <div class="preview relative w-[90vw] md:w-[60vw] lg:w-[40vw] max-w-[900px] aspect-[1200/700] neon-container">
 
       <!-- Stage 1: Wireframe -->
       <div id="wireframe" class="stage">

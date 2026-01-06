@@ -3,7 +3,7 @@
     <div class="w-full flex flex-col sm:flex-row sm:gap-24 gap-8">
       <header class="flex flex-col gap-3">
         <div class="flex flex-row items-center gap-3">
-          <img src="/logo.svg" alt="" class="w-8"> <h1 class="text-xl">Fynecode Development</h1>
+          <img src="/logo.svg" alt="" class="w-8"> <h1 class="text-xl font-display">Fynecode Development</h1>
         </div>
         
         <div class="text-slate-400 text-xs">
@@ -37,17 +37,24 @@
       </div>
     </div>
 
-    <div class="flex flex-row gap-4">
-      <a href="https://www.facebook.com/profile.php?id=61575824611472">
-        <FacebookIcon size="20" class=""/>
-      </a>
-    </div>
-
-    <!-- Copyright -->
-    <small class="copy text-white/70">&copy; 2025 Fynecode Development. All rights reserved.</small>
+     <div class="w-full flex flex-col-reverse md:flex-row justify-between max-sm:gap-4">
+      <small class="copy text-white/70">&copy; 2025 Fynecode Development. All rights reserved.</small>
+      <div class="flex flex-row gap-4">
+        <a href="https://www.facebook.com/profile.php?id=61575824611472">
+          <Github size="20" class="text-secondary"/>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61575824611472">
+          <Instagram size="20" class="text-secondary"/>
+        </a>
+        <a href="https://www.facebook.com/profile.php?id=61575824611472">
+          <Facebook size="20" class="text-secondary"/>
+        </a>
+      </div>
+     </div>
+    
   </footer>
 </template>
 
 <script setup>
-import { FacebookIcon } from 'lucide-vue-next';
+import { Facebook, Instagram, Github } from 'lucide-vue-next';
 </script>

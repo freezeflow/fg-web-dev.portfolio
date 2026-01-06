@@ -1,20 +1,20 @@
 <template>
   <section
-    class="w-screen min-h-screen px-[20px] sm:px-20 flex flex-col-reverse justify-center max-sm:items-center gap-3 max-sm:gap-3"
+    class="w-screen min-h-screen px-[20px] sm:px-20 flex flex-col-reverse justify-center max-sm:items-center gap-3"
     aria-labelledby="hero-heading"
   >
     <!-- Hero Content -->
     <div class="flex flex-col items-center gap-4">
       <h1
         id="hero-heading"
-        class="text-3xl sm:text-4xl md:text-6xl text-white flex flex-col gap-2"
+        class="text-center text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-white flex flex-col gap-2"
       >
         Web Development for Startups & Businesses
         <span class="sr-only">by Fynecode Development</span>
       </h1>
 
       <p
-        class="sm:text-xl text-white md:w-4/5 font-display"
+        class="text-center sm:text-xl text-white md:w-4/5 font-display"
       >
         Fast, responsive, and scalable websites and
         web tools designed to help startups and growing businesses succeed

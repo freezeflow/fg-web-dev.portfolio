@@ -23,29 +23,38 @@
     <div class="projects-container flex items-center w-full relative">
       <div
         ref="container"
-        class="grid md:grid-cols-2 grid-cols-1 w-full gap-5"
+        class="w-full"
+        :class="projectStore.loading || projects.length === 0 ? 'flex justify-center': 'grid md:grid-cols-2 grid-cols-1 gap-5'"
         role="list"
       >
         <FeaturedProjects
-          v-if="projects.length"
+          v-if="projects.length && !projectStore.loading"
           v-for="project in projects"
           :key="project.id"
           :project="project"
           role="listitem"
         />
-      </div>
 
-      <NotFound
-        v-if="projects.length === 0"
-        msg="Projects are currently in development. Check back soon."
-      />
+        <Loader2
+          v-if="projectStore.loading"
+          class="text-secondary animate-spin"
+          size="108"
+        />
+
+        <NotFound
+          v-if="projects.length === 0 && !projectStore.loading"
+          msg="Projects are currently in development. Check back soon."
+        />
+      </div>
+      
     </div>
   </section>
 </template>
 
 <script setup>
-import FeaturedProjects from '@/components/featured-projects.vue'
-import NotFound from '@/components/notFound.vue'
+import FeaturedProjects from '@/components/featured.projects.vue'
+import { Loader2 } from 'lucide-vue-next'
+import NotFound from '@/components/not.found.vue'
 import { useProjectStore } from '@/stores/projects.store'
 import { ref, onMounted } from 'vue'
 
