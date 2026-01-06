@@ -24,11 +24,11 @@
       <div
         ref="container"
         class="w-full"
-        :class="projectStore.loading || projects.length === 0 ? 'flex justify-center': 'grid md:grid-cols-2 grid-cols-1 gap-5'"
+        :class="publicStore.loading || projects.length === 0 ? 'flex justify-center': 'grid md:grid-cols-2 grid-cols-1 gap-5'"
         role="list"
       >
         <FeaturedProjects
-          v-if="projects.length && !projectStore.loading"
+          v-if="projects.length && !publicStore.loading"
           v-for="project in projects"
           :key="project.id"
           :project="project"
@@ -36,13 +36,13 @@
         />
 
         <Loader2
-          v-if="projectStore.loading"
+          v-if="publicStore.loading"
           class="text-secondary animate-spin"
           size="108"
         />
 
         <NotFound
-          v-if="projects.length === 0 && !projectStore.loading"
+          v-if="projects.length === 0 && !publicStore.loading"
           msg="Projects are currently in development. Check back soon."
         />
       </div>
@@ -55,14 +55,14 @@
 import FeaturedProjects from '@/components/featured.projects.vue'
 import { Loader2 } from 'lucide-vue-next'
 import NotFound from '@/components/not.found.vue'
-import { useProjectStore } from '@/stores/projects.store'
+import { usePublicStore } from '@/stores/public.store'
 import { ref, onMounted } from 'vue'
 
-const projectStore = useProjectStore()
+const publicStore = usePublicStore()
 const projects = ref([])
 
 onMounted(async () => {
-  await projectStore.getProjects()
-  projects.value = projectStore.projects
+  await publicStore.getProjects()
+  projects.value = publicStore.projects
 })
 </script>

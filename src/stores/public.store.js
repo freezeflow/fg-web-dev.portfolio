@@ -1,9 +1,10 @@
 import { defineStore } from 'pinia'
 
-export const useProjectStore = defineStore('project', {
+export const usePublicStore = defineStore('project', {
   state: () => ({
     loading: false,
     error: null,
+    success: false,
     projects: []
   }),
 
@@ -27,7 +28,7 @@ export const useProjectStore = defineStore('project', {
         };
 
         const res = await fetch(
-          `${import.meta.env.VITE_API_URL}/api/public/`,
+          `${import.meta.env.VITE_API_URL}/api/public?status=published`,
           fetchOptions
         );
 
@@ -43,5 +44,34 @@ export const useProjectStore = defineStore('project', {
         this.loading = false;
       }
     },
-  }
+
+    async sendEmail(form){
+      this.loading = true;
+      this.error = null;
+      this.success = false
+
+      try {
+        const res = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/public/email`,
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(form)
+          }
+        );
+
+        if (!res.ok) throw new Error("Failed to send email");
+
+        const data = await res.json();
+        this.success = true
+        return data.message;
+      } catch (error) {
+        this.error = error;
+      } finally {
+        this.loading = false;
+      }
+    }
+  },
 })

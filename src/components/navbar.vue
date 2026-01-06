@@ -67,7 +67,7 @@ console.log(isMenuOpen.value)
           </svg>
         </button>
 
-        <button class="contact-btn text-xs px-3 rounded cursor-pointer hover:animate-pulse" @click="emits('openContact')">
+        <button class="contact-btn text-xs text-white px-3 rounded cursor-pointer hover:animate-pulse" @click="emits('openContact')">
           Contact us
         </button>
       </div>
@@ -94,7 +94,6 @@ console.log(isMenuOpen.value)
         <a @click="closeMenu" :href="'#' + props.services" class="py-2" :class="{'text-cyan-400': props.activeSection === props.services}">Services</a>
         <a @click="closeMenu" :href="'#' + props.projects" class="py-2" :class="{'text-cyan-400': props.activeSection === props.projects}">Projects</a>
         <a @click="closeMenu" :href="'#' + props.process" class="py-2" :class="{'text-cyan-400': props.activeSection === props.process}">Our Process</a>
-        <a @click="closeMenu" :href="'#' + props.contact" class="py-2" :class="{'text-cyan-400': props.activeSection === props.contact}">Contact Us</a>
       </div>
     </transition>
   </nav>

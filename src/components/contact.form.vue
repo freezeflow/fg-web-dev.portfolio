@@ -6,7 +6,7 @@
                     <img src="/logo.svg" alt="" class="w-10">
                     <h1 class="text-white text-4xl font-display">Fynecode Development</h1>
                 </div>
-                <div class="lg:h-full flex flex-col justify-between">
+                <div class="lg:h-full h-1/4 flex flex-col justify-between">
                     <!-- <h3 class="text-xl text-white">Contact us</h3> -->
                     <div class="hidden lg:flex flex-col gap-8 text-gray-500">
                         <p class="flex flex-row items-center gap-2"><Map size="18"/> 15th Road 1393, Tsumeb Namibia</p>
@@ -14,7 +14,7 @@
                         <p class="flex flex-row items-center gap-2"><Mail size="18"/> fynecode.dev@gmail.com</p>
                     </div>
 
-                    <div class="lg:border border-x-0 border-b-0 border-secondary lg:py-4 text-gray-500 flex flex-row gap-4">
+                    <div class="lg:border lg:border-secondary lg:border-x-0 lg:border-b-0 lg:py-4 text-gray-500 flex flex-row gap-4">
                         <Github size="20" class="cursor-pointer"/>
                         <Instagram size="20" class="cursor-pointer"/>
                         <Facebook size="20" class="cursor-pointer"/>
@@ -28,7 +28,7 @@
                     <p class="text-gray-500">Send us an email, we reply within 48 hours</p>
                 </div>
 
-                <div class="w-full flex flex-col gap-1">
+                <div v-if="!publicStore.success" class="w-full flex flex-col gap-1">
                     <label for="name">Name:</label>
                     <input 
                         type="text" 
@@ -43,7 +43,7 @@
                     >
                 </div>
 
-                <div class="w-full flex flex-col gap-1">
+                <div v-if="!publicStore.success" class="w-full flex flex-col gap-1">
                     <label for="email">Email:</label>
                     <input 
                         type="email" 
@@ -56,7 +56,7 @@
                     >
                 </div>
 
-                <div class="w-full flex flex-col gap-1">
+                <div v-if="!publicStore.success" class="w-full flex flex-col gap-1">
                     <label for="message">Message:</label>
                     <textarea 
                         name="message"
@@ -69,9 +69,29 @@
                     ></textarea>
                 </div>
 
+                <div
+                    v-if="publicStore.success"
+                    class="w-full h-3/5 flex flex-col gap-2 justify-center items-center">
+                    <CheckCircle size="64" class="bg-green-500 p-4 rounded-full text-white"/>
+                    <p>Email sent!</p>
+                </div>
+
                 <div class="w-full flex flex-row gap-4">
-                    <button @click="emits('close')" class="cursor-pointer w-full lg:w-1/4 px-4 py-2 bg-gray-600 rounded-lg flex flex-row items-center gap-2"><X /> Close</button>
-                    <button class="cursor-pointer w-full lg:w-1/4 px-4 py-2 bg-secondary rounded-lg flex flex-row items-center gap-2"><Mail /> Send</button>
+                    <button
+                        @click="emits('close')" 
+                        class="cursor-pointer w-full lg:w-1/4 px-4 py-2 bg-gray-600 rounded-lg flex flex-row items-center gap-2">
+                        <X />
+                        Close
+                    </button>
+                    <button
+                        v-if="!publicStore.success"
+                        @click="sendEmail"
+                        class="cursor-pointer w-full lg:w-1/4 px-4 py-2 bg-secondary rounded-lg flex flex-row items-center gap-2"
+                    >
+                        <Mail v-if="!publicStore.loading"/>
+                        <Loader2 v-if="publicStore.loading" class="animate-spin"/>
+                        Send
+                    </button>
                 </div>
             </form>
         </div>
@@ -80,14 +100,21 @@
 </template>
 
 <script setup>
-    import { Mail, X, Phone, Map, Loader2, Github, Instagram, Facebook } from 'lucide-vue-next';
-    import { reactive } from 'vue';
+    import { Mail, X, Phone, Map, CheckCircle, Loader2, Github, Instagram, Facebook } from 'lucide-vue-next';
+    import { usePublicStore } from '@/stores/public.store'
+    import { reactive, ref } from 'vue';
 
     const emits = defineEmits(['close'])
+    const publicStore = usePublicStore()
+    const res = ref()
 
     const form = reactive({
         email: '',
         name: '',
         message: ''
     })
+
+    async function sendEmail(){
+        res.value = await publicStore.sendEmail(form)
+    }
 </script>
