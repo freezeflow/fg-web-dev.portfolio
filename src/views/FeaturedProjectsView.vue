@@ -87,6 +87,23 @@
             ></textarea>
           </div>
 
+          <div>
+            <label class="text-sm text-white/50" @dblclick="enableEdit('link')">Link</label>
+            <div
+              v-if="!isEditing.link"
+              @dblclick="enableEdit('link')"
+              class="text-lg cursor-pointer"
+            >
+              {{ form.link }}
+            </div>
+            <input
+              v-else
+              v-model="form.link"
+              type="text"
+              class="w-full mt-1 px-3 py-2 rounded bg-white/10 text-white outline-none"
+            />
+          </div>
+
           <!-- Company -->
           <div>
             <label class="text-sm text-white/50" @dblclick="enableEdit('company')">Company</label>
@@ -370,6 +387,7 @@ const project = ref(null);
 const isEditing = reactive({
   title: false,
   description: false,
+  link: false,
   company: false,
   status: false,
   scope: [],
